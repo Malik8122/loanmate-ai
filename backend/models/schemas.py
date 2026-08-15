@@ -3,6 +3,7 @@ Pydantic schemas for request / response validation.
 """
 
 from __future__ import annotations
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -54,6 +55,21 @@ class LoanSummary(BaseModel):
 
 
 # ---------------------------------------------------------------------------
+# Loan Application
+# ---------------------------------------------------------------------------
+
+class LoanApplicationRequest(BaseModel):
+    customer_id: str
+    loan_type: str | None = None
+    amount: float | None = None
+    employment: str | None = None
+    
+class LoanApplicationResponse(BaseModel):
+    application_id: str
+    message: str
+
+
+# ---------------------------------------------------------------------------
 # Voice / Conversation
 # ---------------------------------------------------------------------------
 
@@ -61,9 +77,13 @@ class TextQueryRequest(BaseModel):
     customer_id: str
     text: str
     language: str = "en"
+    session_id: str = "default"
 
 
 class AssistantResponse(BaseModel):
     reply_text: str
     audio_base64: str | None = None
     language: str = "en"
+    intent: str = "other"
+    escalate: bool = False
+    session_id: str = "default"

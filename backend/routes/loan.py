@@ -8,6 +8,8 @@ import json
 from pathlib import Path
 from fastapi import APIRouter, HTTPException
 
+from backend.services.loan_service import LoanService
+
 router = APIRouter()
 
 _DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "mock_data.json"
@@ -58,3 +60,8 @@ async def get_loan_summary(customer_id: str):
         "total_monthly_emi": total_emi,
         "loans": loans,
     }
+
+@router.get("/knowledge")
+async def get_loan_knowledge():
+    """Return the structured loan knowledge base."""
+    return LoanService.get_loan_knowledge()

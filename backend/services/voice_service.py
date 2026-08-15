@@ -24,6 +24,7 @@ class VoiceService:
         audio_bytes: bytes,
         customer_context: dict | None = None,
         language: str = "en",
+        session_id: str = "default",
     ) -> dict:
         """Full voice pipeline: audio in → text response + audio out.
 
@@ -31,30 +32,40 @@ class VoiceService:
             audio_bytes: Raw audio from the user.
             customer_context: Customer/loan data for grounding.
             language: BCP-47 language code.
+            session_id: The conversation session ID.
 
         Returns:
-            Dict with keys ``reply_text`` and ``reply_audio``.
+            Dict with keys ``reply_text``, ``reply_audio``, ``intent``, ``escalate``.
         """
         # Step 1: Speech-to-Text
         transcript = await self.stt.transcribe(audio_bytes, language)
 
         # Step 2: LLM
-        reply_text = await self.llm.generate_response(
+        llm_response = await self.llm.generate_response(
             user_message=transcript,
             customer_context=customer_context,
             language=language,
+            session_id=session_id
         )
+        reply_text = llm_response["reply"]
 
         # Step 3: Text-to-Speech
         reply_audio = await self.tts.synthesize(reply_text, language)
 
-        return {"reply_text": reply_text, "reply_audio": reply_audio}
+        return {
+            "reply_text": reply_text,
+            "reply_audio": reply_audio,
+            "intent": llm_response.get("intent", "other"),
+            "escalate": llm_response.get("escalate", False),
+            "collected_application_data": llm_response.get("collected_application_data", {})
+        }
 
     async def handle_text(
         self,
         text: str,
         customer_context: dict | None = None,
         language: str = "en",
+        session_id: str = "default",
     ) -> dict:
         """Text-only pipeline (skip STT).
 
@@ -62,15 +73,25 @@ class VoiceService:
             text: User's typed query.
             customer_context: Customer/loan data for grounding.
             language: BCP-47 language code.
+            session_id: The conversation session ID.
 
         Returns:
-            Dict with keys ``reply_text`` and ``reply_audio``.
+            Dict with keys ``reply_text``, ``reply_audio``, ``intent``, ``escalate``.
         """
-        reply_text = await self.llm.generate_response(
+        llm_response = await self.llm.generate_response(
             user_message=text,
             customer_context=customer_context,
             language=language,
+            session_id=session_id
         )
+        reply_text = llm_response["reply"]
+        
         reply_audio = await self.tts.synthesize(reply_text, language)
 
-        return {"reply_text": reply_text, "reply_audio": reply_audio}
+        return {
+            "reply_text": reply_text,
+            "reply_audio": reply_audio,
+            "intent": llm_response.get("intent", "other"),
+            "escalate": llm_response.get("escalate", False),
+            "collected_application_data": llm_response.get("collected_application_data", {})
+        }

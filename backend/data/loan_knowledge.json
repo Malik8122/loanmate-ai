@@ -1,0 +1,207 @@
+{
+  "loan_products": [
+    {
+      "type": "Personal Loan",
+      "description": "Unsecured loan for personal financial needs — medical, travel, wedding, home renovation, etc.",
+      "interest_rate_range": "10.5% – 16% per annum",
+      "loan_amount_range": "₹50,000 – ₹40,00,000",
+      "tenure_range": "12 – 60 months",
+      "processing_fee": "Up to 2% of loan amount + GST",
+      "eligibility": {
+        "age": "21 – 60 years",
+        "employment": "Salaried or self-employed professionals",
+        "min_income_salaried": "₹25,000 per month",
+        "min_income_self_employed": "₹3,00,000 per year",
+        "credit_score": "700 and above preferred",
+        "work_experience": "Minimum 2 years, with at least 1 year in current job (salaried)"
+      },
+      "documents_salaried": [
+        "KYC documents (Aadhaar / PAN / Passport / Voter ID)",
+        "Last 3 months salary slips",
+        "Last 6 months bank statements",
+        "Form 16 / IT returns for last 2 years",
+        "Employment certificate or offer letter"
+      ],
+      "documents_self_employed": [
+        "KYC documents (Aadhaar / PAN)",
+        "Last 2 years IT returns with computation",
+        "Last 6 months bank statements",
+        "Business proof (GST registration / trade licence)",
+        "Certified financials (P&L, balance sheet)"
+      ],
+      "faqs": [
+        {
+          "q": "Can I get a personal loan without collateral?",
+          "a": "Yes. Personal loans are unsecured — no collateral or guarantor is required."
+        },
+        {
+          "q": "How quickly is the loan disbursed?",
+          "a": "For eligible applicants with complete documentation, disbursal can happen within 24–48 hours."
+        },
+        {
+          "q": "Can I prepay my personal loan?",
+          "a": "Yes. Prepayment is allowed after 12 EMIs. A foreclosure charge of 2–5% of the outstanding principal may apply."
+        }
+      ]
+    },
+    {
+      "type": "Home Loan",
+      "description": "Loan for purchasing, constructing, or renovating a residential property.",
+      "interest_rate_range": "8.25% – 10.5% per annum (floating / fixed options available)",
+      "loan_amount_range": "₹5,00,000 – ₹10,00,00,000",
+      "tenure_range": "5 – 30 years",
+      "processing_fee": "0.5% – 1% of loan amount + GST",
+      "ltv_ratio": "Up to 90% of property value for loans up to ₹30 lakhs; up to 80% for higher amounts",
+      "eligibility": {
+        "age": "21 – 65 years (at loan maturity)",
+        "employment": "Salaried, self-employed, or NRI",
+        "min_income_salaried": "₹30,000 per month",
+        "credit_score": "675 and above",
+        "property": "Must be in an approved location / RERA-registered project"
+      },
+      "documents": [
+        "KYC documents (Aadhaar / PAN / Passport)",
+        "Last 3 months salary slips (salaried)",
+        "Last 2 years IT returns",
+        "Last 6 months bank statements",
+        "Property documents (sale deed / allotment letter / approved plan)",
+        "NOC from builder / society"
+      ],
+      "faqs": [
+        {
+          "q": "What is the maximum LTV ratio?",
+          "a": "Up to 90% of property value for loans up to ₹30 lakhs, and up to 75–80% for higher loan amounts."
+        },
+        {
+          "q": "Can I apply jointly for a home loan?",
+          "a": "Yes. Joint applications with a co-applicant (spouse or parent) are allowed and may improve loan eligibility."
+        },
+        {
+          "q": "Is there a tax benefit on home loans?",
+          "a": "Yes. Under Section 80C (principal repayment up to ₹1.5L) and Section 24(b) (interest up to ₹2L) of the Income Tax Act."
+        }
+      ]
+    },
+    {
+      "type": "Vehicle Loan",
+      "description": "Loan for purchasing new or used two-wheelers and four-wheelers.",
+      "interest_rate_range": "8.75% – 14% per annum",
+      "loan_amount_range": "₹50,000 – ₹1,00,00,000",
+      "tenure_range": "12 – 84 months",
+      "processing_fee": "Up to 1.5% of loan amount + GST",
+      "eligibility": {
+        "age": "21 – 65 years",
+        "employment": "Salaried or self-employed",
+        "min_income_salaried": "₹20,000 per month",
+        "credit_score": "680 and above"
+      },
+      "documents": [
+        "KYC documents (Aadhaar / PAN / Driving Licence)",
+        "Last 3 months salary slips or 2 years IT returns",
+        "Last 6 months bank statements",
+        "Vehicle proforma invoice / RC (for used vehicles)",
+        "Insurance documents"
+      ],
+      "faqs": [
+        {
+          "q": "Can I get a loan for a used car?",
+          "a": "Yes. Used vehicle loans are available for vehicles up to 10 years old, subject to valuation."
+        },
+        {
+          "q": "How much of the vehicle cost will be financed?",
+          "a": "Up to 100% of the on-road price for new vehicles; 80–85% for used vehicles."
+        }
+      ]
+    },
+    {
+      "type": "Education Loan",
+      "description": "Loan to fund higher education in India or abroad.",
+      "interest_rate_range": "9% – 13% per annum",
+      "loan_amount_range": "Up to ₹1,50,00,000 (India); up to ₹2,00,00,000 (Abroad)",
+      "tenure_range": "Up to 15 years",
+      "moratorium": "Course duration + 12 months (no repayment during study)",
+      "processing_fee": "Nil for loans up to ₹10 lakhs; 1% above that",
+      "eligibility": {
+        "applicant": "Student admitted to a recognised institution",
+        "co_applicant": "Parent or guardian required",
+        "courses": "Graduate, post-graduate, professional, and vocational courses"
+      },
+      "documents": [
+        "KYC documents of student and co-applicant",
+        "Admission letter from institution",
+        "Fee structure / schedule",
+        "Academic records (mark sheets, certificates)",
+        "Income proof of co-applicant",
+        "Collateral documents (for loans above ₹7.5 lakhs)"
+      ],
+      "faqs": [
+        {
+          "q": "When does repayment start?",
+          "a": "Repayment begins after the moratorium period — course completion + 12 months or 6 months after getting a job, whichever is earlier."
+        },
+        {
+          "q": "Is there a tax benefit?",
+          "a": "Yes. Interest paid on education loans is deductible under Section 80E of the Income Tax Act for up to 8 years."
+        }
+      ]
+    },
+    {
+      "type": "Business Loan",
+      "description": "Loan for working capital, business expansion, equipment purchase, or other business needs.",
+      "interest_rate_range": "11% – 21% per annum",
+      "loan_amount_range": "₹1,00,000 – ₹5,00,00,000",
+      "tenure_range": "12 – 84 months",
+      "processing_fee": "Up to 2.5% of loan amount + GST",
+      "eligibility": {
+        "age": "21 – 65 years",
+        "business_vintage": "Minimum 3 years in operation",
+        "turnover": "₹20 lakhs per year and above",
+        "credit_score": "700 and above"
+      },
+      "documents": [
+        "KYC of proprietor / directors / partners",
+        "Business proof (GST registration / incorporation certificate / trade licence)",
+        "Last 2 years IT returns with computation",
+        "Last 12 months bank statements",
+        "Certified financials (audited P&L, balance sheet)",
+        "GST returns (last 12 months)"
+      ],
+      "faqs": [
+        {
+          "q": "Do I need collateral for a business loan?",
+          "a": "Unsecured business loans are available up to ₹50 lakhs for eligible businesses. Higher amounts may require collateral."
+        },
+        {
+          "q": "Can a new business apply?",
+          "a": "Loans for businesses with less than 3 years of vintage are considered case-by-case under our startup lending programme."
+        }
+      ]
+    }
+  ],
+  "general_faqs": [
+    {
+      "q": "How do I check my loan eligibility?",
+      "a": "You can speak with me to get a preliminary eligibility check, or visit your nearest branch for a detailed assessment."
+    },
+    {
+      "q": "What is the CIBIL/credit score required?",
+      "a": "A score of 700 and above is generally preferred. A higher score improves your chances and may get you a better interest rate."
+    },
+    {
+      "q": "How can I make my EMI payment?",
+      "a": "EMIs are collected via ECS (auto-debit) from your registered bank account on the due date. You can also pay through net banking, UPI, or at a branch."
+    },
+    {
+      "q": "What happens if I miss an EMI?",
+      "a": "A missed EMI attracts a late payment fee and may negatively impact your credit score. Please contact us as soon as possible if you anticipate a payment difficulty."
+    },
+    {
+      "q": "Can I foreclose my loan early?",
+      "a": "Yes. Foreclosure is allowed after a minimum lock-in period (varies by loan type). A foreclosure charge of 2–5% may apply on floating-rate loans."
+    },
+    {
+      "q": "How do I apply for a loan?",
+      "a": "You can start the application process right here by telling me the type of loan and amount you need. I will collect the initial details and a loan specialist will follow up."
+    }
+  ]
+}

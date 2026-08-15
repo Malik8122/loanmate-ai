@@ -26,6 +26,12 @@ class Settings:
     STT_PROVIDER: str = os.getenv("STT_PROVIDER", "google")
     TTS_PROVIDER: str = os.getenv("TTS_PROVIDER", "google")
 
+    # Twilio
+    TWILIO_ACCOUNT_SID: str = os.getenv("TWILIO_ACCOUNT_SID", "")
+    TWILIO_AUTH_TOKEN: str = os.getenv("TWILIO_AUTH_TOKEN", "")
+    TWILIO_PHONE_NUMBER: str = os.getenv("TWILIO_PHONE_NUMBER", "")
+    PUBLIC_BASE_URL: str = os.getenv("PUBLIC_BASE_URL", "")
+
     # Paths
     BASE_DIR: Path = Path(__file__).resolve().parent
     DATA_DIR: Path = BASE_DIR / "data"

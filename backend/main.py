@@ -5,7 +5,7 @@ BFSI Loan & EMI Voice Assistant — FastAPI Backend
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.routes import voice, loan, customer, apply
+from backend.routes import voice, loan, customer, apply, twilio
 
 app = FastAPI(
     title="BFSI Voice Assistant API",
@@ -31,6 +31,7 @@ app.include_router(voice.router, prefix="/api/voice", tags=["Voice"])
 app.include_router(loan.router, prefix="/api/loan", tags=["Loan"])
 app.include_router(apply.router, prefix="/api/apply", tags=["Apply"])
 app.include_router(customer.router, prefix="/api/customer", tags=["Customer"])
+app.include_router(twilio.router, prefix="/api/twilio", tags=["Twilio"])
 
 
 # ---------------------------------------------------------------------------

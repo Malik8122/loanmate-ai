@@ -15,6 +15,12 @@ python-dotenv>=1.0.0
 # LLM
 google-generativeai>=0.8.0
 
+# Voice / Audio
+faster-whisper>=1.0.0
+edge-tts>=6.1.12
+audio-recorder-streamlit>=0.0.10
+nest-asyncio>=1.6.0
+
 # File uploads
 python-multipart>=0.0.9
 

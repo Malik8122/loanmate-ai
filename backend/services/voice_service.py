@@ -5,17 +5,21 @@ Connects the three pipeline stages:  STT → LLM → TTS
 """
 
 from __future__ import annotations
+import base64
+import logging
 
 from backend.services.stt_service import STTService
 from backend.services.llm_service import LLMService
 from backend.services.tts_service import TTSService
 
+logger = logging.getLogger(__name__)
 
 class VoiceService:
     """End-to-end voice pipeline orchestrator."""
 
     def __init__(self):
-        self.stt = STTService()
+        # Initialise with small model for speed in prototype if needed, but we decided on base
+        self.stt = STTService(model_size="base")
         self.llm = LLMService()
         self.tts = TTSService()
 
@@ -23,7 +27,7 @@ class VoiceService:
         self,
         audio_bytes: bytes,
         customer_context: dict | None = None,
-        language: str = "en",
+        language: str = "auto",
         session_id: str = "default",
     ) -> dict:
         """Full voice pipeline: audio in → text response + audio out.
@@ -31,16 +35,34 @@ class VoiceService:
         Args:
             audio_bytes: Raw audio from the user.
             customer_context: Customer/loan data for grounding.
-            language: BCP-47 language code.
+            language: BCP-47 language code (en, hi, or auto).
             session_id: The conversation session ID.
 
         Returns:
-            Dict with keys ``reply_text``, ``reply_audio``, ``intent``, ``escalate``.
+            Dict with keys ``reply_text``, ``reply_audio_b64``, ``intent``, ``escalate``, ``transcribed_text``.
         """
         # Step 1: Speech-to-Text
-        transcript = await self.stt.transcribe(audio_bytes, language)
+        transcript = ""
+        if audio_bytes:
+            transcript = await self.stt.transcribe(audio_bytes, language)
+            
+        if not transcript:
+             # Handle empty/unclear audio gracefully
+             reply_text = "I couldn't hear that clearly. Please try again."
+             # Use "en" for default error voice if auto was passed
+             tts_lang = "en" if language == "auto" else language
+             reply_audio = await self.tts.synthesize(reply_text, tts_lang)
+             return {
+                 "reply_text": reply_text,
+                 "reply_audio_b64": base64.b64encode(reply_audio).decode("utf-8") if reply_audio else None,
+                 "intent": "other",
+                 "escalate": False,
+                 "transcribed_text": ""
+             }
 
         # Step 2: LLM
+        # We pass the actual language if 'auto' isn't explicitly resolved by Whisper metadata.
+        # For simplicity, pass the original language param.
         llm_response = await self.llm.generate_response(
             user_message=transcript,
             customer_context=customer_context,
@@ -50,14 +72,24 @@ class VoiceService:
         reply_text = llm_response["reply"]
 
         # Step 3: Text-to-Speech
-        reply_audio = await self.tts.synthesize(reply_text, language)
+        # If input was auto, output should try to match the recognized language from text.
+        # But for now, fallback to english or hindi based on simple heuristics if auto.
+        tts_lang = language
+        if tts_lang == "auto":
+            # Simple heuristic: if devanagari characters exist, use Hindi
+            if any("\u0900" <= c <= "\u097F" for c in reply_text):
+                tts_lang = "hi"
+            else:
+                tts_lang = "en"
+                
+        reply_audio = await self.tts.synthesize(reply_text, tts_lang)
 
         return {
             "reply_text": reply_text,
-            "reply_audio": reply_audio,
+            "reply_audio_b64": base64.b64encode(reply_audio).decode("utf-8") if reply_audio else None,
             "intent": llm_response.get("intent", "other"),
             "escalate": llm_response.get("escalate", False),
-            "collected_application_data": llm_response.get("collected_application_data", {})
+            "transcribed_text": transcript
         }
 
     async def handle_text(
@@ -76,7 +108,7 @@ class VoiceService:
             session_id: The conversation session ID.
 
         Returns:
-            Dict with keys ``reply_text``, ``reply_audio``, ``intent``, ``escalate``.
+            Dict with keys ``reply_text``, ``reply_audio_b64``, ``intent``, ``escalate``.
         """
         llm_response = await self.llm.generate_response(
             user_message=text,
@@ -90,8 +122,8 @@ class VoiceService:
 
         return {
             "reply_text": reply_text,
-            "reply_audio": reply_audio,
+            "reply_audio_b64": base64.b64encode(reply_audio).decode("utf-8") if reply_audio else None,
             "intent": llm_response.get("intent", "other"),
             "escalate": llm_response.get("escalate", False),
-            "collected_application_data": llm_response.get("collected_application_data", {})
+            "transcribed_text": text
         }

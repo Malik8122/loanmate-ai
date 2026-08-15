@@ -30,10 +30,12 @@ async def text_query(request: TextQueryRequest):
     
     return AssistantResponse(
         reply_text=result["reply_text"],
+        audio_base64=result.get("reply_audio_b64"),
         language=request.language,
         intent=result["intent"],
         escalate=result["escalate"],
         session_id=request.session_id,
+        transcribed_text=result.get("transcribed_text")
     )
 
 
@@ -61,8 +63,10 @@ async def audio_query(
     
     return AssistantResponse(
         reply_text=result["reply_text"],
+        audio_base64=result.get("reply_audio_b64"),
         language=language,
         intent=result["intent"],
         escalate=result["escalate"],
         session_id=session_id,
+        transcribed_text=result.get("transcribed_text")
     )

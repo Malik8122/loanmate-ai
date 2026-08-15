@@ -5,6 +5,8 @@ BFSI Loan & EMI Voice Assistant — Streamlit Frontend
 import streamlit as st
 import requests
 import uuid
+import base64
+from audio_recorder_streamlit import audio_recorder
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -161,6 +163,26 @@ def send_text_query(customer_id: str, text: str, language: str = "en") -> dict:
     except Exception as exc:
         return {"reply_text": "I'm having trouble connecting right now. Please try again later.", "intent": "error", "escalate": False}
 
+def send_audio_query(customer_id: str, audio_bytes: bytes, language: str = "auto") -> dict:
+    """Send an audio query to the voice assistant endpoint."""
+    try:
+        files = {"audio": ("audio.wav", audio_bytes, "audio/wav")}
+        data = {
+            "customer_id": customer_id,
+            "language": language,
+            "session_id": st.session_state.session_id
+        }
+        resp = requests.post(
+            f"{API_BASE}/api/voice/query/audio",
+            data=data,
+            files=files,
+            timeout=60,
+        )
+        resp.raise_for_status()
+        return resp.json()
+    except Exception as exc:
+        return {"reply_text": "Sorry, there was an error processing your voice. Please try again.", "intent": "error", "escalate": False}
+
 def format_currency(amount):
     return f"₹{amount:,.2f}"
 
@@ -234,10 +256,12 @@ with st.sidebar:
 
     # Settings
     st.subheader("⚙️ Preferences")
-    language = st.radio("Language", ["English", "Hindi / Hinglish"], index=0, horizontal=True)
-    lang_code = "en" if language == "English" else "hi"
+    language = st.radio("Language", ["English", "Hindi / Hinglish", "Auto Detect"], index=2, horizontal=True)
+    lang_code_map = {"English": "en", "Hindi / Hinglish": "hi", "Auto Detect": "auto"}
+    lang_code = lang_code_map[language]
     
-    st.button("🎙️ Voice Input (Coming Soon)", disabled=True, use_container_width=True)
+    st.markdown("🎙️ **Voice Input**")
+    audio_bytes = audio_recorder(text="Click to record", recording_color="#E65100", neutral_color="#0f3c6c", icon_size="2x")
     
     if st.button("🗑️ Start New Conversation", use_container_width=True):
         reset_chat()
@@ -302,5 +326,50 @@ if user_input:
         
         if result.get("escalate"):
             st.session_state.escalated = True
+            
+        if result.get("audio_base64"):
+            st.session_state.last_audio = result["audio_base64"]
 
         st.rerun()
+
+# Handle voice input
+if audio_bytes and not st.session_state.escalated:
+    # This prevents an infinite loop if Streamlit re-renders with the same audio_bytes
+    if "last_recorded_audio" not in st.session_state or st.session_state.last_recorded_audio != audio_bytes:
+        st.session_state.last_recorded_audio = audio_bytes
+        
+        with st.spinner("Processing voice..."):
+            result = send_audio_query(
+                customer_id=st.session_state.selected_customer or "CUST001",
+                audio_bytes=audio_bytes,
+                language=lang_code,
+            )
+            
+            user_text = result.get("transcribed_text") or "(Unclear audio)"
+            
+            # Add user message
+            st.session_state.messages.append({"role": "user", "content": f"🗣️ {user_text}"})
+            
+            # Add assistant reply
+            st.session_state.messages.append({"role": "assistant", "content": result["reply_text"]})
+            
+            if result.get("escalate"):
+                st.session_state.escalated = True
+                
+            if result.get("audio_base64"):
+                st.session_state.last_audio = result["audio_base64"]
+
+            st.rerun()
+
+# Play audio if available
+if "last_audio" in st.session_state and st.session_state.last_audio:
+    audio_b64 = st.session_state.last_audio
+    # Clear it so it only plays once
+    st.session_state.last_audio = None
+    
+    html = f"""
+    <audio autoplay>
+    <source src="data:audio/mp3;base64,{audio_b64}" type="audio/mp3">
+    </audio>
+    """
+    st.markdown(html, unsafe_allow_html=True)

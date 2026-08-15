@@ -87,3 +87,4 @@ class AssistantResponse(BaseModel):
     intent: str = "other"
     escalate: bool = False
     session_id: str = "default"
+    transcribed_text: str | None = None

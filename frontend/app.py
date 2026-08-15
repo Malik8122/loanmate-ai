@@ -14,7 +14,7 @@ from audio_recorder_streamlit import audio_recorder
 API_BASE = "http://localhost:8000"
 
 st.set_page_config(
-    page_title="BFSI Voice Assistant",
+    page_title="BFSI Voice",
     page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"

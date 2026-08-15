@@ -26,6 +26,11 @@ class Settings:
     STT_PROVIDER: str = os.getenv("STT_PROVIDER", "google")
     TTS_PROVIDER: str = os.getenv("TTS_PROVIDER", "google")
 
+    # LiveKit
+    LIVEKIT_URL: str = os.getenv("LIVEKIT_URL", "")
+    LIVEKIT_API_KEY: str = os.getenv("LIVEKIT_API_KEY", "")
+    LIVEKIT_API_SECRET: str = os.getenv("LIVEKIT_API_SECRET", "")
+
     # Paths
     BASE_DIR: Path = Path(__file__).resolve().parent
     DATA_DIR: Path = BASE_DIR / "data"

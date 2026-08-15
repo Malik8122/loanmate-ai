@@ -17,8 +17,8 @@ def test_loan_knowledge():
 
 
 def test_voice_text_query_fallback():
-    """Test text query goes through the fallback when no API key."""
-    # This test assumes no valid Gemini API key is configured in test environment
+    """Test text query fallback returns a real EMI value from mock data (no API key needed)."""
+    # CUST001 has EMI 31,500 (Home Loan, first active loan)
     response = client.post(
         "/api/voice/query/text",
         json={"customer_id": "CUST001", "text": "What is my EMI?", "language": "en", "session_id": "test_session_1"}
@@ -26,8 +26,12 @@ def test_voice_text_query_fallback():
     assert response.status_code == 200
     data = response.json()
     assert "reply_text" in data
-    assert "[Fallback Mode]" in data["reply_text"] or "[Fallback]" in data["reply_text"]
-    # Testing that intent recognition in fallback works
+    # Should NOT expose internal [Fallback] markers to the customer
+    assert "[Fallback" not in data["reply_text"]
+    assert "[fallback" not in data["reply_text"].lower()
+    # Should contain the real EMI value from mock data
+    assert "31,500" in data["reply_text"] or "31500" in data["reply_text"]
+    # Intent should be recognised
     assert data["intent"] == "emi_query"
 
 

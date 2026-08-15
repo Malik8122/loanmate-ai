@@ -78,7 +78,7 @@ class LLMService:
 
         # Fallback mechanism if no API key is provided
         if not (HAS_GENAI and self.has_key):
-            return self._fallback_response(user_message, language)
+            return self._fallback_response(user_message, language, customer_context)
 
         system_instruction = self._get_system_prompt(customer_context)
         
@@ -121,33 +121,199 @@ class LLMService:
                 "collected_application_data": {}
             }
 
-    def _fallback_response(self, user_message: str, language: str) -> dict[str, Any]:
-        """Simple rule-based fallback when Gemini is not available."""
-        msg_lower = user_message.lower()
+    def _fallback_response(
+        self,
+        user_message: str,
+        language: str,
+        customer_context: dict | None = None,
+    ) -> dict[str, Any]:
+        """Multilingual, data-driven rule-based fallback when Gemini is unavailable.
+
+        Recognises EMI, outstanding, due-date, loan-status, and remaining-EMI
+        queries in English, Hindi, and Hinglish and returns the real values from
+        the customer's mock loan data.  No [Fallback] markers are shown to the
+        customer — the response reads like a normal assistant reply.
+        """
+        msg_lower = user_message.lower().strip()
         intent = "other"
         escalate = False
-        reply = "[Fallback Mode] I received your message. Please add a valid GOOGLE_API_KEY to .env to enable AI responses."
-        
-        if "emi" in msg_lower:
+
+        # ------------------------------------------------------------------
+        # Extract loan data from customer_context if available.
+        # For customers with multiple loans we report the *first active* loan;
+        # if none is active we fall back to the first loan in the list.
+        # ------------------------------------------------------------------
+        loans: list[dict] = []
+        customer_name: str = ""
+        if customer_context:
+            loans = customer_context.get("loans", [])
+            cust = customer_context.get("customer", {})
+            customer_name = cust.get("name", "")
+
+        active_loans = [L for L in loans if L.get("loan_status", "").lower() == "active"]
+        primary_loan: dict = active_loans[0] if active_loans else (loans[0] if loans else {})
+
+        def _fmt_inr(amount: float | int) -> str:
+            """Format a number as Indian-style currency string."""
+            try:
+                amount = int(amount)
+            except (TypeError, ValueError):
+                return str(amount)
+            # Convert to Indian comma format: last 3 digits, then groups of 2
+            s = str(amount)
+            if len(s) <= 3:
+                return f"₹{s}"
+            last3 = s[-3:]
+            rest = s[:-3]
+            parts = []
+            while len(rest) > 2:
+                parts.insert(0, rest[-2:])
+                rest = rest[:-2]
+            if rest:
+                parts.insert(0, rest)
+            return "₹" + ",".join(parts) + "," + last3
+
+        # ------------------------------------------------------------------
+        # Intent detection — keywords cover English / Hindi / Hinglish
+        # Order matters: check more specific patterns first.
+        # ------------------------------------------------------------------
+
+        # ── Due-date / Next EMI ──────────────────────────────────────────
+        _due_keywords = [
+            "next emi", "emi kab", "due date", "due kab", "kab hai",
+            "kab bhari", "kab pay", "when is my emi", "when is the emi",
+            "emi due", "kitne din", "due on",
+        ]
+        # ── Remaining EMIs / tenure ──────────────────────────────────────
+        _remaining_keywords = [
+            "remaining emi", "remaining tenure", "kitne emi", "kitni emi baki",
+            "kitne emi baki", "emi baki", "bachi hai", "bache hain",
+            "how many emi", "how many emis", "emi remaining", "tenure left",
+            "mere kitne emi",
+        ]
+        # ── Loan status ──────────────────────────────────────────────────
+        _status_keywords = [
+            "loan status", "status kya", "loan kya hai", "mera loan",
+            "loan active", "what is my loan", "loan ki sthiti",
+        ]
+        # ── Outstanding ──────────────────────────────────────────────────
+        _outstanding_keywords = [
+            "outstanding", "baki kitna", "baki amount", "due amount",
+            "baqi", "pending amount", "total due", "kitna baki",
+            "how much is my outstanding", "outstanding amount",
+            "loan balance", "remaining balance",
+        ]
+        # ── EMI amount ───────────────────────────────────────────────────
+        _emi_keywords = [
+            "emi", "monthly payment", "monthly installment",
+            "installment kitni", "emi kitni", "meri emi", "mera emi",
+        ]
+        # ── Escalation ───────────────────────────────────────────────────
+        _escalate_keywords = [
+            "agent", "human", "representative", "officer",
+            "manager", "help me", "connect me",
+        ]
+        # ── Loan application ─────────────────────────────────────────────
+        _apply_keywords = [
+            "apply", "chahiye", "loan lena", "loan chahiye",
+            "new loan", "naya loan",
+        ]
+
+        def _any(keywords: list[str]) -> bool:
+            return any(kw in msg_lower for kw in keywords)
+
+        # ------------------------------------------------------------------
+        # Build reply
+        # ------------------------------------------------------------------
+        if _any(_due_keywords):
+            intent = "emi_due_date"
+            if primary_loan:
+                due = primary_loan.get("due_date") or "not available"
+                loan_type = primary_loan.get("loan_type", "loan")
+                reply = (
+                    f"Aapki {loan_type} ki next EMI ki due date {due} hai."
+                    if "kab" in msg_lower or language == "hi"
+                    else f"Your next EMI for the {loan_type} is due on {due}."
+                )
+            else:
+                reply = "Aapke account mein koi active loan nahi mila. Please branch se contact karein."
+
+        elif _any(_remaining_keywords):
+            intent = "remaining_emi"
+            if primary_loan:
+                remaining = primary_loan.get("remaining_tenure", "N/A")
+                loan_type = primary_loan.get("loan_type", "loan")
+                reply = (
+                    f"Aapki {loan_type} mein abhi {remaining} EMI baaki hain."
+                    if language == "hi" or any(w in msg_lower for w in ["kitne", "baki", "mere"])
+                    else f"You have {remaining} EMI(s) remaining on your {loan_type}."
+                )
+            else:
+                reply = "Aapke account mein koi active loan nahi mila."
+
+        elif _any(_status_keywords):
+            intent = "loan_status"
+            if primary_loan:
+                status = primary_loan.get("loan_status", "N/A")
+                loan_type = primary_loan.get("loan_type", "loan")
+                reply = (
+                    f"Aapka {loan_type} abhi {status} status mein hai."
+                    if language == "hi" or any(w in msg_lower for w in ["kya", "mera", "status"])
+                    else f"Your {loan_type} is currently {status}."
+                )
+            else:
+                reply = "Aapke account mein koi loan record nahi mila."
+
+        elif _any(_outstanding_keywords):
+            intent = "outstanding_query"
+            if primary_loan:
+                outstanding = primary_loan.get("outstanding_amount", 0)
+                loan_type = primary_loan.get("loan_type", "loan")
+                formatted = _fmt_inr(outstanding)
+                reply = (
+                    f"Aapka {loan_type} ka outstanding loan amount {formatted} hai."
+                    if language == "hi" or any(w in msg_lower for w in ["mera", "kitna", "aapka", "outstanding"])
+                    else f"Your current outstanding balance on the {loan_type} is {formatted}."
+                )
+            else:
+                reply = "Aapke account mein koi outstanding loan nahi mila."
+
+        elif _any(_emi_keywords):
             intent = "emi_query"
-            reply = "[Fallback] Your current EMI information should be checked via the dashboard."
-        elif "outstanding" in msg_lower:
-            intent = "outstanding"
-            reply = "[Fallback] Outstanding balance details will be shown soon."
-        elif "apply" in msg_lower or "chahiye" in msg_lower:
-            intent = "apply_loan"
-            reply = "[Fallback] You want to apply for a loan. Our specialist will contact you."
-        elif "agent" in msg_lower or "human" in msg_lower:
+            if primary_loan:
+                emi = primary_loan.get("emi", 0)
+                loan_type = primary_loan.get("loan_type", "loan")
+                formatted = _fmt_inr(emi)
+                reply = (
+                    f"Aapki {loan_type} ki current monthly EMI {formatted} hai."
+                    if language == "hi" or any(w in msg_lower for w in ["meri", "mera", "kitni", "kitna"])
+                    else f"Your current monthly EMI for the {loan_type} is {formatted}."
+                )
+            else:
+                reply = "Aapke account mein koi active EMI nahi mila."
+
+        elif _any(_escalate_keywords):
             intent = "escalate"
             escalate = True
-            reply = "[Fallback] Transferring you to a human agent..."
+            reply = "Aapko ek human agent se connect kar raha hoon. Ek moment please."
 
-        if language == "hi":
-             reply = f"[Fallback Hindi] Aapka message mila: {user_message}. AI ke liye API key configure karein."
+        elif _any(_apply_keywords):
+            intent = "apply_loan"
+            reply = (
+                "Loan application ke liye, please hamare portal par jaayein ya branch visit karein. "
+                "Aapka application jald process hoga."
+            )
+
+        else:
+            reply = (
+                "Mujhe samajh nahi aaya. Kya aap apna sawaal dobara pooch sakte hain? "
+                "Main EMI, outstanding balance, loan status, aur due dates ke baare mein "
+                "madad kar sakta hoon."
+            )
 
         return {
             "reply": reply,
             "intent": intent,
             "escalate": escalate,
-            "collected_application_data": {}
+            "collected_application_data": {},
         }

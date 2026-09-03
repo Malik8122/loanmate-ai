@@ -11,13 +11,15 @@ from audio_recorder_streamlit import audio_recorder
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
-API_BASE = "http://localhost:8000"
+import os
 
+# LiveKit configuration (injected from .env)
+LIVEKIT_URL = os.getenv("LIVEKIT_URL", "https://demo.livekit.io")
 st.set_page_config(
-    page_title="BFSI Voice GAI Project",
+    page_title="BFSI Voice",
     page_icon="🏦",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
 )
 
 # ---------------------------------------------------------------------------
@@ -257,6 +259,92 @@ with st.sidebar:
     # Settings
     st.subheader("⚙️ Preferences")
     language = st.radio("Language", ["English", "Hindi / Hinglish", "Auto Detect"], index=2, horizontal=True)
+    
+# ---------------------------------------------------------------------------
+    if language == "English":
+        lang_code = "en"
+    elif language.startswith("Hindi"):
+        lang_code = "hi"
+    else:
+        lang_code = "auto"
+if "voice_active" not in st.session_state:
+    st.session_state.voice_active = False
+    st.session_state.voice_status = ""
+
+st.subheader("VOICE CALL DEMO")
+col_start, col_end = st.columns([1, 1])
+with col_start:
+    if not st.session_state.voice_active:
+        if st.button("🟢 Start Voice Call", use_container_width=True):
+            st.session_state.voice_active = True
+            st.session_state.voice_status = "Connecting..."
+    else:
+        if st.button("🔴 End Call", use_container_width=True):
+            st.session_state.voice_active = False
+            st.session_state.voice_status = "Call ended"
+            st.rerun()
+
+st.caption(f"Status: {st.session_state.voice_status}")
+
+if st.session_state.voice_active:
+    html_content = f"""
+    <div id="livekit-status">{st.session_state.voice_status}</div>
+    <script src="https://cdn.jsdelivr.net/npm/livekit-client@2.5.0/dist/livekit-client.min.js"></script>
+    <script>
+    (async () => {{
+        const statusEl = document.getElementById('livekit-status');
+        const customerId = '{st.session_state.selected_customer or "CUST001"}';
+        const langCode = "{lang_code}";
+        const sessionId = '{st.session_state.session_id}';
+        try {{
+            const tokenResp = await fetch('/api/livekit/token?identity=assistant_bot');
+            if (!tokenResp.ok) {{ statusEl.textContent = 'Failed to get token'; return; }}
+            const token = await tokenResp.text();
+            const room = new LiveKit.Room();
+            await room.connect('{LIVEKIT_URL}', token, {{autoSubscribe: true}});
+            statusEl.textContent = 'Connected - Listening...';
+            const tracks = await LiveKit.createLocalTracks({{audio: true, video: false}});
+            const audioTrack = tracks[0];
+            await room.localParticipant.publishTrack(audioTrack);
+            // Play remote audio tracks
+            room.on('trackSubscribed', (track, participant) => {{
+                if (track.kind === LiveKit.Track.Kind.Audio) {{
+                    const audioEl = document.createElement('audio');
+                    audioEl.autoplay = true;
+                    audioEl.srcObject = track.mediaStream;
+                    document.body.appendChild(audioEl);
+                }}
+            }});
+            // MediaRecorder to send audio chunks to backend
+            let mediaRecorder;
+            const mediaStream = new MediaStream([audioTrack.mediaStreamTrack]);
+            if (mediaStream) {{
+                mediaRecorder = new MediaRecorder(mediaStream, {{mimeType: 'audio/wav'}});
+                mediaRecorder.ondataavailable = async (e) => {{
+                    const blob = e.data;
+                    const formData = new FormData();
+                    formData.append('audio', blob, 'audio.wav');
+                    formData.append('customer_id', customerId);
+                    formData.append('language', langCode);
+                    formData.append('session_id', sessionId);
+                    try {{
+                        const resp = await fetch('/api/voice/query/audio', {{method: 'POST', body: formData}});
+                        if (!resp.ok) {{ console.error('Audio query failed'); return; }}
+                        const data = await resp.json();
+                        if (data.audio_base64) {{
+                            const audio = new Audio('data:audio/mp3;base64,' + data.audio_base64);
+                            audio.play();
+                        }}
+                    }} catch (err) {{ console.error(err); }}
+                }};
+                mediaRecorder.start(2000);
+            }}
+        }} catch (err) {{ console.error(err); statusEl.textContent = 'Error: ' + err; }}
+    }})();
+    </script>
+    """
+    st.components.v1.html(html_content, height=500)
+
     lang_code_map = {"English": "en", "Hindi / Hinglish": "hi", "Auto Detect": "auto"}
     lang_code = lang_code_map[language]
     

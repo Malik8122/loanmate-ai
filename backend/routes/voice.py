@@ -2,6 +2,8 @@
 Voice-interaction API routes.
 """
 
+import base64
+
 from fastapi import APIRouter, UploadFile, File, Form
 from pydantic import BaseModel
 
@@ -11,6 +13,15 @@ from backend.services.loan_service import LoanService
 
 router = APIRouter()
 _voice_service = VoiceService()
+
+
+class TTSRequest(BaseModel):
+    text: str
+    language: str = "en"
+
+
+class TTSResponse(BaseModel):
+    audio_base64: str | None = None
 
 
 @router.post("/query/text", response_model=AssistantResponse)
@@ -69,4 +80,17 @@ async def audio_query(
         escalate=result["escalate"],
         session_id=session_id,
         transcribed_text=result.get("transcribed_text")
+    )
+
+
+@router.post("/tts", response_model=TTSResponse)
+async def synthesize_speech(request: TTSRequest):
+    """Synthesize speech for a given piece of text without invoking the LLM.
+
+    Used to speak scripted lines (e.g. a call's opening greeting) through the
+    existing TTS pipeline.
+    """
+    audio_bytes = await _voice_service.tts.synthesize(request.text, request.language)
+    return TTSResponse(
+        audio_base64=base64.b64encode(audio_bytes).decode("utf-8") if audio_bytes else None
     )

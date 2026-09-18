@@ -176,7 +176,18 @@
       "timestamp": "2026-08-15T12:00:00Z"
     },
     {
-      "application_id": "APP58CD70",
+      "application_id": "APP931290",
+      "customer_id": "CUST002",
+      "details": {
+        "loan_type": "Personal Loan",
+        "amount": 500000.0,
+        "employment": "Salaried"
+      },
+      "status": "Pending",
+      "timestamp": "2026-08-15T12:00:00Z"
+    },
+    {
+      "application_id": "APP92752B",
       "customer_id": "CUST002",
       "details": {
         "loan_type": "Personal Loan",

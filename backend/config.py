@@ -4,7 +4,11 @@ Centralised configuration — reads from environment / .env file.
 
 import os
 from pathlib import Path
-from dotenv import load_dotenv
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    def load_dotenv(*args, **kwargs):
+        return None
 
 # Load .env from project root
 _env_path = Path(__file__).resolve().parent.parent / ".env"

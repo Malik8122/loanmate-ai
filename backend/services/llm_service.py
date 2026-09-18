@@ -290,9 +290,14 @@ class LLMService:
         the customer's mock loan data.  No [Fallback] markers are shown to the
         customer — the response reads like a normal assistant reply.
         """
+        import re
+
         msg_lower = user_message.lower().strip()
         intent = "other"
         escalate = False
+        is_hindi_ish = language == "hi" or any(
+            w in msg_lower for w in ["mera", "meri", "mujhe", "aap", "main", "kya", "hai"]
+        )
 
         # ------------------------------------------------------------------
         # Extract loan data from customer_context if available.
@@ -379,14 +384,87 @@ class LLMService:
             "apply", "chahiye", "loan lena", "loan chahiye",
             "new loan", "naya loan",
         ]
+        # ── Which bank ────────────────────────────────────────────────────
+        _bank_keywords = [
+            "which bank", "what bank", "kaunsa bank", "kaun sa bank",
+            "bank ka naam", "naam kya hai is bank",
+        ]
+        # ── Assistant identity ──────────────────────────────────────────
+        _identity_keywords = [
+            "your name", "what is your name", "who are you",
+            "aapka naam", "tumhara naam", "apka naam", "kaun ho tum", "aap kaun",
+        ]
+        # ── Assistant capabilities ───────────────────────────────────────
+        _capability_keywords = [
+            "what can you help", "what can you do", "how can you help",
+            "how do you help", "aap kya kar sakte", "kya madad kar sakte",
+            "aap kaise madad", "what all can you",
+        ]
 
         def _any(keywords: list[str]) -> bool:
             return any(kw in msg_lower for kw in keywords)
 
         # ------------------------------------------------------------------
+        # Name introduction — "My name is X" / "Mera naam X hai" etc.
+        # Checked first since it's a distinct conversational turn, not a
+        # banking-data query.
+        # ------------------------------------------------------------------
+        _name_patterns = [
+            r"my name is ([a-zA-Z]+)",
+            r"i am ([a-zA-Z]+)\b",
+            r"i'm ([a-zA-Z]+)\b",
+            r"this is ([a-zA-Z]+) speaking",
+            r"mera naam ([a-zA-Z]+) hai",
+            r"main ([a-zA-Z]+) hoon",
+            r"mai ([a-zA-Z]+) hoon",
+        ]
+        _captured_name: str | None = None
+        for pattern in _name_patterns:
+            m = re.search(pattern, msg_lower)
+            if m:
+                _captured_name = m.group(1).capitalize()
+                break
+
+        # ------------------------------------------------------------------
         # Build reply
         # ------------------------------------------------------------------
-        if _any(_due_keywords):
+        if _captured_name:
+            intent = "greeting"
+            reply = (
+                f"Namaste {_captured_name} ji! Main aapki kis tarah madad kar sakta hoon — "
+                f"EMI, loan status, ya outstanding balance ke baare mein?"
+                if is_hindi_ish
+                else f"Nice to meet you, {_captured_name}! How can I help you today — "
+                f"EMI, loan status, outstanding balance, or something else?"
+            )
+
+        elif _any(_bank_keywords):
+            intent = "general_info"
+            reply = (
+                "Aap Unity Bank se baat kar rahe hain."
+                if is_hindi_ish
+                else "You're speaking with Unity Bank."
+            )
+
+        elif _any(_identity_keywords):
+            intent = "general_info"
+            reply = (
+                "Main aapka AI Loan aur EMI Assistant hoon, Unity Bank ki taraf se."
+                if is_hindi_ish
+                else "I'm your AI Loan & EMI Assistant here at Unity Bank."
+            )
+
+        elif _any(_capability_keywords):
+            intent = "general_info"
+            reply = (
+                "Main aapki EMI, loan status, outstanding balance, due dates mein madad kar sakta hoon, "
+                "naya loan apply karne mein bhi, aur zaroorat ho toh human agent se connect kar sakta hoon."
+                if is_hindi_ish
+                else "I can help you with EMI amounts, loan status, outstanding balances, due dates, "
+                "applying for a new loan, or connecting you with a human agent if needed."
+            )
+
+        elif _any(_due_keywords):
             intent = "emi_due_date"
             if primary_loan:
                 due = primary_loan.get("due_date") or "not available"

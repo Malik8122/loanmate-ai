@@ -2,7 +2,7 @@
 LiveKit Routes.
 
 Endpoints:
-    GET /api/livekit/token  — generate a connection token for the Streamlit UI
+    GET /api/livekit/token — generate a connection token for the browser client
 """
 
 from fastapi import APIRouter, Query, HTTPException

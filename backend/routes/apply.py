@@ -16,6 +16,7 @@ async def submit_application(request: LoanApplicationRequest):
     app_id = LoanService.create_loan_application(request.customer_id, {
         "loan_type": request.loan_type,
         "amount": request.amount,
+        "tenure_months": request.tenure_months,
         "employment": request.employment
     })
     

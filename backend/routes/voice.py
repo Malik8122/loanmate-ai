@@ -35,7 +35,10 @@ async def text_query(request: TextQueryRequest):
         intent=result["intent"],
         escalate=result["escalate"],
         session_id=request.session_id,
-        transcribed_text=result.get("transcribed_text")
+        transcribed_text=result.get("transcribed_text"),
+        detected_language=result.get("detected_language"),
+        tool_used=result.get("tool_used"),
+        agent_trace=result.get("agent_trace"),
     )
 
 
@@ -68,5 +71,8 @@ async def audio_query(
         intent=result["intent"],
         escalate=result["escalate"],
         session_id=session_id,
-        transcribed_text=result.get("transcribed_text")
+        transcribed_text=result.get("transcribed_text"),
+        detected_language=result.get("detected_language"),
+        tool_used=result.get("tool_used"),
+        agent_trace=result.get("agent_trace"),
     )

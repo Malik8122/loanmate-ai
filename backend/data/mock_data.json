@@ -185,6 +185,98 @@
       },
       "status": "Pending",
       "timestamp": "2026-08-15T12:00:00Z"
+    },
+    {
+      "application_id": "APPDE9F44",
+      "customer_id": "CUST002",
+      "details": {
+        "loan_type": "Personal Loan",
+        "amount": 500000.0,
+        "employment": "Salaried"
+      },
+      "status": "Pending",
+      "timestamp": "2026-08-15T12:00:00Z"
+    },
+    {
+      "application_id": "APP9DC7C3",
+      "customer_id": "CUST001",
+      "details": {
+        "loan_type": "Personal Loan",
+        "amount": 500000.0,
+        "employment": "Salaried"
+      },
+      "status": "Pending",
+      "timestamp": "2026-08-15T12:00:00Z"
+    },
+    {
+      "application_id": "APPE9D557",
+      "customer_id": "CUST001",
+      "details": {
+        "loan_type": "Personal Loan",
+        "amount": 500000.0,
+        "employment": "Salaried"
+      },
+      "status": "Pending",
+      "timestamp": "2026-08-15T12:00:00Z"
+    },
+    {
+      "application_id": "APP2B6ADE",
+      "customer_id": "CUST001",
+      "details": {
+        "loan_type": "Personal Loan",
+        "amount": 500000.0,
+        "employment": "Salaried"
+      },
+      "status": "Pending",
+      "timestamp": "2026-08-15T12:00:00Z"
+    },
+    {
+      "application_id": "APPE5D136",
+      "customer_id": "CUST001",
+      "details": {
+        "loan_type": "Personal Loan",
+        "amount": 500000.0,
+        "tenure_months": 36,
+        "employment": "Salaried"
+      },
+      "status": "Pending",
+      "timestamp": "2026-08-15T12:00:00Z"
+    },
+    {
+      "application_id": "APPF8AAD2",
+      "customer_id": "CUST001",
+      "details": {
+        "loan_type": "Personal Loan",
+        "amount": 500000.0,
+        "tenure_months": 36,
+        "employment": "Salaried"
+      },
+      "status": "Pending",
+      "timestamp": "2026-08-15T12:00:00Z"
+    },
+    {
+      "application_id": "APP245A9D",
+      "customer_id": "CUST002",
+      "details": {
+        "loan_type": "Personal Loan",
+        "amount": 500000.0,
+        "tenure_months": null,
+        "employment": "Salaried"
+      },
+      "status": "Pending",
+      "timestamp": "2026-08-15T12:00:00Z"
+    },
+    {
+      "application_id": "APPDBA724",
+      "customer_id": "CUST002",
+      "details": {
+        "loan_type": "Personal Loan",
+        "amount": 500000.0,
+        "tenure_months": null,
+        "employment": "Salaried"
+      },
+      "status": "Pending",
+      "timestamp": "2026-08-15T12:00:00Z"
     }
   ]
 }

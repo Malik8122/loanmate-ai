@@ -11,6 +11,7 @@ import logging
 from backend.services.stt_service import STTService
 from backend.services.llm_service import LLMService
 from backend.services.tts_service import TTSService
+from backend.agents.orchestrator import AgentOrchestrator
 
 logger = logging.getLogger(__name__)
 
@@ -18,10 +19,12 @@ class VoiceService:
     """End-to-end voice pipeline orchestrator."""
 
     def __init__(self):
-        # Initialise with small model for speed in prototype if needed, but we decided on base
-        self.stt = STTService(model_size="base")
+        # "tiny" benchmarked faster and more reliable for keyword-based intent
+        # matching than "base" for this project's phrasing (see backend/voice_agent/agent.py).
+        self.stt = STTService(model_size="tiny")
         self.llm = LLMService()
         self.tts = TTSService()
+        self.agent = AgentOrchestrator(self.llm)
 
     async def handle_audio(
         self,
@@ -60,36 +63,36 @@ class VoiceService:
                  "transcribed_text": ""
              }
 
-        # Step 2: LLM
-        # We pass the actual language if 'auto' isn't explicitly resolved by Whisper metadata.
-        # For simplicity, pass the original language param.
-        llm_response = await self.llm.generate_response(
-            user_message=transcript,
+        # Step 2: Agent orchestrator (intent -> tool -> LLM narration, or general chat)
+        agent_response = await self.agent.handle(
+            text=transcript,
             customer_context=customer_context,
             language=language,
-            session_id=session_id
+            session_id=session_id,
         )
-        reply_text = llm_response["reply"]
+        reply_text = agent_response["reply"]
 
         # Step 3: Text-to-Speech
         # If input was auto, output should try to match the recognized language from text.
-        # But for now, fallback to english or hindi based on simple heuristics if auto.
-        tts_lang = language
+        tts_lang = agent_response.get("detected_language") or language
         if tts_lang == "auto":
             # Simple heuristic: if devanagari characters exist, use Hindi
             if any("\u0900" <= c <= "\u097F" for c in reply_text):
                 tts_lang = "hi"
             else:
                 tts_lang = "en"
-                
+
         reply_audio = await self.tts.synthesize(reply_text, tts_lang)
 
         return {
             "reply_text": reply_text,
             "reply_audio_b64": base64.b64encode(reply_audio).decode("utf-8") if reply_audio else None,
-            "intent": llm_response.get("intent", "other"),
-            "escalate": llm_response.get("escalate", False),
-            "transcribed_text": transcript
+            "intent": agent_response.get("intent", "other"),
+            "escalate": agent_response.get("escalate", False),
+            "transcribed_text": transcript,
+            "detected_language": agent_response.get("detected_language"),
+            "tool_used": agent_response.get("tool_used"),
+            "agent_trace": agent_response.get("agent_trace"),
         }
 
     async def handle_text(
@@ -110,20 +113,27 @@ class VoiceService:
         Returns:
             Dict with keys ``reply_text``, ``reply_audio_b64``, ``intent``, ``escalate``.
         """
-        llm_response = await self.llm.generate_response(
-            user_message=text,
+        agent_response = await self.agent.handle(
+            text=text,
             customer_context=customer_context,
             language=language,
-            session_id=session_id
+            session_id=session_id,
         )
-        reply_text = llm_response["reply"]
-        
-        reply_audio = await self.tts.synthesize(reply_text, language)
+        reply_text = agent_response["reply"]
+
+        tts_lang = agent_response.get("detected_language") or language
+        if tts_lang == "auto":
+            tts_lang = "hi" if any("ऀ" <= c <= "ॿ" for c in reply_text) else "en"
+
+        reply_audio = await self.tts.synthesize(reply_text, tts_lang)
 
         return {
             "reply_text": reply_text,
             "reply_audio_b64": base64.b64encode(reply_audio).decode("utf-8") if reply_audio else None,
-            "intent": llm_response.get("intent", "other"),
-            "escalate": llm_response.get("escalate", False),
-            "transcribed_text": text
+            "intent": agent_response.get("intent", "other"),
+            "escalate": agent_response.get("escalate", False),
+            "transcribed_text": text,
+            "detected_language": agent_response.get("detected_language"),
+            "tool_used": agent_response.get("tool_used"),
+            "agent_trace": agent_response.get("agent_trace"),
         }

@@ -8,6 +8,7 @@ including prompt construction, context management, and response parsing.
 from __future__ import annotations
 
 import json
+import logging
 import os
 import uuid
 from pathlib import Path
@@ -23,8 +24,29 @@ try:
 except ImportError:
     HAS_GENAI = False
 
+logger = logging.getLogger(__name__)
+
 _PROMPTS_DIR = settings.PROMPTS_DIR
 _SYSTEM_PROMPT_FILE = _PROMPTS_DIR / "system_prompt.txt"
+
+# Tool names with a hand-written template in _template_phrase() below — for
+# these, skip the Gemini narration call entirely (see phrase_tool_result).
+_TEMPLATED_TOOL_NAMES = {
+    "get_emi", "get_outstanding_balance", "get_next_payment", "get_remaining_tenure",
+    "get_loan_status", "get_glossary_definition", "get_payment_history",
+    "calculate_prepayment", "compare_tenures",
+}
+
+# retry=None disables the SDK's default retry-with-backoff on 429/503 — in a
+# live voice call, a request that can't succeed quickly should fail fast and
+# let the caller fall back, not silently retry for 20+ seconds of dead air.
+# The explicit timeout is a second safety net against a slow-but-not-erroring
+# response.
+if HAS_GENAI:
+    from google.generativeai.types import helper_types as _genai_helper_types
+    _FAST_FAIL_REQUEST_OPTIONS = _genai_helper_types.RequestOptions(retry=None, timeout=8)
+else:
+    _FAST_FAIL_REQUEST_OPTIONS = None
 
 
 class LLMService:
@@ -81,7 +103,7 @@ class LLMService:
             return self._fallback_response(user_message, language, customer_context)
 
         system_instruction = self._get_system_prompt(customer_context)
-        
+
         # We instantiate a new model instance here to pass the dynamic system_instruction
         # Alternatively we can manage chat sessions if the SDK version allows system_instruction in start_chat
         try:
@@ -91,7 +113,17 @@ class LLMService:
                 generation_config={"response_mime_type": "application/json"}
             )
             chat = model.start_chat(history=history)
-            response = chat.send_message(user_message)
+            # send_message_async + retry=None + a short timeout: the sync
+            # send_message() blocks the whole asyncio event loop for the entire
+            # network round-trip (freezing LiveKit's own connection processing
+            # during a live call), and the SDK's default retry policy will
+            # silently retry a 429/503 with backoff for 20+ seconds — both are
+            # unacceptable for a voice conversation, which needs to fail fast
+            # and fall back rather than leave the user in dead air.
+            response = await chat.send_message_async(
+                user_message,
+                request_options=_FAST_FAIL_REQUEST_OPTIONS,
+            )
             
             # Update history with SDK's history
             SessionStore.get_or_create(session_id).clear()
@@ -106,20 +138,144 @@ class LLMService:
                     "collected_application_data": result.get("collected_application_data", {})
                 }
             except json.JSONDecodeError:
-                return {
-                    "reply": "I'm having trouble forming a proper response right now.",
-                    "intent": "other",
-                    "escalate": True,
-                    "collected_application_data": {}
-                }
+                logger.warning("Gemini returned non-JSON response, using fallback")
+                return self._fallback_response(user_message, language, customer_context)
                 
         except Exception as e:
-             return {
-                "reply": f"An error occurred while connecting to the AI: {str(e)}",
-                "intent": "other",
-                "escalate": True,
-                "collected_application_data": {}
-            }
+            # Never speak a raw API exception to the user (especially over TTS in a
+            # live call) — fall back to the deterministic/rule-based responder, which
+            # still answers known loan questions correctly and gives a graceful
+            # catch-all for general conversation.
+            logger.error("Gemini generate_response failed, using fallback: %s", e)
+            return self._fallback_response(user_message, language, customer_context)
+
+    async def phrase_tool_result(
+        self, user_message: str, tool_result: dict[str, Any], language: str, tool_name: str | None = None
+    ) -> str:
+        """Turn a deterministic tool's output into a natural-language reply.
+
+        The model is given the exact computed numbers and told to narrate
+        them, not recompute anything — this is what keeps every ₹ figure
+        traceable to Python arithmetic instead of LLM guesswork.
+
+        A deterministic tool answer never needs an LLM round-trip to be
+        spoken naturally — every current tool already has a hand-written
+        template below. Skipping Gemini here removes a full network+inference
+        hop (several hundred ms to seconds) from the hottest path in the voice
+        pipeline, and avoids burning API quota on a question with only one
+        correct, already-known answer. Gemini is only invoked for a tool name
+        that has no template yet (there currently are none).
+        """
+        if tool_name in _TEMPLATED_TOOL_NAMES or not (HAS_GENAI and self.has_key):
+            return self._template_phrase(tool_result, language, tool_name)
+
+        lang_label = {"hi": "Hindi/Hinglish", "en": "English"}.get(language, "English")
+        prompt = (
+            f"You are LoanMate AI, a banking voice assistant. "
+            f"The user asked: \"{user_message}\"\n\n"
+            f"A backend calculation already produced this exact result — use ONLY these numbers, "
+            f"do not recompute or invent any figure:\n{json.dumps(tool_result, indent=2)}\n\n"
+            f"Reply in {lang_label}, in 1-3 short conversational sentences, no markdown, "
+            f"as if speaking the answer aloud. If the result contains an 'error' key, "
+            f"apologise briefly and explain the information isn't available."
+        )
+        try:
+            model = genai.GenerativeModel(model_name=self.model_name)
+            response = await model.generate_content_async(prompt, request_options=_FAST_FAIL_REQUEST_OPTIONS)
+            return response.text.strip()
+        except Exception as e:
+            logger.warning("phrase_tool_result: Gemini call failed, using template fallback: %s", e)
+            return self._template_phrase(tool_result, language, tool_name)
+
+    def _template_phrase(self, tool_result: dict[str, Any], language: str, tool_name: str | None) -> str:
+        """Non-LLM fallback narration, used if Gemini is unavailable or errors.
+
+        Mirrors the phrasing style of ``_fallback_response`` so the reply reads
+        naturally even when this is the only path available (as it is whenever
+        no Gemini API key is configured).
+        """
+        hi = language == "hi"
+
+        if "error" in tool_result:
+            return "Mujhe yeh jaankari abhi nahi mil paayi." if hi else "I couldn't retrieve that information right now."
+
+        def inr(amount) -> str:
+            try:
+                return f"₹{int(amount):,}"
+            except (TypeError, ValueError):
+                return str(amount)
+
+        if tool_name == "get_emi":
+            emi = tool_result.get("emi")
+            if emi is None:
+                return "Aapke account mein koi active EMI nahi mila." if hi else "I couldn't find an active EMI on your account."
+            return f"Aapki current monthly EMI {inr(emi)} hai." if hi else f"Your current monthly EMI is {inr(emi)}."
+
+        if tool_name == "get_outstanding_balance":
+            amt = tool_result.get("outstanding")
+            if amt is None:
+                return "Aapke account mein koi outstanding loan nahi mila." if hi else "I couldn't find an outstanding balance on your account."
+            return f"Aapka outstanding balance {inr(amt)} hai." if hi else f"Your current outstanding balance is {inr(amt)}."
+
+        if tool_name == "get_next_payment":
+            due = tool_result.get("due_date")
+            if not due:
+                return "Aapki agli EMI ki date abhi available nahi hai." if hi else "Your next payment date isn't available right now."
+            return f"Aapki agli EMI {due} ko due hai." if hi else f"Your next EMI is due on {due}."
+
+        if tool_name == "get_remaining_tenure":
+            months = tool_result.get("remaining_tenure_months")
+            if months is None:
+                return "Yeh jaankari abhi available nahi hai." if hi else "That information isn't available right now."
+            return f"Aapke paas abhi {months} EMI baaki hain." if hi else f"You have {months} EMI(s) remaining."
+
+        if tool_name == "get_loan_status":
+            status = tool_result.get("status")
+            if not status:
+                return "Aapke account mein koi loan record nahi mila." if hi else "I couldn't find a loan record on your account."
+            return f"Aapka loan abhi {status} status mein hai." if hi else f"Your loan is currently {status}."
+
+        if tool_name == "get_glossary_definition":
+            return tool_result.get("definition", "")
+
+        if tool_name == "get_payment_history":
+            return (
+                "Detailed payment history is abhi available nahi hai, lekin aapka current schedule maujood hai."
+                if hi
+                else "Detailed past-payment history isn't available in this demo, but your current schedule is up to date."
+            )
+
+        if tool_name == "calculate_prepayment":
+            if tool_result.get("loan_closed"):
+                return (
+                    "Itna prepay karne se aapka loan poora close ho jayega."
+                    if hi
+                    else "That prepayment amount would fully close out your loan."
+                )
+            reduction = inr(tool_result.get("emi_reduction", 0))
+            new_emi = inr(tool_result.get("new_emi", 0))
+            return (
+                f"Is prepayment se aapki EMI {reduction} kam ho jayegi, nayi EMI {new_emi} hogi."
+                if hi
+                else f"That prepayment would lower your EMI by {reduction}, to a new EMI of {new_emi}."
+            )
+
+        if tool_name == "compare_tenures":
+            rows = tool_result.get("comparison", [])
+            summary = "; ".join(
+                f"{r['tenure_months']//12}y: EMI {inr(r['emi'])}, interest {inr(r['total_interest'])}"
+                for r in rows
+            )
+            return (
+                f"Yeh raha comparison — {summary}."
+                if hi
+                else f"Here's the comparison — {summary}."
+            )
+
+        # Generic fallback for anything not specifically templated above.
+        parts = [f"{k.replace('_', ' ')}: {v}" for k, v in tool_result.items() if v is not None]
+        detail = "; ".join(parts) if parts else "no details available"
+        return f"Yeh raha result: {detail}." if hi else f"Here's what I found: {detail}."
 
     def _fallback_response(
         self,
@@ -209,9 +365,14 @@ class LLMService:
             "installment kitni", "emi kitni", "meri emi", "mera emi",
         ]
         # ── Escalation ───────────────────────────────────────────────────
+        # Specific multi-word phrases only — bare "agent"/"help me" false-positive
+        # on innocuous questions like "how can you help me?".
         _escalate_keywords = [
-            "agent", "human", "representative", "officer",
-            "manager", "help me", "connect me",
+            "human agent", "talk to a human", "speak to a human", "speak with a human",
+            "connect me to a human", "connect me to an agent", "talk to an agent",
+            "speak to an agent", "real person", "loan officer", "customer care",
+            "human se baat", "insaan se baat", "agent se connect", "agent se baat",
+            "manager se baat",
         ]
         # ── Loan application ─────────────────────────────────────────────
         _apply_keywords = [

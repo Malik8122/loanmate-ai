@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>LoanMate Voice Comparison</title>
+<style>
+body { font-family: system-ui, sans-serif; background:#0b0d12; color:#eee; padding: 24px; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #333; padding: 10px; text-align: center; vertical-align: middle; }
+th.sentence { text-align: left; max-width: 280px; font-weight: normal; font-size: 13px; color: #ccc; }
+th.voice { background: #1a1d24; font-size: 15px; }
+audio { width: 200px; }
+h1 { font-size: 20px; } p { color: #999; font-size: 13px; }
+</style></head>
+<body>
+<h1>LoanMate — Gemini Live native voice comparison</h1>
+<p>Same model (gemini-3.8-live), same prompt-based "say exactly" instruction, only the <code>voice</code> parameter changes per column. Listen and judge accent/warmth/naturalness yourself — that is not something the generation script can do.</p>
+<table>
+<tr><th></th><th class="voice">Aoede</th><th class="voice">Charon</th><th class="voice">Kore</th><th class="voice">Leda</th><th class="voice">Orus</th><th class="voice">Puck</th></tr>
+<tr><th class="sentence">Hi Rajesh, this is LoanMate calling from your bank. Is this a good time for a quick update?</th><td><audio controls src="samples/Aoede__english_greeting.wav"></audio></td><td><audio controls src="samples/Charon__english_greeting.wav"></audio></td><td><audio controls src="samples/Kore__english_greeting.wav"></audio></td><td><audio controls src="samples/Leda__english_greeting.wav"></audio></td><td><audio controls src="samples/Orus__english_greeting.wav"></audio></td><td><audio controls src="samples/Puck__english_greeting.wav"></audio></td></tr><tr><th class="sentence">Namaste Rajesh, main LoanMate bol raha hoon. Aapke loan ke baare mein ek quick update tha.</th><td><audio controls src="samples/Aoede__hindi_greeting.wav"></audio></td><td><audio controls src="samples/Charon__hindi_greeting.wav"></audio></td><td><audio controls src="samples/Kore__hindi_greeting.wav"></audio></td><td><audio controls src="samples/Leda__hindi_greeting.wav"></audio></td><td><audio controls src="samples/Orus__hindi_greeting.wav"></audio></td><td><audio controls src="samples/Puck__hindi_greeting.wav"></audio></td></tr><tr><th class="sentence">Hi Rajesh, main LoanMate bol raha hoon, aapke bank se. Aapke loan ke regarding ek quick update tha.</th><td><audio controls src="samples/Aoede__hinglish_greeting.wav"></audio></td><td><audio controls src="samples/Charon__hinglish_greeting.wav"></audio></td><td><audio controls src="samples/Kore__hinglish_greeting.wav"></audio></td><td><audio controls src="samples/Leda__hinglish_greeting.wav"></audio></td><td><audio controls src="samples/Orus__hinglish_greeting.wav"></audio></td><td><audio controls src="samples/Puck__hinglish_greeting.wav"></audio></td></tr><tr><th class="sentence">Your monthly EMI is thirty-one thousand five hundred rupees.</th><td><audio controls src="samples/Aoede__english_emi.wav"></audio></td><td><audio controls src="samples/Charon__english_emi.wav"></audio></td><td><audio controls src="samples/Kore__english_emi.wav"></audio></td><td><audio controls src="samples/Leda__english_emi.wav"></audio></td><td><audio controls src="samples/Orus__english_emi.wav"></audio></td><td><audio controls src="samples/Puck__english_emi.wav"></audio></td></tr><tr><th class="sentence">Mera EMI ikattis hazaar paanch sau rupaye hai.</th><td><audio controls src="samples/Aoede__hindi_emi.wav"></audio></td><td><audio controls src="samples/Charon__hindi_emi.wav"></audio></td><td><audio controls src="samples/Kore__hindi_emi.wav"></audio></td><td><audio controls src="samples/Leda__hindi_emi.wav"></audio></td><td><audio controls src="samples/Orus__hindi_emi.wav"></audio></td><td><audio controls src="samples/Puck__hindi_emi.wav"></audio></td></tr>
+</table>
+</body></html>

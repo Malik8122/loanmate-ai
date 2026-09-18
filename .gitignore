@@ -62,3 +62,15 @@ logs/
 *.mp3
 *.ogg
 recordings/
+# Exception: intentional, curated demo voice-comparison samples (see
+# voice_evaluation/compare.html) — deliberate project deliverables, not
+# transient runtime recordings.
+!voice_evaluation/samples/*.wav
+
+# =============================================================================
+# Node / Next.js (frontend/web)
+# =============================================================================
+node_modules/
+.next/
+out/
+next-env.d.ts

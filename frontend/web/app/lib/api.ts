@@ -1,0 +1,35 @@
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000";
+
+export type CallMode = "inbound" | "outbound";
+export type OutboundReason = "product_update" | "emi_reminder";
+
+export interface TokenResponse {
+  token: string;
+  room_name: string;
+  url: string;
+}
+
+export async function fetchRealtimeToken(
+  sessionId: string,
+  callMode: CallMode,
+  language: string,
+  outboundReason?: OutboundReason,
+): Promise<TokenResponse> {
+  const params = new URLSearchParams({
+    session_id: sessionId,
+    call_mode: callMode,
+    language,
+  });
+  if (callMode === "outbound" && outboundReason) {
+    params.set("outbound_reason", outboundReason);
+  }
+  const res = await fetch(`${API_BASE}/api/realtime/token?${params.toString()}`);
+  if (!res.ok) {
+    throw new Error(`Failed to get call token (${res.status})`);
+  }
+  return res.json();
+}
+
+export function newSessionId(): string {
+  return crypto.randomUUID();
+}

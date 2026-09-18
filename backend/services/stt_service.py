@@ -5,9 +5,11 @@ Uses faster-whisper for local, offline transcription.
 """
 
 from __future__ import annotations
+import asyncio
 import io
 import os
 import tempfile
+import time
 import logging
 
 try:
@@ -47,7 +49,8 @@ class STTService:
             return ""
 
         if not self.model:
-            return "[STT Error: Whisper model not loaded]"
+            logger.error("STT called but Whisper model failed to load — returning empty transcript")
+            return ""
 
         # Faster-whisper generally expects a file path or a file-like object.
         # Streamlit mic recorder outputs WAV (usually), which we can save to a temp file.
@@ -62,14 +65,24 @@ class STTService:
                 if language != "auto":
                     kwargs["language"] = language
 
-                segments, info = self.model.transcribe(tmp_path, beam_size=5, **kwargs)
-                
-                text = " ".join([segment.text for segment in segments]).strip()
+                # model.transcribe() is a synchronous, CPU-bound call. Calling it
+                # directly here would block the whole asyncio event loop for its
+                # entire duration — starving LiveKit's own event processing (data
+                # messages, audio frame delivery, keepalives) on every utterance.
+                # Running it in a thread keeps the event loop free.
+                t0 = time.monotonic()
+
+                def _run_transcribe():
+                    segments, info = self.model.transcribe(tmp_path, beam_size=1, **kwargs)
+                    return " ".join(segment.text for segment in segments).strip()
+
+                text = await asyncio.to_thread(_run_transcribe)
+                logger.info("[STT] faster-whisper transcribe took %.0fms", (time.monotonic() - t0) * 1000)
                 return text
             finally:
                 if os.path.exists(tmp_path):
                     os.remove(tmp_path)
-                    
+
         except Exception as e:
             logger.error(f"Transcription failed: {e}")
             return ""

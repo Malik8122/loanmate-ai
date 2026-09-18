@@ -20,7 +20,7 @@ class Settings:
 
     # LLM
     GOOGLE_API_KEY: str = os.getenv("GOOGLE_API_KEY", "")
-    LLM_MODEL_NAME: str = os.getenv("LLM_MODEL_NAME", "gemini-2.0-flash")
+    LLM_MODEL_NAME: str = os.getenv("LLM_MODEL_NAME", "gemini-3.6-flash")
 
     # Speech
     STT_PROVIDER: str = os.getenv("STT_PROVIDER", "google")

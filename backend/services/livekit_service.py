@@ -16,13 +16,26 @@ except ImportError:
 
 logger = logging.getLogger(__name__)
 
+_PLACEHOLDER_VALUES = {
+    "wss://your-livekit-project.livekit.cloud",
+    "your_api_key",
+    "your_api_secret",
+    "your-api-key",
+    "your-api-secret",
+}
+
 
 class LiveKitService:
     def __init__(self):
         self.url = settings.LIVEKIT_URL
         self.api_key = settings.LIVEKIT_API_KEY
         self.api_secret = settings.LIVEKIT_API_SECRET
-        self.configured = bool(HAS_LIVEKIT and self.url and self.api_key and self.api_secret)
+
+        self.url_configured = bool(self.url) and self.url not in _PLACEHOLDER_VALUES
+        self.credentials_configured = bool(self.api_key and self.api_secret) and not (
+            self.api_key in _PLACEHOLDER_VALUES or self.api_secret in _PLACEHOLDER_VALUES
+        )
+        self.configured = bool(HAS_LIVEKIT and self.url_configured and self.credentials_configured)
 
     def generate_token(self, room_name: str, participant_identity: str) -> str:
         """Generate an access token for a frontend client to join the WebRTC room."""

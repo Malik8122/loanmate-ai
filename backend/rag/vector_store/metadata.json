@@ -1,0 +1,752 @@
+[
+  {
+    "text": "LoanMate Bank (Demo) — Required Documents by Loan Type — Overview\n\n> This is fictional demo content for \"LoanMate Bank,\" created for the LoanMate AI academic project.",
+    "metadata": {
+      "chunk_id": "required_documents_01",
+      "source_file": "required_documents.md",
+      "document_type": "documents",
+      "topic": "required_documents",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Required Documents by Loan Type — Section: Personal Loan Documents\n\nSalaried applicants: KYC documents (Aadhaar / PAN / Passport / Voter ID), last 3 months' salary slips, last 6 months' bank statements, Form 16 or IT returns for the last 2 years, and an employment certificate or offer letter.\n\nSelf-employed applicants: KYC documents (Aadhaar / PAN), last 2 years' IT returns with computation, last 6 months' bank statements, business proof (GST registration or trade licence), and certified financials (profit & loss statement, balance sheet).",
+    "metadata": {
+      "chunk_id": "required_documents_02",
+      "source_file": "required_documents.md",
+      "document_type": "documents",
+      "topic": "required_documents",
+      "section": "Section: Personal Loan Documents"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Required Documents by Loan Type — Section: Home Loan Documents\n\nKYC documents (Aadhaar / PAN / Passport), last 3 months' salary slips (salaried applicants), last 2 years' IT returns, last 6 months' bank statements, property documents (sale deed, allotment letter, or approved building plan), and a no-objection certificate (NOC) from the builder or housing society.",
+    "metadata": {
+      "chunk_id": "required_documents_03",
+      "source_file": "required_documents.md",
+      "document_type": "documents",
+      "topic": "required_documents",
+      "section": "Section: Home Loan Documents"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Required Documents by Loan Type — Section: Vehicle Loan Documents\n\nKYC documents (Aadhaar / PAN / Driving Licence), last 3 months' salary slips or 2 years' IT returns, last 6 months' bank statements, vehicle proforma invoice (or registration certificate for used vehicles), and insurance documents.",
+    "metadata": {
+      "chunk_id": "required_documents_04",
+      "source_file": "required_documents.md",
+      "document_type": "documents",
+      "topic": "required_documents",
+      "section": "Section: Vehicle Loan Documents"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Required Documents by Loan Type — Section: Education Loan Documents\n\nKYC documents of both the student and the co-applicant, admission letter from the institution, fee structure or fee schedule, academic records (mark sheets, certificates), income proof of the co-applicant, and collateral documents for loans above ₹7.5 lakhs.",
+    "metadata": {
+      "chunk_id": "required_documents_05",
+      "source_file": "required_documents.md",
+      "document_type": "documents",
+      "topic": "required_documents",
+      "section": "Section: Education Loan Documents"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Required Documents by Loan Type — Section: Business Loan Documents\n\nKYC of the proprietor, directors, or partners; business proof (GST registration, incorporation certificate, or trade licence); last 2 years' IT returns with computation; last 12 months' bank statements; certified financials (audited profit & loss statement, balance sheet); and the last 12 months' GST returns.",
+    "metadata": {
+      "chunk_id": "required_documents_06",
+      "source_file": "required_documents.md",
+      "document_type": "documents",
+      "topic": "required_documents",
+      "section": "Section: Business Loan Documents"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Required Documents by Loan Type — Frequently Asked Questions\n\n**Do I need to submit documents in person?**\nThis demo does not process real document submission. In a real deployment, documents would typically be uploaded through a secure portal or submitted at a branch.\n\n**What if I'm missing one document?**\nLoanMate's demo policy allows conditional processing with most required documents, with the missing item to be submitted before final disbursal — this varies by loan type and amount.",
+    "metadata": {
+      "chunk_id": "required_documents_07",
+      "source_file": "required_documents.md",
+      "document_type": "documents",
+      "topic": "required_documents",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — EMI FAQ — Overview\n\n> This is fictional demo FAQ content for \"LoanMate Bank,\" created for the LoanMate AI academic project. For a specific customer's actual EMI amount, outstanding balance, or due date, LoanMate looks up the real value from the customer's account rather than relying on this general document.",
+    "metadata": {
+      "chunk_id": "emi_faq_01",
+      "source_file": "emi_faq.md",
+      "document_type": "faq",
+      "topic": "emi_faq",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — EMI FAQ — Section: What Is an EMI\n\nAn EMI (Equated Monthly Instalment) is the fixed monthly payment a borrower makes towards a loan, covering both a portion of the principal and the interest for that month, calculated using a standard reducing-balance formula.",
+    "metadata": {
+      "chunk_id": "emi_faq_02",
+      "source_file": "emi_faq.md",
+      "document_type": "faq",
+      "topic": "emi_faq",
+      "section": "Section: What Is an EMI"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — EMI FAQ — Section: Payment Methods\n\n**How can I make my EMI payment?**\nEMIs are collected via ECS (auto-debit) from the customer's registered bank account on the due date. Payments can also be made through net banking, UPI, or at a branch.",
+    "metadata": {
+      "chunk_id": "emi_faq_03",
+      "source_file": "emi_faq.md",
+      "document_type": "faq",
+      "topic": "emi_faq",
+      "section": "Section: Payment Methods"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — EMI FAQ — Section: Changing Your EMI\n\n**Can I change my EMI due date?**\nLoanMate's demo policy allows a one-time change of EMI due date per loan, subject to the new date being within the same billing cycle window. This would need to be requested through a branch or the customer support team, not through this voice assistant.\n\n**Can I reduce my EMI amount?**\nAn EMI amount can be reduced either by making a prepayment (see the Prepayment Policy) or by extending the loan's remaining tenure, which increases total interest paid over the life of the loan.",
+    "metadata": {
+      "chunk_id": "emi_faq_04",
+      "source_file": "emi_faq.md",
+      "document_type": "faq",
+      "topic": "emi_faq",
+      "section": "Section: Changing Your EMI"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — EMI FAQ — Section: Understanding Your EMI Breakdown\n\nEach EMI is split into a principal component and an interest component. In the early part of a loan's tenure, a larger share of each EMI goes towards interest; as the loan matures, a larger share goes towards principal. This is standard for reducing-balance loans and is not specific to any one LoanMate product.",
+    "metadata": {
+      "chunk_id": "emi_faq_05",
+      "source_file": "emi_faq.md",
+      "document_type": "faq",
+      "topic": "emi_faq",
+      "section": "Section: Understanding Your EMI Breakdown"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Banking FAQ — Overview\n\n> This is fictional demo FAQ content for \"LoanMate Bank,\" created for the LoanMate AI academic project.",
+    "metadata": {
+      "chunk_id": "general_banking_faq_01",
+      "source_file": "general_banking_faq.md",
+      "document_type": "faq",
+      "topic": "general_banking_faq",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Banking FAQ — Section: About LoanMate\n\n**What is LoanMate?**\nLoanMate is a demo conversational voice assistant that helps customers of a fictional bank get information about their loans and ask general loan-related questions, in English, Hindi, or Hinglish.",
+    "metadata": {
+      "chunk_id": "general_banking_faq_02",
+      "source_file": "general_banking_faq.md",
+      "document_type": "faq",
+      "topic": "general_banking_faq",
+      "section": "Section: About LoanMate"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Banking FAQ — Section: Talking to a Human\n\n**Can I speak to a real person?**\nYes. If you ask to speak with a human agent, a loan officer, or customer care, LoanMate will acknowledge the request and let you know it will be flagged for follow-up. In this demo, no real human agent is actually connected.",
+    "metadata": {
+      "chunk_id": "general_banking_faq_03",
+      "source_file": "general_banking_faq.md",
+      "document_type": "faq",
+      "topic": "general_banking_faq",
+      "section": "Section: Talking to a Human"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Banking FAQ — Section: Data and Privacy\n\n**Is my information safe with LoanMate?**\nThis is a demonstration project using mock, non-real customer and loan data. It does not represent the security practices of a real bank and should not be evaluated as production banking software.",
+    "metadata": {
+      "chunk_id": "general_banking_faq_04",
+      "source_file": "general_banking_faq.md",
+      "document_type": "faq",
+      "topic": "general_banking_faq",
+      "section": "Section: Data and Privacy"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Banking FAQ — Section: Language Support\n\n**What languages does LoanMate support?**\nLoanMate understands and responds in English, Hindi, and Hinglish (a natural mix of Hindi and English). Other languages, including Urdu, are not supported.",
+    "metadata": {
+      "chunk_id": "general_banking_faq_05",
+      "source_file": "general_banking_faq.md",
+      "document_type": "faq",
+      "topic": "general_banking_faq",
+      "section": "Section: Language Support"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Loan FAQ — Overview\n\n> This is fictional demo FAQ content for \"LoanMate Bank,\" created for the LoanMate AI academic project.",
+    "metadata": {
+      "chunk_id": "loan_faq_01",
+      "source_file": "loan_faq.md",
+      "document_type": "faq",
+      "topic": "loan_faq",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Loan FAQ — Section: Applying\n\n**How do I apply for a loan?**\nYou can tell LoanMate the type of loan and amount you're interested in during a conversation, and LoanMate will collect initial details. A loan specialist follows up for full processing — this demo does not complete a real loan application.\n\n**How do I check my loan eligibility?**\nYou can ask LoanMate for a preliminary eligibility estimate based on your income and the loan amount you're considering, or visit a branch for a detailed assessment.",
+    "metadata": {
+      "chunk_id": "loan_faq_02",
+      "source_file": "loan_faq.md",
+      "document_type": "faq",
+      "topic": "loan_faq",
+      "section": "Section: Applying"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Loan FAQ — Section: Products\n\n**What loan products does LoanMate offer?**\nLoanMate offers Personal Loans, Home Loans, Vehicle Loans, Education Loans, and Business Loans. Ask about any one of these for full details on rates, eligibility, and documents.\n\n**Which loan type has the lowest interest rate?**\nAmong LoanMate's demo products, Home Loans typically carry the lowest interest rate range (8.25%–10.5% per annum), reflecting that they are secured against property.",
+    "metadata": {
+      "chunk_id": "loan_faq_03",
+      "source_file": "loan_faq.md",
+      "document_type": "faq",
+      "topic": "loan_faq",
+      "section": "Section: Products"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Loan FAQ — Section: Credit Score\n\n**What credit score do I need?**\nA score of 700 or above is generally preferred across LoanMate products. A higher score can also improve the interest rate offered.",
+    "metadata": {
+      "chunk_id": "loan_faq_04",
+      "source_file": "loan_faq.md",
+      "document_type": "faq",
+      "topic": "loan_faq",
+      "section": "Section: Credit Score"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Loan FAQ — Section: Collateral\n\n**Which LoanMate loans require collateral?**\nPersonal Loans are unsecured (no collateral). Home Loans are secured by the property being financed. Vehicle Loans are secured by the vehicle. Education Loans above ₹7.5 lakhs generally require collateral. Business Loans up to ₹50 lakhs may be unsecured for eligible businesses.",
+    "metadata": {
+      "chunk_id": "loan_faq_05",
+      "source_file": "loan_faq.md",
+      "document_type": "faq",
+      "topic": "loan_faq",
+      "section": "Section: Collateral"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Education Loan — Overview\n\n> This is a fictional demo product of \"LoanMate Bank,\" created for the LoanMate AI academic project. It does not describe a real bank's policy.",
+    "metadata": {
+      "chunk_id": "education_loan_01",
+      "source_file": "education_loan.md",
+      "document_type": "loan_products",
+      "topic": "education_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Education Loan — Overview\n\nThe LoanMate Education Loan funds higher education in India or abroad, covering tuition, living expenses, and related academic costs.",
+    "metadata": {
+      "chunk_id": "education_loan_02",
+      "source_file": "education_loan.md",
+      "document_type": "loan_products",
+      "topic": "education_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Education Loan — Interest Rate\n\nLoanMate Education Loans carry an interest rate of 9% to 13% per annum.",
+    "metadata": {
+      "chunk_id": "education_loan_03",
+      "source_file": "education_loan.md",
+      "document_type": "loan_products",
+      "topic": "education_loan",
+      "section": "Interest Rate"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Education Loan — Loan Amount and Tenure\n\nUp to ₹1,50,00,000 for study in India, and up to ₹2,00,00,000 for study abroad. The repayment tenure is up to 15 years.",
+    "metadata": {
+      "chunk_id": "education_loan_04",
+      "source_file": "education_loan.md",
+      "document_type": "loan_products",
+      "topic": "education_loan",
+      "section": "Loan Amount and Tenure"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Education Loan — Moratorium Period\n\nRepayment is not required during the course duration plus an additional 12 months after course completion. This is known as the moratorium period.",
+    "metadata": {
+      "chunk_id": "education_loan_05",
+      "source_file": "education_loan.md",
+      "document_type": "loan_products",
+      "topic": "education_loan",
+      "section": "Moratorium Period"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Education Loan — Processing Fee\n\nNo processing fee for loans up to ₹10 lakhs. A 1% processing fee applies above that amount.",
+    "metadata": {
+      "chunk_id": "education_loan_06",
+      "source_file": "education_loan.md",
+      "document_type": "loan_products",
+      "topic": "education_loan",
+      "section": "Processing Fee"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Education Loan — Eligibility Criteria\n\n- Applicant must be a student admitted to a recognised institution\n- A parent or guardian is required as a co-applicant\n- Covers graduate, post-graduate, professional, and vocational courses",
+    "metadata": {
+      "chunk_id": "education_loan_07",
+      "source_file": "education_loan.md",
+      "document_type": "loan_products",
+      "topic": "education_loan",
+      "section": "Eligibility Criteria"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Education Loan — Required Documents\n\n- KYC documents of both the student and the co-applicant\n- Admission letter from the institution\n- Fee structure or fee schedule\n- Academic records (mark sheets, certificates)\n- Income proof of the co-applicant\n- Collateral documents, required for loans above ₹7.5 lakhs",
+    "metadata": {
+      "chunk_id": "education_loan_08",
+      "source_file": "education_loan.md",
+      "document_type": "loan_products",
+      "topic": "education_loan",
+      "section": "Required Documents"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Education Loan — Frequently Asked Questions\n\n**When does repayment start?**\nRepayment begins after the moratorium period ends — that is, course completion plus 12 months, or 6 months after the student starts a job, whichever comes first.\n\n**Is there a tax benefit?**\nInterest paid on education loans is generally deductible under Section 80E of the Indian Income Tax Act for up to 8 years. This is general information, not tax advice.",
+    "metadata": {
+      "chunk_id": "education_loan_09",
+      "source_file": "education_loan.md",
+      "document_type": "loan_products",
+      "topic": "education_loan",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Home Loan — Overview\n\n> This is a fictional demo product of \"LoanMate Bank,\" created for the LoanMate AI academic project. It does not describe a real bank's policy.",
+    "metadata": {
+      "chunk_id": "home_loan_01",
+      "source_file": "home_loan.md",
+      "document_type": "loan_products",
+      "topic": "home_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Home Loan — Overview\n\nThe LoanMate Home Loan finances the purchase, construction, or renovation of a residential property. Both floating and fixed interest rate options are available.",
+    "metadata": {
+      "chunk_id": "home_loan_02",
+      "source_file": "home_loan.md",
+      "document_type": "loan_products",
+      "topic": "home_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Home Loan — Interest Rate\n\nLoanMate Home Loans carry an interest rate of 8.25% to 10.5% per annum.",
+    "metadata": {
+      "chunk_id": "home_loan_03",
+      "source_file": "home_loan.md",
+      "document_type": "loan_products",
+      "topic": "home_loan",
+      "section": "Interest Rate"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Home Loan — Loan Amount and Tenure\n\nThe loan amount ranges from ₹5,00,000 to ₹10,00,00,000. The repayment tenure ranges from 5 to 30 years.",
+    "metadata": {
+      "chunk_id": "home_loan_04",
+      "source_file": "home_loan.md",
+      "document_type": "loan_products",
+      "topic": "home_loan",
+      "section": "Loan Amount and Tenure"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Home Loan — Processing Fee\n\nA processing fee of 0.5% to 1% of the loan amount, plus applicable GST, is charged at disbursement.",
+    "metadata": {
+      "chunk_id": "home_loan_05",
+      "source_file": "home_loan.md",
+      "document_type": "loan_products",
+      "topic": "home_loan",
+      "section": "Processing Fee"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Home Loan — Loan-to-Value (LTV) Ratio\n\nLoanMate finances up to 90% of the property value for loans up to ₹30 lakhs, and up to 80% of the property value for higher loan amounts.",
+    "metadata": {
+      "chunk_id": "home_loan_06",
+      "source_file": "home_loan.md",
+      "document_type": "loan_products",
+      "topic": "home_loan",
+      "section": "Loan-to-Value (LTV) Ratio"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Home Loan — Eligibility Criteria\n\n- Age: 21 to 65 years (at loan maturity)\n- Employment: Salaried, self-employed, or NRI applicants\n- Minimum income (salaried): ₹30,000 per month\n- Credit score: 675 and above\n- Property must be in an approved location or a RERA-registered project",
+    "metadata": {
+      "chunk_id": "home_loan_07",
+      "source_file": "home_loan.md",
+      "document_type": "loan_products",
+      "topic": "home_loan",
+      "section": "Eligibility Criteria"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Home Loan — Required Documents\n\n- KYC documents (Aadhaar / PAN / Passport)\n- Last 3 months' salary slips (salaried applicants)\n- Last 2 years' IT returns\n- Last 6 months' bank statements\n- Property documents (sale deed, allotment letter, or approved building plan)\n- No-objection certificate (NOC) from the builder or housing society",
+    "metadata": {
+      "chunk_id": "home_loan_08",
+      "source_file": "home_loan.md",
+      "document_type": "loan_products",
+      "topic": "home_loan",
+      "section": "Required Documents"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Home Loan — Frequently Asked Questions\n\n**What is the maximum LTV ratio?**\nUp to 90% of property value for loans up to ₹30 lakhs, and up to 75–80% for higher loan amounts.\n\n**Can I apply jointly for a home loan?**\nYes. Joint applications with a co-applicant, such as a spouse or parent, are allowed and may improve loan eligibility.\n\n**Is there a tax benefit on home loans?**\nYes, under Indian income tax law generally: principal repayment (Section 80C, up to ₹1.5 lakh) and interest paid (Section 24(b), up to ₹2 lakh). This is general information, not tax advice — please consult a tax professional for your specific situation.",
+    "metadata": {
+      "chunk_id": "home_loan_09",
+      "source_file": "home_loan.md",
+      "document_type": "loan_products",
+      "topic": "home_loan",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Personal Loan — Overview\n\n> This is a fictional demo product of \"LoanMate Bank,\" created for the LoanMate AI academic project. It does not describe a real bank's policy.",
+    "metadata": {
+      "chunk_id": "personal_loan_01",
+      "source_file": "personal_loan.md",
+      "document_type": "loan_products",
+      "topic": "personal_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Personal Loan — Overview\n\nThe LoanMate Personal Loan is an unsecured loan for personal financial needs such as medical expenses, travel, wedding costs, or home renovation. No collateral or guarantor is required.",
+    "metadata": {
+      "chunk_id": "personal_loan_02",
+      "source_file": "personal_loan.md",
+      "document_type": "loan_products",
+      "topic": "personal_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Personal Loan — Interest Rate\n\nLoanMate Personal Loans carry an interest rate of 10.5% to 16% per annum, depending on the applicant's credit score, income, and existing obligations.",
+    "metadata": {
+      "chunk_id": "personal_loan_03",
+      "source_file": "personal_loan.md",
+      "document_type": "loan_products",
+      "topic": "personal_loan",
+      "section": "Interest Rate"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Personal Loan — Loan Amount and Tenure\n\nThe loan amount ranges from ₹50,000 to ₹40,00,000. The repayment tenure ranges from 12 to 60 months.",
+    "metadata": {
+      "chunk_id": "personal_loan_04",
+      "source_file": "personal_loan.md",
+      "document_type": "loan_products",
+      "topic": "personal_loan",
+      "section": "Loan Amount and Tenure"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Personal Loan — Processing Fee\n\nA processing fee of up to 2% of the loan amount, plus applicable GST, is charged at disbursement.",
+    "metadata": {
+      "chunk_id": "personal_loan_05",
+      "source_file": "personal_loan.md",
+      "document_type": "loan_products",
+      "topic": "personal_loan",
+      "section": "Processing Fee"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Personal Loan — Eligibility Criteria\n\n- Age: 21 to 60 years\n- Employment: Salaried or self-employed professionals\n- Minimum income (salaried): ₹25,000 per month\n- Minimum income (self-employed): ₹3,00,000 per year\n- Credit score: 700 and above preferred\n- Work experience: Minimum 2 years, with at least 1 year in the current job (for salaried applicants)",
+    "metadata": {
+      "chunk_id": "personal_loan_06",
+      "source_file": "personal_loan.md",
+      "document_type": "loan_products",
+      "topic": "personal_loan",
+      "section": "Eligibility Criteria"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Personal Loan — Required Documents — Salaried Applicants\n\n- KYC documents (Aadhaar / PAN / Passport / Voter ID)\n- Last 3 months' salary slips\n- Last 6 months' bank statements\n- Form 16 or IT returns for the last 2 years\n- Employment certificate or offer letter",
+    "metadata": {
+      "chunk_id": "personal_loan_07",
+      "source_file": "personal_loan.md",
+      "document_type": "loan_products",
+      "topic": "personal_loan",
+      "section": "Required Documents — Salaried Applicants"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Personal Loan — Required Documents — Self-Employed Applicants\n\n- KYC documents (Aadhaar / PAN)\n- Last 2 years' IT returns with computation\n- Last 6 months' bank statements\n- Business proof (GST registration / trade licence)\n- Certified financials (profit & loss statement, balance sheet)",
+    "metadata": {
+      "chunk_id": "personal_loan_08",
+      "source_file": "personal_loan.md",
+      "document_type": "loan_products",
+      "topic": "personal_loan",
+      "section": "Required Documents — Self-Employed Applicants"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Personal Loan — Frequently Asked Questions\n\n**Can I get a personal loan without collateral?**\nYes. LoanMate Personal Loans are unsecured — no collateral or guarantor is required.\n\n**How quickly is the loan disbursed?**\nFor eligible applicants with complete documentation, disbursal can happen within 24–48 hours.\n\n**Can I prepay my personal loan?**\nYes. Prepayment is allowed after 12 EMIs. See the LoanMate Prepayment Policy for charges that may apply.",
+    "metadata": {
+      "chunk_id": "personal_loan_09",
+      "source_file": "personal_loan.md",
+      "document_type": "loan_products",
+      "topic": "personal_loan",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Eligibility Policy — Overview\n\n> This is a fictional demo policy of \"LoanMate Bank,\" created for the LoanMate AI academic project. It does not describe a real bank's policy.",
+    "metadata": {
+      "chunk_id": "eligibility_policy_01",
+      "source_file": "eligibility_policy.md",
+      "document_type": "policies",
+      "topic": "eligibility_policy",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Eligibility Policy — General Eligibility Principles\n\nLoanMate evaluates a new loan application primarily using the Fixed Obligation to Income Ratio (FOIR) — the proportion of a customer's monthly income already committed to existing loan EMIs plus the proposed new EMI.",
+    "metadata": {
+      "chunk_id": "eligibility_policy_02",
+      "source_file": "eligibility_policy.md",
+      "document_type": "policies",
+      "topic": "eligibility_policy",
+      "section": "General Eligibility Principles"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Eligibility Policy — FOIR Guidance\n\nIn this demo policy:\n\n- FOIR up to 50% of monthly income: generally eligible\n- FOIR between 50% and 60%: possibly eligible, subject to further review\n- FOIR above 60%: generally not eligible for the requested amount",
+    "metadata": {
+      "chunk_id": "eligibility_policy_03",
+      "source_file": "eligibility_policy.md",
+      "document_type": "policies",
+      "topic": "eligibility_policy",
+      "section": "FOIR Guidance"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Eligibility Policy — Credit Score\n\nA credit score of 700 or above is generally preferred across LoanMate products. Applicants with a lower score may still be considered but are more likely to be offered a higher interest rate or a smaller loan amount.",
+    "metadata": {
+      "chunk_id": "eligibility_policy_04",
+      "source_file": "eligibility_policy.md",
+      "document_type": "policies",
+      "topic": "eligibility_policy",
+      "section": "Credit Score"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Eligibility Policy — Section: Income Requirements by Product\n\n| Product | Minimum monthly income (salaried) |\n|---|---|\n| Personal Loan | ₹25,000 |\n| Home Loan | ₹30,000 |\n| Vehicle Loan | ₹20,000 |\n\nSelf-employed applicants are generally assessed on annual income and business vintage instead of monthly salary.",
+    "metadata": {
+      "chunk_id": "eligibility_policy_05",
+      "source_file": "eligibility_policy.md",
+      "document_type": "policies",
+      "topic": "eligibility_policy",
+      "section": "Section: Income Requirements by Product"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Eligibility Policy — Section: Age and Employment\n\nMost LoanMate products require the applicant to be between 21 and 65 years old at loan maturity, and to be salaried, self-employed, or (for home loans) an NRI, with a minimum period of employment or business operation as specified for each product.",
+    "metadata": {
+      "chunk_id": "eligibility_policy_06",
+      "source_file": "eligibility_policy.md",
+      "document_type": "policies",
+      "topic": "eligibility_policy",
+      "section": "Section: Age and Employment"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Eligibility Policy — Frequently Asked Questions\n\n**How is loan eligibility actually calculated for a new loan?**\nLoanMate's demo eligibility check estimates the EMI for the requested loan amount and tenure, adds it to any existing EMI obligations, and compares the total against the applicant's monthly income to compute FOIR, as described above.\n\n**Is this a guaranteed approval?**\nNo. This is a preliminary, automated estimate for demonstration purposes only, not a final underwriting decision.",
+    "metadata": {
+      "chunk_id": "eligibility_policy_07",
+      "source_file": "eligibility_policy.md",
+      "document_type": "policies",
+      "topic": "eligibility_policy",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Foreclosure Policy — Overview\n\n> This is a fictional demo policy of \"LoanMate Bank,\" created for the LoanMate AI academic project. It does not describe a real bank's policy.",
+    "metadata": {
+      "chunk_id": "foreclosure_policy_01",
+      "source_file": "foreclosure_policy.md",
+      "document_type": "policies",
+      "topic": "foreclosure_policy",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Foreclosure Policy — What Is Foreclosure\n\nForeclosure means paying off your entire remaining loan balance in one lump sum, closing the loan completely before its original scheduled end date. This is different from a partial prepayment, which only reduces the balance without closing the loan.",
+    "metadata": {
+      "chunk_id": "foreclosure_policy_02",
+      "source_file": "foreclosure_policy.md",
+      "document_type": "policies",
+      "topic": "foreclosure_policy",
+      "section": "What Is Foreclosure"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Foreclosure Policy — Eligibility for Foreclosure\n\nForeclosure is allowed on all LoanMate loan products after a minimum lock-in period has passed. The lock-in period varies by loan type:\n\n- Personal Loan: after 12 EMIs\n- Home Loan: after 6 EMIs\n- Vehicle Loan: after 12 EMIs\n- Education Loan: after the moratorium period ends and at least 6 EMIs have been paid\n- Business Loan: after 12 EMIs",
+    "metadata": {
+      "chunk_id": "foreclosure_policy_03",
+      "source_file": "foreclosure_policy.md",
+      "document_type": "policies",
+      "topic": "foreclosure_policy",
+      "section": "Eligibility for Foreclosure"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Foreclosure Policy — Foreclosure Charges\n\nA foreclosure charge of 2% to 5% of the outstanding principal may apply, particularly for fixed-rate loans. For individual-borrower floating-rate loans (such as most LoanMate Home Loans and many Personal Loans taken by individuals), foreclosure charges are typically nil or minimal, consistent with standard regulatory guidance on floating-rate retail loans — always confirm the exact charge on your specific loan agreement.",
+    "metadata": {
+      "chunk_id": "foreclosure_policy_04",
+      "source_file": "foreclosure_policy.md",
+      "document_type": "policies",
+      "topic": "foreclosure_policy",
+      "section": "Foreclosure Charges"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Foreclosure Policy — Section: Process\n\nTo foreclose a loan, a customer should:\n\n1. Request a foreclosure quote, which shows the exact payoff amount as of a chosen date.\n2. Make the full payment by the specified date.\n3. Receive a no-dues certificate and loan closure confirmation from LoanMate.",
+    "metadata": {
+      "chunk_id": "foreclosure_policy_05",
+      "source_file": "foreclosure_policy.md",
+      "document_type": "policies",
+      "topic": "foreclosure_policy",
+      "section": "Section: Process"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Foreclosure Policy — Frequently Asked Questions\n\n**What is the difference between prepayment and foreclosure?**\nPrepayment is a partial extra payment that reduces your balance but keeps the loan open. Foreclosure is paying the entire remaining balance at once and closing the loan.\n\n**Will foreclosure affect my credit score?**\nSuccessfully foreclosing a loan is generally reported as \"closed\" and does not negatively affect your credit score; in fact, a clean closure history is typically viewed favourably.",
+    "metadata": {
+      "chunk_id": "foreclosure_policy_06",
+      "source_file": "foreclosure_policy.md",
+      "document_type": "policies",
+      "topic": "foreclosure_policy",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Missed EMI Policy — Overview\n\n> This is a fictional demo policy of \"LoanMate Bank,\" created for the LoanMate AI academic project. It does not describe a real bank's policy.",
+    "metadata": {
+      "chunk_id": "missed_emi_policy_01",
+      "source_file": "missed_emi_policy.md",
+      "document_type": "policies",
+      "topic": "missed_emi_policy",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Missed EMI Policy — What Happens If You Miss an EMI\n\nIf an EMI payment is not received by its due date, LoanMate's demo policy is as follows:\n\n1. A late payment fee is charged (see the Charges section below).\n2. The missed payment may be reported to credit bureaus, which can negatively affect the customer's credit score.\n3. LoanMate will attempt to contact the customer to understand the reason for the missed payment and discuss options.",
+    "metadata": {
+      "chunk_id": "missed_emi_policy_02",
+      "source_file": "missed_emi_policy.md",
+      "document_type": "policies",
+      "topic": "missed_emi_policy",
+      "section": "What Happens If You Miss an EMI"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Missed EMI Policy — Section: Charges\n\nA late payment fee of 2% of the missed EMI amount, or ₹500, whichever is higher, applies per missed EMI in this demo policy.",
+    "metadata": {
+      "chunk_id": "missed_emi_policy_03",
+      "source_file": "missed_emi_policy.md",
+      "document_type": "policies",
+      "topic": "missed_emi_policy",
+      "section": "Section: Charges"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Missed EMI Policy — Grace Period\n\nLoanMate's demo policy allows a grace period of 3 days from the due date before a payment is formally marked as \"missed\" and the late fee is applied. Payments made within this grace period are not treated as late.",
+    "metadata": {
+      "chunk_id": "missed_emi_policy_04",
+      "source_file": "missed_emi_policy.md",
+      "document_type": "policies",
+      "topic": "missed_emi_policy",
+      "section": "Grace Period"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Missed EMI Policy — Section: Repeated Missed Payments\n\nIf EMIs are missed for 3 consecutive months, the loan account status may be marked \"Overdue,\" and LoanMate may initiate a formal recovery process. Customers experiencing financial difficulty are strongly encouraged to contact LoanMate proactively before missing a payment, as restructuring or a revised repayment plan may be possible.",
+    "metadata": {
+      "chunk_id": "missed_emi_policy_05",
+      "source_file": "missed_emi_policy.md",
+      "document_type": "policies",
+      "topic": "missed_emi_policy",
+      "section": "Section: Repeated Missed Payments"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Missed EMI Policy — Frequently Asked Questions\n\n**What should I do if I know I will miss an upcoming EMI?**\nContact LoanMate as early as possible. Proactively flagging a payment difficulty gives more options for resolution than a payment that is simply missed without notice.\n\n**Does a single missed EMI close my loan?**\nNo. A single missed EMI results in a late fee and a potential credit score impact, but does not close the loan. Loan status changes to \"Overdue\" only after repeated missed payments, as described above.",
+    "metadata": {
+      "chunk_id": "missed_emi_policy_06",
+      "source_file": "missed_emi_policy.md",
+      "document_type": "policies",
+      "topic": "missed_emi_policy",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Prepayment Policy — Overview\n\n> This is a fictional demo policy of \"LoanMate Bank,\" created for the LoanMate AI academic project. It does not describe a real bank's policy.",
+    "metadata": {
+      "chunk_id": "prepayment_policy_01",
+      "source_file": "prepayment_policy.md",
+      "document_type": "policies",
+      "topic": "prepayment_policy",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Prepayment Policy — What Is Prepayment\n\nPrepayment means paying an extra lump-sum amount towards your loan's outstanding principal, in addition to your regular EMIs. Prepayment reduces the outstanding balance, which in turn reduces either your future EMI amount or your remaining tenure, depending on the option you choose.",
+    "metadata": {
+      "chunk_id": "prepayment_policy_02",
+      "source_file": "prepayment_policy.md",
+      "document_type": "policies",
+      "topic": "prepayment_policy",
+      "section": "What Is Prepayment"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Prepayment Policy — When Prepayment Is Allowed\n\nPrepayment is allowed on all LoanMate loan products after a minimum of 12 EMIs have been paid. This waiting period ensures the loan has been active long enough to establish a stable repayment record.",
+    "metadata": {
+      "chunk_id": "prepayment_policy_03",
+      "source_file": "prepayment_policy.md",
+      "document_type": "policies",
+      "topic": "prepayment_policy",
+      "section": "When Prepayment Is Allowed"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Prepayment Policy — Prepayment Charges\n\nFor floating-rate loans (the most common type at LoanMate), a foreclosure/prepayment charge of 2% to 5% of the outstanding principal may apply, depending on the loan product and the amount being prepaid. Fixed-rate loans may carry different, generally higher prepayment charges — please check your specific loan agreement.",
+    "metadata": {
+      "chunk_id": "prepayment_policy_04",
+      "source_file": "prepayment_policy.md",
+      "document_type": "policies",
+      "topic": "prepayment_policy",
+      "section": "Prepayment Charges"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Prepayment Policy — How Prepayment Affects Your Loan\n\nWhen you make a prepayment, LoanMate recalculates your loan using your original interest rate and remaining tenure, applied to the new, lower outstanding balance. In the standard LoanMate demo calculation, the remaining tenure is kept the same and the EMI amount is reduced. (Note: some real-world lenders instead offer to keep the EMI the same and reduce the tenure — always confirm which option applies to your actual loan.)",
+    "metadata": {
+      "chunk_id": "prepayment_policy_05",
+      "source_file": "prepayment_policy.md",
+      "document_type": "policies",
+      "topic": "prepayment_policy",
+      "section": "How Prepayment Affects Your Loan"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Prepayment Policy — Section: Charges\n\n| Loan type | Typical prepayment charge |\n|---|---|\n| Personal Loan | 2% – 5% of outstanding principal |\n| Home Loan (floating rate) | Typically nil to low, per regulatory norms for individual floating-rate loans |\n| Vehicle Loan | 2% – 5% of outstanding principal |\n| Business Loan | 2% – 4% of outstanding principal |",
+    "metadata": {
+      "chunk_id": "prepayment_policy_06",
+      "source_file": "prepayment_policy.md",
+      "document_type": "policies",
+      "topic": "prepayment_policy",
+      "section": "Section: Charges"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Prepayment Policy — Frequently Asked Questions\n\n**Is there a minimum prepayment amount?**\nLoanMate does not enforce a minimum prepayment amount in this demo policy, but very small prepayments may not meaningfully change your EMI.\n\n**Can I prepay multiple times?**\nYes, prepayment can be made more than once during the loan tenure, subject to the same 12-EMI waiting period being met at least once.",
+    "metadata": {
+      "chunk_id": "prepayment_policy_07",
+      "source_file": "prepayment_policy.md",
+      "document_type": "policies",
+      "topic": "prepayment_policy",
+      "section": "Frequently Asked Questions"
+    }
+  }
+]

@@ -15,11 +15,19 @@ python-dotenv>=1.0.0
 # LLM
 google-generativeai>=0.8.0
 
-# Voice / Audio
+# Voice / Audio — legacy pipeline (kept for Streamlit demo / fallback path only)
 faster-whisper>=1.0.0
 edge-tts>=6.1.12
 audio-recorder-streamlit>=0.0.10
 nest-asyncio>=1.6.0
+
+# Realtime voice pipeline (primary path) — LiveKit Agents + Gemini Live native audio
+livekit-agents[google]~=1.8
+
+# RAG (Retrieval-Augmented Generation) — local knowledge base search, additive to
+# the realtime path above (google-genai's embed_content is used for embeddings;
+# google-genai itself is already pulled in by livekit-agents[google])
+faiss-cpu>=1.11.0
 
 # File uploads
 python-multipart>=0.0.9
@@ -31,7 +39,8 @@ requests>=2.31.0
 # LiveKit WebRTC
 livekit>=0.17.0
 livekit-api>=0.6.0
-pydub>=0.25.1
+imageio-ffmpeg>=0.5.1
+audioop-lts>=0.2.1; python_version >= "3.13"
 
 # Testing
 pytest>=8.0

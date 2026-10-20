@@ -48,6 +48,22 @@ EVAL_CASES: list[EvalCase] = [
         note="Hybrid case — also expects calculate_prepayment to fire in the "
              "live agent; this eval only checks the RAG half (the charge question).",
     ),
+    # Public RBI / Government knowledge
+    EvalCase("Can the bank charge me for closing my floating rate home loan early?", "rbi_prepayment_foreclosure_rules.md"),
+    EvalCase("Is penal interest allowed on a missed EMI?", "rbi_penal_charges.md"),
+    EvalCase("What is a Key Fact Statement and APR?", "rbi_key_fact_statement.md"),
+    EvalCase("The repo rate changed, when will my EMI change?", "rbi_interest_rate_benchmarks_and_reset.md"),
+    EvalCase("How many days does the bank have to return my property papers after closing the loan?", "rbi_document_return_after_closure.md"),
+    EvalCase("Can a recovery agent call me late at night?", "rbi_recovery_and_npa_rules.md"),
+    EvalCase("Which documents are accepted for KYC?", "rbi_kyc_norms.md"),
+    EvalCase("How do I complain to the RBI ombudsman?", "grievance_and_rbi_ombudsman.md"),
+    EvalCase("Someone asked for my OTP, what should I do?", "fraud_safety.md"),
+    EvalCase("How can I get my free credit report?", "credit_score_and_bureaus.md"),
+    EvalCase("Am I eligible for the PMAY home loan subsidy?", "pmay_urban_2_interest_subsidy.md"),
+    EvalCase("Is there a tax deduction on education loan interest?", "education_loan_schemes.md", note="Its tax section and loan_tax_benefits.md both answer this."),
+    EvalCase("Can I claim home loan interest under the new tax regime?", "loan_tax_benefits.md"),
+    EvalCase("What is a top-up loan?", "top_up_loan.md"),
+    EvalCase("What is the LTV for a gold loan?", "gold_loan.md"),
 ]
 
 

@@ -8,11 +8,11 @@ Prepayment means paying an extra lump-sum amount towards your loan's outstanding
 
 ## When Prepayment Is Allowed
 
-Prepayment is allowed on all LoanMate loan products after a minimum of 12 EMIs have been paid. This waiting period ensures the loan has been active long enough to establish a stable repayment record.
+Floating-rate loans taken by individuals can be prepaid at any time, with no lock-in period, as required by RBI rules. Fixed-rate loans can be prepaid after a minimum of 12 EMIs have been paid in this demo policy.
 
 ## Prepayment Charges
 
-For floating-rate loans (the most common type at LoanMate), a foreclosure/prepayment charge of 2% to 5% of the outstanding principal may apply, depending on the loan product and the amount being prepaid. Fixed-rate loans may carry different, generally higher prepayment charges — please check your specific loan agreement.
+Floating-rate loans taken by individuals carry no prepayment or foreclosure charges at all — this is an RBI rule that applies to every bank in India (see the RBI prepayment rules document). Fixed-rate loans may carry a prepayment charge of 2% to 5% of the outstanding principal, depending on the loan product; the exact charge is stated in the loan's Key Fact Statement, and no undisclosed charge can be levied.
 
 ## How Prepayment Affects Your Loan
 
@@ -22,10 +22,12 @@ When you make a prepayment, LoanMate recalculates your loan using your original 
 
 | Loan type | Typical prepayment charge |
 |---|---|
-| Personal Loan | 2% – 5% of outstanding principal |
-| Home Loan (floating rate) | Typically nil to low, per regulatory norms for individual floating-rate loans |
-| Vehicle Loan | 2% – 5% of outstanding principal |
-| Business Loan | 2% – 4% of outstanding principal |
+| Any floating-rate loan to an individual (home, personal, education, etc.) | Nil — RBI rule |
+| Floating-rate business loan to an individual or micro/small enterprise | Nil — RBI rule (loans sanctioned from 1 January 2026) |
+| Personal Loan (fixed rate) | 2% – 5% of outstanding principal |
+| Home Loan (fixed rate) | 2% of outstanding principal |
+| Vehicle Loan (fixed rate) | Up to 5% in the first year, up to 3% after |
+| Business Loan (fixed rate) | 2% – 4% of outstanding principal |
 
 ## Frequently Asked Questions
 
@@ -33,4 +35,4 @@ When you make a prepayment, LoanMate recalculates your loan using your original 
 LoanMate does not enforce a minimum prepayment amount in this demo policy, but very small prepayments may not meaningfully change your EMI.
 
 **Can I prepay multiple times?**
-Yes, prepayment can be made more than once during the loan tenure, subject to the same 12-EMI waiting period being met at least once.
+Yes, prepayment can be made more than once during the loan tenure, subject, for fixed-rate loans, to the 12-EMI waiting period being met at least once.

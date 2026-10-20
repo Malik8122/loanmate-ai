@@ -23,6 +23,7 @@ from livekit import api
 
 from backend.services.livekit_service import LiveKitService
 from backend.services.loan_service import LoanService
+from backend.voice_agent.call_context import OUTBOUND_REASON_PATTERN, resolve_outbound_reason
 from backend.voice_agent.realtime_agent import AGENT_NAME
 
 logger = logging.getLogger(__name__)
@@ -51,7 +52,7 @@ async def get_token(
     session_id: str = Query(..., description="Per-call session id, used as room/participant identity"),
     customer_id: str = Query(_DEFAULT_CUSTOMER_ID, description="Demo customer id"),
     call_mode: str = Query("inbound", pattern="^(inbound|outbound)$", description="'inbound' = customer called LoanMate; 'outbound' = LoanMate is calling the customer"),
-    outbound_reason: str | None = Query(None, pattern="^(product_update|emi_reminder)$", description="Why LoanMate is calling — required context for outbound calls, ignored for inbound"),
+    outbound_reason: str | None = Query(None, pattern=OUTBOUND_REASON_PATTERN, description="Why LoanMate is calling (emi_reminder, overdue_followup, kyc_update, product_update, or auto to pick from the customer's account state) — ignored for inbound"),
     language: str = Query("english", pattern="^(english|hindi|hinglish)$", description="Preferred language pill selected in the UI — a hint, not a hard restriction"),
 ):
     """Issue a LiveKit token whose room configuration auto-dispatches the
@@ -70,12 +71,18 @@ async def get_token(
     if not customer_data:
         raise HTTPException(status_code=404, detail=f"Customer {customer_id} not found.")
 
+    if call_mode == "outbound":
+        outbound_reason = resolve_outbound_reason(customer_data, outbound_reason)
+    else:
+        outbound_reason = None
+
     room_name = _room_name(customer_id, session_id)
     identity = f"loanmate-user-{customer_id}-{session_id}"
 
     dispatch_metadata = json.dumps(
         {
             "customer_id": customer_id,
+            "session_id": session_id,
             "call_mode": call_mode,
             "outbound_reason": outbound_reason,
             "language": language,

@@ -6,8 +6,11 @@ import LanguagePills, { Language } from "./LanguagePills";
 import { OutboundReason } from "../lib/api";
 
 const OUTBOUND_REASONS: { value: OutboundReason; label: string }[] = [
+  { value: "auto", label: "Auto" },
   { value: "emi_reminder", label: "EMI Reminder" },
-  { value: "product_update", label: "Product Update" },
+  { value: "overdue_followup", label: "Overdue" },
+  { value: "kyc_update", label: "KYC Update" },
+  { value: "product_update", label: "Top-up Offer" },
 ];
 
 export default function Home({
@@ -18,7 +21,7 @@ export default function Home({
   onBankIsCallingYou: (language: Language, reason: OutboundReason) => void;
 }) {
   const [language, setLanguage] = useState<Language>("english");
-  const [outboundReason, setOutboundReason] = useState<OutboundReason>("emi_reminder");
+  const [outboundReason, setOutboundReason] = useState<OutboundReason>("auto");
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center gap-10 px-6 text-center">
@@ -43,7 +46,7 @@ export default function Home({
           📞 Bank is Calling You
         </button>
 
-        <div className="flex justify-center gap-2 pt-1">
+        <div className="flex flex-wrap justify-center gap-2 pt-1">
           {OUTBOUND_REASONS.map((r) => (
             <button
               key={r.value}

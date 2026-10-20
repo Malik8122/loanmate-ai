@@ -7,6 +7,17 @@ existing general-purpose LLM conversation.
 
     text -> detect language -> classify intent -> run tool (if any)
          -> LLM narrates tool result (or general LLM chat if no tool)
+
+On a live call the direction changes what happens first (see
+backend/agents/call_flow.py):
+
+- inbound  — requests the bank must action (statement, NOC, complaint,
+  human callback, ...) raise a service request with a reference number.
+- outbound — LoanMate confirms it has the right person, delivers the
+  campaign's purpose, and records the customer's response as the call
+  outcome; only after that do free-form questions fall through to tools.
+
+Plain text chat passes call_mode=None and skips both.
 """
 
 from __future__ import annotations
@@ -15,10 +26,12 @@ import logging
 import time
 from typing import Any
 
+from backend.agents import call_flow
 from backend.agents.glossary import find_glossary_term, get_definition
 from backend.agents.intent import classify_intent
 from backend.agents.language import resolve_response_language
 from backend.agents.nlu import parse_amount, parse_tenure_years
+from backend.services import call_records
 from backend.services.llm_service import LLMService
 from backend.tools import calculator_tools, loan_tools
 
@@ -31,6 +44,24 @@ _DEFAULT_ELIGIBILITY_RATE = 10.0
 class AgentOrchestrator:
     def __init__(self, llm: LLMService):
         self.llm = llm
+        # Outbound call stage per session: "verify" -> "purpose" -> "done".
+        self._outbound_stage: dict[str, str] = {}
+
+    def start_outbound(self, session_id: str, reason: str, customer_context: dict | None, language: str) -> str:
+        """Begin an outbound campaign call and return its opening line."""
+        self._outbound_stage[session_id] = "verify"
+        customer = (customer_context or {}).get("customer") or {}
+        loan = self._campaign_loan(customer_context, reason)
+        return call_flow.outbound_opener(reason, customer.get("name", "the customer"), (loan or {}).get("loan_type"), language)
+
+    @staticmethod
+    def _campaign_loan(customer_context: dict | None, reason: str | None) -> dict | None:
+        loans = (customer_context or {}).get("loans") or []
+        if reason == "overdue_followup":
+            overdue = next((l for l in loans if l.get("loan_status") == "Overdue"), None)
+            if overdue:
+                return overdue
+        return next((l for l in loans if l.get("loan_status") == "Active"), loans[0] if loans else None)
 
     async def handle(
         self,
@@ -38,8 +69,20 @@ class AgentOrchestrator:
         customer_context: dict | None,
         language: str,
         session_id: str,
+        call_mode: str | None = None,
+        outbound_reason: str | None = None,
     ) -> dict[str, Any]:
         detected_language = resolve_response_language(language, text)
+
+        if call_mode == "outbound" and outbound_reason:
+            scripted = self._handle_outbound(text, customer_context, detected_language, session_id, outbound_reason)
+            if scripted:
+                return scripted
+        elif call_mode == "inbound":
+            ticket = self._handle_inbound_request(text, customer_context, detected_language, session_id)
+            if ticket:
+                return ticket
+
         intent = classify_intent(text)
         trace = [f"Detected language: {detected_language}", f"Classified intent: {intent}"]
         logger.info("[INTENT] %s", intent)
@@ -85,6 +128,85 @@ class AgentOrchestrator:
             "agent_trace": trace,
             "detected_language": detected_language,
         }
+
+    # ------------------------------------------------------------------
+    def _handle_inbound_request(
+        self, text: str, customer_context: dict | None, language: str, session_id: str
+    ) -> dict[str, Any] | None:
+        request_type = call_flow.classify_service_request(text)
+        if request_type is None and classify_intent(text) == "escalate":
+            request_type = "human_callback"
+        if request_type is None:
+            return None
+        customer_id = ((customer_context or {}).get("customer") or {}).get("customer_id", "unknown")
+        record = call_records.raise_service_request(customer_id, request_type, details=text, session_id=session_id)
+        reply = call_flow.service_request_reply(request_type, record["label"], record["reference"], language)
+        return {
+            "reply": reply,
+            "intent": "escalate" if request_type == "human_callback" else "service_request",
+            "escalate": request_type == "human_callback",
+            "tool_used": "raise_service_request",
+            "agent_trace": [
+                f"Detected language: {language}",
+                "Inbound call: service request detected",
+                f"Tool executed: raise_service_request({request_type}) -> {record['reference']}",
+            ],
+            "detected_language": language,
+        }
+
+    def _handle_outbound(
+        self, text: str, customer_context: dict | None, language: str, session_id: str, reason: str
+    ) -> dict[str, Any] | None:
+        stage = self._outbound_stage.get(session_id, "verify")
+        if stage == "done":
+            return None  # campaign finished — normal Q&A from here on
+
+        customer = (customer_context or {}).get("customer") or {}
+        customer_id = customer.get("customer_id", "unknown")
+        trace = [f"Detected language: {language}", f"Outbound call ({reason}), stage: {stage}"]
+
+        def _result(reply: str, tool: str | None = None) -> dict[str, Any]:
+            return {
+                "reply": reply,
+                "intent": f"outbound_{reason}",
+                "escalate": False,
+                "tool_used": tool,
+                "agent_trace": trace,
+                "detected_language": language,
+            }
+
+        def _record(outcome: str) -> dict[str, Any]:
+            amount = call_flow.promised_amount(text) if outcome == "promise_to_pay" else None
+            call_records.record_call_outcome(
+                customer_id, reason, outcome, promised_amount=amount, notes=text, session_id=session_id
+            )
+            self._outbound_stage[session_id] = "done"
+            trace.append(f"Tool executed: record_call_outcome({outcome})")
+            return _result(call_flow.outcome_reply(outcome, language), "record_call_outcome")
+
+        if stage == "verify":
+            # Busy / do-not-call / not-interested can come before confirming identity.
+            early = call_flow.classify_outbound_response(text, reason, {"callback_requested", "do_not_call", "not_interested"})
+            identity = call_flow.classify_identity_reply(text)
+            if identity == "wrong_person" and early is None:
+                trace.append("Right-party check failed — disclosing nothing")
+                return _record("wrong_person")
+            if early:
+                return _record(early)
+            if identity == "confirmed":
+                self._outbound_stage[session_id] = "purpose"
+                trace.append("Right party confirmed — stating purpose")
+                loan = self._campaign_loan(customer_context, reason)
+                first_name = (customer.get("name") or "").split(" ")[0]
+                return _result(call_flow.purpose_message(reason, loan, first_name, language))
+            trace.append("Identity unclear — asking again")
+            return _result(call_flow.identity_retry(customer.get("name", "the customer"), language))
+
+        allowed = call_records.OUTBOUND_OUTCOMES.get(reason, set())
+        outcome = call_flow.classify_outbound_response(text, reason, allowed)
+        if outcome:
+            return _record(outcome)
+        return None  # a question mid-campaign — answer it with the normal tools
 
     # ------------------------------------------------------------------
     def _run_tool(

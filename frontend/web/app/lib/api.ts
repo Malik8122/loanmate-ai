@@ -1,7 +1,12 @@
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000";
 
 export type CallMode = "inbound" | "outbound";
-export type OutboundReason = "product_update" | "emi_reminder";
+export type OutboundReason =
+  | "auto"
+  | "emi_reminder"
+  | "overdue_followup"
+  | "kyc_update"
+  | "product_update";
 
 export interface TokenResponse {
   token: string;

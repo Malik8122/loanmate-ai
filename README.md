@@ -140,6 +140,36 @@ pytest tests/ -v
 
 ---
 
+## Inbound vs Outbound Calls
+
+The two call directions have different purposes, prompts, tools and records:
+
+| | Inbound — customer calls the bank | Outbound — bank calls the customer |
+|---|---|---|
+| Who leads | The customer | LoanMate, with one campaign purpose |
+| Purpose | Service desk: answer questions, resolve requests | `emi_reminder`, `overdue_followup`, `kyc_update` or `product_update` (top-up offer); `auto` picks from the account state |
+| Opening | "How can I help you today?" — no pitching | States purpose, then confirms it is speaking to the right person before sharing any account detail |
+| Agent-only tool | `raise_service_request` (statement, NOC, complaint, fraud report, human callback, ...) with a reference number | `record_call_outcome` (promise to pay, callback, not interested, do not call, wrong person, ...) |
+| Rules | No cross-selling unless the customer asks | Respects busy / not interested / do-not-call; overdue calls follow RBI fair-recovery rules (no threats) |
+
+Prompts live in `backend/voice_agent/prompts.py` (realtime path) and `backend/agents/call_flow.py` (legacy path). Service requests and call outcomes are written to `backend/data/call_records.jsonl` and served at `GET /api/calls/records`; `GET /api/calls/purposes` lists the purposes and outcomes.
+
+## Knowledge Base
+
+`backend/knowledge/` holds the RAG documents, one folder per type:
+
+- `loan_products/`, `policies/`, `faq/`, `documents/` — LoanMate Bank's own (fictional demo) products and policies.
+- `regulations/` — public RBI rules that apply to all Indian banks: prepayment/foreclosure charges, penal charges, Key Fact Statement and APR, repo-linked rates and EMI reset, document return after closure, NPA and fair recovery, KYC, digital lending.
+- `customer_protection/` — RBI Ombudsman and grievance redressal, fraud safety, credit scores and bureaus.
+- `government_schemes/` — PMAY-U 2.0 interest subsidy, education-loan schemes, tax benefits on loans.
+
+Public-information documents name their source and a "last reviewed" date. Rebuild the vector index after editing any document:
+
+```bash
+python -m backend.rag.ingest     # rebuild the FAISS index
+python -m backend.rag.eval_set   # check retrieval quality
+```
+
 ## Current Status
 
 | Component        | Status        |

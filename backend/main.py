@@ -7,7 +7,7 @@ import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.routes import voice, loan, customer, apply, livekit, realtime
+from backend.routes import voice, loan, customer, apply, livekit, realtime, calls
 
 # The root logger defaults to WARNING, which silently drops the [LIVEKIT]/[STT]/
 # [AGENT]/[TOOL]/[TTS] diagnostic logger.info(...) calls used throughout the voice
@@ -40,6 +40,7 @@ app.include_router(apply.router, prefix="/api/apply", tags=["Apply"])
 app.include_router(customer.router, prefix="/api/customer", tags=["Customer"])
 app.include_router(livekit.router, prefix="/api/livekit", tags=["LiveKit"])
 app.include_router(realtime.router, prefix="/api/realtime", tags=["Realtime"])
+app.include_router(calls.router, prefix="/api/calls", tags=["Calls"])
 
 
 # ---------------------------------------------------------------------------

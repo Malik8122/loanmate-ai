@@ -26,12 +26,19 @@ class AgentManager:
         task = self._tasks.get(room_name)
         return task is not None and not task.done()
 
-    def start(self, room_name: str, customer_id: str, session_id: str, call_direction: str = "inbound") -> bool:
+    def start(
+        self,
+        room_name: str,
+        customer_id: str,
+        session_id: str,
+        call_direction: str = "inbound",
+        outbound_reason: str | None = None,
+    ) -> bool:
         """Start the voice agent for a room. Returns False if already running."""
         if self.is_running(room_name):
             return False
 
-        task = asyncio.create_task(run_voice_agent(room_name, customer_id, session_id, call_direction))
+        task = asyncio.create_task(run_voice_agent(room_name, customer_id, session_id, call_direction, outbound_reason))
         self._tasks[room_name] = task
 
         def _on_done(t: asyncio.Task, _room=room_name):

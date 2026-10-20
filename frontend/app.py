@@ -14,10 +14,12 @@ import time
 import uuid
 from datetime import datetime
 
+import os
+
 import requests
 import streamlit as st
 
-API_BASE = "http://localhost:8000"
+API_BASE = os.getenv("API_BASE", "http://localhost:8000")
 
 st.set_page_config(
     page_title="LoanMate",
@@ -204,6 +206,7 @@ def init_state():
     defaults = {
         "call_state": "idle",  # idle | outbound_calling | outbound_incoming | connecting | ended
         "call_direction": None,  # "inbound" | "outbound"
+        "outbound_reason": "auto",  # why the bank is calling (outbound only)
         "session_id": None,
         "selected_customer": None,
         "dark_mode": False,
@@ -266,11 +269,26 @@ def fetch_livekit_token(customer_id: str, session_id: str) -> dict | None:
         return None
 
 
-def start_voice_agent(customer_id: str, session_id: str, call_direction: str) -> bool:
+# Why the bank is calling — each outbound purpose runs a different script and
+# records a different call outcome. "auto" lets the backend pick from the
+# customer's account state (overdue loan > pending KYC > EMI reminder).
+OUTBOUND_REASONS = {
+    "auto": "Auto (based on account)",
+    "emi_reminder": "EMI reminder",
+    "overdue_followup": "Overdue payment follow-up",
+    "kyc_update": "KYC update",
+    "product_update": "Top-up loan offer",
+}
+
+
+def start_voice_agent(customer_id: str, session_id: str, call_direction: str, outbound_reason: str | None = None) -> bool:
+    params = {"customer_id": customer_id, "session_id": session_id, "call_direction": call_direction}
+    if call_direction == "outbound" and outbound_reason:
+        params["outbound_reason"] = outbound_reason
     try:
         resp = requests.post(
             f"{API_BASE}/api/livekit/start-agent",
-            params={"customer_id": customer_id, "session_id": session_id, "call_direction": call_direction},
+            params=params,
             timeout=10,
         )
         return resp.status_code == 200
@@ -374,6 +392,13 @@ def render_home(voice_ready: bool):
     )
     with st.container(key="cta_outbound_btn"):
         outbound_clicked = st.button("Bank is Calling You", key="outbound_btn", use_container_width=True, disabled=not voice_ready)
+    st.session_state.outbound_reason = st.selectbox(
+        "Why is the bank calling?",
+        options=list(OUTBOUND_REASONS),
+        format_func=OUTBOUND_REASONS.get,
+        index=list(OUTBOUND_REASONS).index(st.session_state.outbound_reason),
+        key="outbound_reason_select",
+    )
 
     if not voice_ready:
         st.caption("⚠️ Voice calling needs LiveKit credentials configured on the server (see .env).")
@@ -440,6 +465,7 @@ def render_outbound_incoming(customer_name: str):
             <p class="lm-incoming-name">LoanMate</p>
             <p class="lm-incoming-role">AI Loan Assistant</p>
             <p class="lm-incoming-quote">"LoanMate is calling you, {customer_name.split()[0]}"</p>
+            <p class="lm-incoming-role">Regarding: {OUTBOUND_REASONS.get(st.session_state.outbound_reason, "Your loan")}</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -662,7 +688,7 @@ def render_active_call(customer_id: str, session_id: str, call_direction: str):
         st.error("Unable to connect to the voice service.")
     else:
         if not st.session_state.get(started_key):
-            start_voice_agent(customer_id, session_id, call_direction)
+            start_voice_agent(customer_id, session_id, call_direction, st.session_state.outbound_reason)
             st.session_state[started_key] = True
         render_call_widget(token_data["url"], token_data["token"], session_id, API_BASE)
 

@@ -1,5 +1,205 @@
 [
   {
+    "text": "Credit Scores and Credit Bureaus in India (Public Information) — Overview\n\n> Public information: a plain-language summary of how credit information companies work in India under the Credit Information Companies (Regulation) Act, 2005 and RBI directions, including the RBI compensation framework for credit information complaints (circular of 26 October 2023). General information, not financial advice. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "credit_score_and_bureaus_01",
+      "source_file": "credit_score_and_bureaus.md",
+      "document_type": "customer_protection",
+      "topic": "credit_score_and_bureaus",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "Credit Scores and Credit Bureaus in India (Public Information) — The Four Credit Bureaus\n\nIndia has four RBI-licensed credit information companies (CICs), also called credit bureaus: TransUnion CIBIL, Experian, Equifax and CRIF High Mark. Banks report every borrower's loan and credit card repayment history to them, and check them before approving a new loan.",
+    "metadata": {
+      "chunk_id": "credit_score_and_bureaus_02",
+      "source_file": "credit_score_and_bureaus.md",
+      "document_type": "customer_protection",
+      "topic": "credit_score_and_bureaus",
+      "section": "The Four Credit Bureaus"
+    }
+  },
+  {
+    "text": "Credit Scores and Credit Bureaus in India (Public Information) — Credit Score\n\nA credit score is a three-digit number, usually between 300 and 900, that summarises how reliably a person has repaid credit. Many lenders prefer a score of around 700–750 or above. The main factors are paying EMIs and card bills on time, how much of the available credit limit is used, the length of credit history, the mix of secured and unsecured loans, and how many new loans or cards were applied for recently.",
+    "metadata": {
+      "chunk_id": "credit_score_and_bureaus_03",
+      "source_file": "credit_score_and_bureaus.md",
+      "document_type": "customer_protection",
+      "topic": "credit_score_and_bureaus",
+      "section": "Credit Score"
+    }
+  },
+  {
+    "text": "Credit Scores and Credit Bureaus in India (Public Information) — Free Credit Report\n\nEvery person is entitled to one free full credit report, including the credit score, once a year from each of the four credit bureaus. It can be requested on each bureau's official website. Checking your own report does not lower your score.",
+    "metadata": {
+      "chunk_id": "credit_score_and_bureaus_04",
+      "source_file": "credit_score_and_bureaus.md",
+      "document_type": "customer_protection",
+      "topic": "credit_score_and_bureaus",
+      "section": "Free Credit Report"
+    }
+  },
+  {
+    "text": "Credit Scores and Credit Bureaus in India (Public Information) — Fixing Errors\n\nIf a credit report has a mistake, such as a loan shown as unpaid after it was closed, raise a dispute with the credit bureau or the lender. The lender has 21 days and the bureau 9 days — 30 days in total — to resolve it. If it is not resolved within 30 days, the customer is entitled to compensation of ₹100 for each day of delay.",
+    "metadata": {
+      "chunk_id": "credit_score_and_bureaus_05",
+      "source_file": "credit_score_and_bureaus.md",
+      "document_type": "customer_protection",
+      "topic": "credit_score_and_bureaus",
+      "section": "Fixing Errors"
+    }
+  },
+  {
+    "text": "Credit Scores and Credit Bureaus in India (Public Information) — Alerts and Default Reporting\n\nBanks must inform a borrower before reporting a default to the credit bureaus, and credit bureaus send SMS or email alerts when a customer's credit report is accessed by a lender.",
+    "metadata": {
+      "chunk_id": "credit_score_and_bureaus_06",
+      "source_file": "credit_score_and_bureaus.md",
+      "document_type": "customer_protection",
+      "topic": "credit_score_and_bureaus",
+      "section": "Alerts and Default Reporting"
+    }
+  },
+  {
+    "text": "Credit Scores and Credit Bureaus in India (Public Information) — Frequently Asked Questions\n\n**Will one late EMI affect my credit score?**\nYes, any EMI reported as overdue (even in the SMA-0 stage of up to 30 days) can lower the score. Paying as soon as possible and keeping later payments on time helps it recover.\n\n**Does closing a loan early hurt my credit score?**\nNo. A loan closed in full is reported as closed and generally does not hurt the score.",
+    "metadata": {
+      "chunk_id": "credit_score_and_bureaus_07",
+      "source_file": "credit_score_and_bureaus.md",
+      "document_type": "customer_protection",
+      "topic": "credit_score_and_bureaus",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "Banking Fraud Safety and Genuine Bank Calls (Public Information) — Overview\n\n> Public information: a plain-language summary of RBI guidance on customer protection in unauthorised electronic transactions (circular of 6 July 2017), the RBI circular on use of 1600xx and 140xx numbers for bank calls (17 January 2025), and Government of India cyber-fraud reporting channels. General information, not legal advice. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "fraud_safety_01",
+      "source_file": "fraud_safety.md",
+      "document_type": "customer_protection",
+      "topic": "fraud_safety",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "Banking Fraud Safety and Genuine Bank Calls (Public Information) — What a Bank Will Never Ask For\n\nA genuine bank, its staff, or its voice assistant will never ask for an OTP, UPI PIN, ATM PIN, CVV, net-banking password, or full card number — not on a call, SMS, email, WhatsApp or link. A genuine bank will also never ask a customer to install a screen-sharing or remote-access app, or to \"verify KYC\" by clicking a link.",
+    "metadata": {
+      "chunk_id": "fraud_safety_02",
+      "source_file": "fraud_safety.md",
+      "document_type": "customer_protection",
+      "topic": "fraud_safety",
+      "section": "What a Bank Will Never Ask For"
+    }
+  },
+  {
+    "text": "Banking Fraud Safety and Genuine Bank Calls (Public Information) — How to Recognise a Genuine Bank Call\n\nUnder RBI's January 2025 instructions, banks are to use numbers starting with 1600 for service and transaction-related calls, and numbers starting with 140 for promotional calls. Calls about your account from ordinary 10-digit mobile numbers should be treated with suspicion. When in doubt, hang up and call the number printed on the back of your card or on the bank's official website.",
+    "metadata": {
+      "chunk_id": "fraud_safety_03",
+      "source_file": "fraud_safety.md",
+      "document_type": "customer_protection",
+      "topic": "fraud_safety",
+      "section": "How to Recognise a Genuine Bank Call"
+    }
+  },
+  {
+    "text": "Banking Fraud Safety and Genuine Bank Calls (Public Information) — If You Are a Victim of Fraud\n\nAct immediately: call the national cyber fraud helpline 1930 or report at cybercrime.gov.in, and inform your bank so it can block the card or account. Suspected fraud calls and messages, even if no money was lost, can be reported through Chakshu on the Sanchar Saathi portal.",
+    "metadata": {
+      "chunk_id": "fraud_safety_04",
+      "source_file": "fraud_safety.md",
+      "document_type": "customer_protection",
+      "topic": "fraud_safety",
+      "section": "If You Are a Victim of Fraud"
+    }
+  },
+  {
+    "text": "Banking Fraud Safety and Genuine Bank Calls (Public Information) — Your Liability for Unauthorised Transactions\n\nUnder RBI rules, if an unauthorised electronic transaction happened because of a fault at the bank's end, or a third-party breach that the customer reports within 3 working days, the customer has zero liability. If reported within 4 to 7 working days, the customer's liability is limited to the transaction amount or a cap of ₹5,000 to ₹25,000 depending on the account type, whichever is lower. The bank must credit the disputed amount (shadow reversal) within 10 working days of being informed.",
+    "metadata": {
+      "chunk_id": "fraud_safety_05",
+      "source_file": "fraud_safety.md",
+      "document_type": "customer_protection",
+      "topic": "fraud_safety",
+      "section": "Your Liability for Unauthorised Transactions"
+    }
+  },
+  {
+    "text": "Banking Fraud Safety and Genuine Bank Calls (Public Information) — Frequently Asked Questions\n\n**Someone from \"the bank\" said my loan EMI bounced and I must pay through a link. Is it real?**\nTreat it as suspicious. Pay only through your bank's official app, website, branch or auto-debit — never through a link sent by an unknown caller.\n\n**I shared my OTP by mistake. What now?**\nCall your bank right away to block the card or account, then call 1930 and report at cybercrime.gov.in. Reporting within 3 working days protects your rights under RBI rules.",
+    "metadata": {
+      "chunk_id": "fraud_safety_06",
+      "source_file": "fraud_safety.md",
+      "document_type": "customer_protection",
+      "topic": "fraud_safety",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "Complaints, Grievance Redressal and the RBI Ombudsman (Public Information) — Overview\n\n> Public information: a plain-language summary of the Reserve Bank – Integrated Ombudsman Scheme, 2026 (effective 1 July 2026, replacing the 2021 scheme). Applies to all banks and RBI-regulated entities. General information, not legal advice — check rbi.org.in and cms.rbi.org.in for the current text. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "grievance_and_rbi_ombudsman_01",
+      "source_file": "grievance_and_rbi_ombudsman.md",
+      "document_type": "customer_protection",
+      "topic": "grievance_and_rbi_ombudsman",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "Complaints, Grievance Redressal and the RBI Ombudsman (Public Information) — Step 1 — Complain to the Bank First\n\nA complaint must first be made to the bank itself — at a branch, through its customer care, website or app, or to its grievance redressal or nodal officer, whose contact details every bank must publish. The bank should acknowledge the complaint and give a reference number. Banks generally have up to 30 days to resolve a complaint.",
+    "metadata": {
+      "chunk_id": "grievance_and_rbi_ombudsman_02",
+      "source_file": "grievance_and_rbi_ombudsman.md",
+      "document_type": "customer_protection",
+      "topic": "grievance_and_rbi_ombudsman",
+      "section": "Step 1 — Complain to the Bank First"
+    }
+  },
+  {
+    "text": "Complaints, Grievance Redressal and the RBI Ombudsman (Public Information) — Step 2 — RBI Ombudsman\n\nIf the bank rejects the complaint, does not reply within the allowed time, or the customer is not satisfied with the reply, the customer can complain to the RBI Ombudsman. Under the 2026 scheme the complaint must be filed within 90 days from the end of the bank's response period or from the bank's last reply, whichever is later. Filing is free and does not need a lawyer.",
+    "metadata": {
+      "chunk_id": "grievance_and_rbi_ombudsman_03",
+      "source_file": "grievance_and_rbi_ombudsman.md",
+      "document_type": "customer_protection",
+      "topic": "grievance_and_rbi_ombudsman",
+      "section": "Step 2 — RBI Ombudsman"
+    }
+  },
+  {
+    "text": "Complaints, Grievance Redressal and the RBI Ombudsman (Public Information) — How to File\n\nOnline at the RBI Complaint Management System (cms.rbi.org.in), by email, or by post to the RBI's Centralised Receipt and Processing Centre. The RBI's toll-free contact centre number is 14448, which also helps with filing and tracking complaints.",
+    "metadata": {
+      "chunk_id": "grievance_and_rbi_ombudsman_04",
+      "source_file": "grievance_and_rbi_ombudsman.md",
+      "document_type": "customer_protection",
+      "topic": "grievance_and_rbi_ombudsman",
+      "section": "How to File"
+    }
+  },
+  {
+    "text": "Complaints, Grievance Redressal and the RBI Ombudsman (Public Information) — Compensation\n\nThe Ombudsman can award compensation of up to ₹30 lakh for the actual financial loss suffered, plus up to ₹3 lakh for the customer's loss of time, expenses, harassment and mental anguish. There is no limit on the amount in dispute that can be complained about.",
+    "metadata": {
+      "chunk_id": "grievance_and_rbi_ombudsman_05",
+      "source_file": "grievance_and_rbi_ombudsman.md",
+      "document_type": "customer_protection",
+      "topic": "grievance_and_rbi_ombudsman",
+      "section": "Compensation"
+    }
+  },
+  {
+    "text": "Complaints, Grievance Redressal and the RBI Ombudsman (Public Information) — What the Ombudsman Does Not Handle\n\nCommercial decisions of the bank (such as whether to approve a loan or the interest rate it offers, unless a regulation is broken), matters already before a court or another forum, and disputes about services outside the RBI's purview. Either side can appeal an Ombudsman's decision to the Appellate Authority within 30 days.",
+    "metadata": {
+      "chunk_id": "grievance_and_rbi_ombudsman_06",
+      "source_file": "grievance_and_rbi_ombudsman.md",
+      "document_type": "customer_protection",
+      "topic": "grievance_and_rbi_ombudsman",
+      "section": "What the Ombudsman Does Not Handle"
+    }
+  },
+  {
+    "text": "Complaints, Grievance Redressal and the RBI Ombudsman (Public Information) — Frequently Asked Questions\n\n**My bank hasn't returned my property papers two months after I closed my loan. Can I complain?**\nYes. Complain to the bank first; if it is not resolved, the RBI Ombudsman can take it up. RBI rules also require the bank to pay ₹5,000 per day of delay beyond 30 days.",
+    "metadata": {
+      "chunk_id": "grievance_and_rbi_ombudsman_07",
+      "source_file": "grievance_and_rbi_ombudsman.md",
+      "document_type": "customer_protection",
+      "topic": "grievance_and_rbi_ombudsman",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
     "text": "LoanMate Bank (Demo) — Required Documents by Loan Type — Overview\n\n> This is fictional demo content for \"LoanMate Bank,\" created for the LoanMate AI academic project.",
     "metadata": {
       "chunk_id": "required_documents_01",
@@ -150,9 +350,39 @@
     }
   },
   {
-    "text": "LoanMate Bank (Demo) — General Banking FAQ — Section: Data and Privacy\n\n**Is my information safe with LoanMate?**\nThis is a demonstration project using mock, non-real customer and loan data. It does not represent the security practices of a real bank and should not be evaluated as production banking software.",
+    "text": "LoanMate Bank (Demo) — General Banking FAQ — Section: Calling LoanMate vs LoanMate Calling You\n\n**What can I do when I call LoanMate?**\nWhen you call, LoanMate is your service desk: ask about your EMI, balance, due date or loan status, ask about products and policies, or request a service — an account statement, a no-dues certificate, a foreclosure quote, an interest certificate, a complaint, or a callback from a human officer. Every request gets a reference number.\n\n**Why would LoanMate call me?**\nLoanMate calls only for a specific reason: a reminder about an upcoming EMI, a follow-up on an overdue payment, a pending KYC update, or a product update such as a top-up loan offer. It will first confirm it is speaking to the right person before sharing any account details, and it will respect a request to call back later or not to call again.\n\n**Will LoanMate ask for my OTP or PIN?**\nNever. Neither LoanMate nor any genuine bank asks for an OTP, PIN, CVV or password on a call.",
     "metadata": {
       "chunk_id": "general_banking_faq_04",
+      "source_file": "general_banking_faq.md",
+      "document_type": "faq",
+      "topic": "general_banking_faq",
+      "section": "Section: Calling LoanMate vs LoanMate Calling You"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Banking FAQ — Section: Complaints\n\n**How do I complain about a service issue?**\nTell LoanMate on a call and it will register a complaint with a reference number. If a complaint is not resolved within 30 days, or you are not satisfied with the reply, you can escalate it to the RBI Ombudsman at cms.rbi.org.in or on the toll-free number 14448.",
+    "metadata": {
+      "chunk_id": "general_banking_faq_05",
+      "source_file": "general_banking_faq.md",
+      "document_type": "faq",
+      "topic": "general_banking_faq",
+      "section": "Section: Complaints"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Banking FAQ — Section: Deposit Insurance\n\n**Are bank deposits insured?**\nYes. Deposits in banks in India are insured by the Deposit Insurance and Credit Guarantee Corporation (DICGC), an RBI subsidiary, up to ₹5 lakh per depositor per bank, covering principal and interest together.",
+    "metadata": {
+      "chunk_id": "general_banking_faq_06",
+      "source_file": "general_banking_faq.md",
+      "document_type": "faq",
+      "topic": "general_banking_faq",
+      "section": "Section: Deposit Insurance"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — General Banking FAQ — Section: Data and Privacy\n\n**Is my information safe with LoanMate?**\nThis is a demonstration project using mock, non-real customer and loan data. It does not represent the security practices of a real bank and should not be evaluated as production banking software.",
+    "metadata": {
+      "chunk_id": "general_banking_faq_07",
       "source_file": "general_banking_faq.md",
       "document_type": "faq",
       "topic": "general_banking_faq",
@@ -162,7 +392,7 @@
   {
     "text": "LoanMate Bank (Demo) — General Banking FAQ — Section: Language Support\n\n**What languages does LoanMate support?**\nLoanMate understands and responds in English, Hindi, and Hinglish (a natural mix of Hindi and English). Other languages, including Urdu, are not supported.",
     "metadata": {
-      "chunk_id": "general_banking_faq_05",
+      "chunk_id": "general_banking_faq_08",
       "source_file": "general_banking_faq.md",
       "document_type": "faq",
       "topic": "general_banking_faq",
@@ -217,6 +447,336 @@
       "document_type": "faq",
       "topic": "loan_faq",
       "section": "Section: Collateral"
+    }
+  },
+  {
+    "text": "Government Education Loan Schemes (Public Information) — Overview\n\n> Public information: a plain-language summary of the Indian Banks' Association (IBA) Model Education Loan Scheme and Ministry of Education schemes — PM-Vidyalaxmi (approved November 2024), Central Sector Interest Subsidy (CSIS) and the Credit Guarantee Fund Scheme for Education Loans (CGFSEL). General information — check pmvidyalaxmi.co.in and the lender for current terms. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "education_loan_schemes_01",
+      "source_file": "education_loan_schemes.md",
+      "document_type": "government_schemes",
+      "topic": "education_loan_schemes",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "Government Education Loan Schemes (Public Information) — IBA Model Education Loan Scheme\n\nMost banks follow the IBA model scheme for education loans in India and abroad. The repayment holiday (moratorium) is the course period plus one year. Repayment can then be spread over up to 15 years. For loans up to ₹4 lakh no margin money is usually needed, and loans up to ₹7.5 lakh are generally given without collateral, backed by a government credit guarantee.",
+    "metadata": {
+      "chunk_id": "education_loan_schemes_02",
+      "source_file": "education_loan_schemes.md",
+      "document_type": "government_schemes",
+      "topic": "education_loan_schemes",
+      "section": "IBA Model Education Loan Scheme"
+    }
+  },
+  {
+    "text": "Government Education Loan Schemes (Public Information) — PM-Vidyalaxmi\n\nPM-Vidyalaxmi offers collateral-free and guarantor-free education loans to students admitted to quality higher education institutions (based on national NIRF rankings). For loans up to ₹7.5 lakh, the Government guarantees 75% of any default to the bank. Students with family income up to ₹8 lakh a year, not covered by other schemes, get 3% interest subvention during the moratorium on loans up to ₹10 lakh. Applications are made on the PM-Vidyalaxmi portal.",
+    "metadata": {
+      "chunk_id": "education_loan_schemes_03",
+      "source_file": "education_loan_schemes.md",
+      "document_type": "government_schemes",
+      "topic": "education_loan_schemes",
+      "section": "PM-Vidyalaxmi"
+    }
+  },
+  {
+    "text": "Government Education Loan Schemes (Public Information) — Central Sector Interest Subsidy (CSIS)\n\nStudents from families with annual income up to ₹4.5 lakh can get full interest subsidy during the moratorium period on education loans up to ₹10 lakh taken under the IBA model scheme for recognised courses in India. This is in addition to the PM-Vidyalaxmi 3% subvention for the ₹4.5–8 lakh income band.",
+    "metadata": {
+      "chunk_id": "education_loan_schemes_04",
+      "source_file": "education_loan_schemes.md",
+      "document_type": "government_schemes",
+      "topic": "education_loan_schemes",
+      "section": "Central Sector Interest Subsidy (CSIS)"
+    }
+  },
+  {
+    "text": "Government Education Loan Schemes (Public Information) — Tax Benefit on Education Loan Interest\n\nUnder the old income-tax regime, the full interest paid on an education loan for higher studies of yourself, your spouse or children can be deducted (Section 80E of the Income-tax Act, 1961), with no upper limit, for up to 8 years from the year repayment starts. See the loan tax benefits document for details.",
+    "metadata": {
+      "chunk_id": "education_loan_schemes_05",
+      "source_file": "education_loan_schemes.md",
+      "document_type": "government_schemes",
+      "topic": "education_loan_schemes",
+      "section": "Tax Benefit on Education Loan Interest"
+    }
+  },
+  {
+    "text": "Government Education Loan Schemes (Public Information) — Frequently Asked Questions\n\n**Do I need collateral for a ₹6 lakh education loan?**\nUsually not — loans up to ₹7.5 lakh are generally collateral-free under the IBA model scheme and the government credit guarantee, though the bank may still ask for a parent or guardian as co-borrower.",
+    "metadata": {
+      "chunk_id": "education_loan_schemes_06",
+      "source_file": "education_loan_schemes.md",
+      "document_type": "government_schemes",
+      "topic": "education_loan_schemes",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "Income Tax Benefits on Loans in India (Public Information) — Overview\n\n> Public information: a plain-language summary of income-tax deductions on loans. Section numbers refer to the Income-tax Act, 1961; the Income-tax Act, 2025, which applies from 1 April 2026, renumbers these provisions. General information, not tax advice — consult a tax professional for your situation. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "loan_tax_benefits_01",
+      "source_file": "loan_tax_benefits.md",
+      "document_type": "government_schemes",
+      "topic": "loan_tax_benefits",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "Income Tax Benefits on Loans in India (Public Information) — Old vs New Tax Regime\n\nMost loan-related deductions are available only under the old tax regime. The new tax regime, which is the default, has lower tax rates but does not allow the principal deduction (Section 80C), the self-occupied home loan interest deduction, or the education loan interest deduction (Section 80E). A taxpayer can compare both and choose.",
+    "metadata": {
+      "chunk_id": "loan_tax_benefits_02",
+      "source_file": "loan_tax_benefits.md",
+      "document_type": "government_schemes",
+      "topic": "loan_tax_benefits",
+      "section": "Old vs New Tax Regime"
+    }
+  },
+  {
+    "text": "Income Tax Benefits on Loans in India (Public Information) — Home Loan\n\nUnder the old regime: principal repaid on a home loan can be claimed under Section 80C, within the overall ₹1.5 lakh limit (shared with PPF, ELSS, life insurance, etc.); interest paid on a loan for a self-occupied house can be deducted up to ₹2 lakh a year under Section 24(b). For a let-out property, interest is deductible against rental income under both regimes, but the loss that can be set off against other income is limited. Joint home-loan borrowers who are also co-owners can each claim these deductions separately.",
+    "metadata": {
+      "chunk_id": "loan_tax_benefits_03",
+      "source_file": "loan_tax_benefits.md",
+      "document_type": "government_schemes",
+      "topic": "loan_tax_benefits",
+      "section": "Home Loan"
+    }
+  },
+  {
+    "text": "Income Tax Benefits on Loans in India (Public Information) — Education Loan\n\nUnder the old regime, the entire interest paid on an education loan from a bank or approved institution — for higher studies of yourself, your spouse, your children, or a student you are the legal guardian of — is deductible under Section 80E, with no upper limit. The deduction is available for up to 8 years, starting from the year repayment begins. The principal repaid is not deductible.",
+    "metadata": {
+      "chunk_id": "loan_tax_benefits_04",
+      "source_file": "loan_tax_benefits.md",
+      "document_type": "government_schemes",
+      "topic": "loan_tax_benefits",
+      "section": "Education Loan"
+    }
+  },
+  {
+    "text": "Income Tax Benefits on Loans in India (Public Information) — Personal, Car and Gold Loans\n\nThere is generally no tax deduction for personal, car or gold loans used for personal purposes. If the money is used for business, or to buy, build or renovate a house, the interest may be deductible under the relevant business or house-property rules, with supporting proof.",
+    "metadata": {
+      "chunk_id": "loan_tax_benefits_05",
+      "source_file": "loan_tax_benefits.md",
+      "document_type": "government_schemes",
+      "topic": "loan_tax_benefits",
+      "section": "Personal, Car and Gold Loans"
+    }
+  },
+  {
+    "text": "Income Tax Benefits on Loans in India (Public Information) — Interest Certificate\n\nTo claim home or education loan deductions, ask the bank for an interest certificate (a provisional certificate during the year and a final certificate after 31 March) showing the principal and interest paid.",
+    "metadata": {
+      "chunk_id": "loan_tax_benefits_06",
+      "source_file": "loan_tax_benefits.md",
+      "document_type": "government_schemes",
+      "topic": "loan_tax_benefits",
+      "section": "Interest Certificate"
+    }
+  },
+  {
+    "text": "PMAY-Urban 2.0 Home Loan Interest Subsidy (Public Information) — Overview\n\n> Public information: a plain-language summary of the Interest Subsidy Scheme (ISS) under Pradhan Mantri Awas Yojana – Urban 2.0, run by the Ministry of Housing and Urban Affairs, Government of India. Source: pmaymis.gov.in. General information — eligibility is decided by the lender and the scheme's nodal agencies. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "pmay_urban_2_interest_subsidy_01",
+      "source_file": "pmay_urban_2_interest_subsidy.md",
+      "document_type": "government_schemes",
+      "topic": "pmay_urban_2_interest_subsidy",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "PMAY-Urban 2.0 Home Loan Interest Subsidy (Public Information) — What the Scheme Offers\n\nPMAY-U 2.0's Interest Subsidy Scheme gives first-time home buyers in urban areas from lower- and middle-income families a government subsidy on home loan interest. It applies to home loans sanctioned and disbursed on or after 1 September 2024.",
+    "metadata": {
+      "chunk_id": "pmay_urban_2_interest_subsidy_02",
+      "source_file": "pmay_urban_2_interest_subsidy.md",
+      "document_type": "government_schemes",
+      "topic": "pmay_urban_2_interest_subsidy",
+      "section": "What the Scheme Offers"
+    }
+  },
+  {
+    "text": "PMAY-Urban 2.0 Home Loan Interest Subsidy (Public Information) — Subsidy Amount\n\nThe subsidy is 4% interest on the first ₹8 lakh of the home loan, calculated over up to 12 years, with a maximum benefit of ₹1.80 lakh. The loan itself can be larger than ₹8 lakh, but the subsidy is calculated only on the first ₹8 lakh. The subsidy is released to the borrower's loan account in up to five yearly instalments.",
+    "metadata": {
+      "chunk_id": "pmay_urban_2_interest_subsidy_03",
+      "source_file": "pmay_urban_2_interest_subsidy.md",
+      "document_type": "government_schemes",
+      "topic": "pmay_urban_2_interest_subsidy",
+      "section": "Subsidy Amount"
+    }
+  },
+  {
+    "text": "PMAY-Urban 2.0 Home Loan Interest Subsidy (Public Information) — Who Is Eligible\n\nFamilies in the Economically Weaker Section (annual household income up to ₹3 lakh), Low Income Group (₹3 lakh to ₹6 lakh) and Middle Income Group (₹6 lakh to ₹9 lakh). The family must not own a pucca house anywhere in India. The home loan must be up to ₹25 lakh, for a house worth up to ₹35 lakh, with a carpet area up to 120 square metres.",
+    "metadata": {
+      "chunk_id": "pmay_urban_2_interest_subsidy_04",
+      "source_file": "pmay_urban_2_interest_subsidy.md",
+      "document_type": "government_schemes",
+      "topic": "pmay_urban_2_interest_subsidy",
+      "section": "Who Is Eligible"
+    }
+  },
+  {
+    "text": "PMAY-Urban 2.0 Home Loan Interest Subsidy (Public Information) — How to Apply\n\nApply on the PMAY-U 2.0 portal (pmaymis.gov.in) or through a participating bank or housing finance company when taking the home loan. The loan account must stay regular for the instalments to be released.",
+    "metadata": {
+      "chunk_id": "pmay_urban_2_interest_subsidy_05",
+      "source_file": "pmay_urban_2_interest_subsidy.md",
+      "document_type": "government_schemes",
+      "topic": "pmay_urban_2_interest_subsidy",
+      "section": "How to Apply"
+    }
+  },
+  {
+    "text": "PMAY-Urban 2.0 Home Loan Interest Subsidy (Public Information) — Frequently Asked Questions\n\n**I earn ₹8 lakh a year and am buying my first flat for ₹30 lakh with a ₹20 lakh loan. Could I be eligible?**\nYour income falls in the Middle Income Group and the loan and property values are within limits, so you may be eligible, subject to the scheme's other conditions and the lender's checks.",
+    "metadata": {
+      "chunk_id": "pmay_urban_2_interest_subsidy_06",
+      "source_file": "pmay_urban_2_interest_subsidy.md",
+      "document_type": "government_schemes",
+      "topic": "pmay_urban_2_interest_subsidy",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Business Loan — Overview\n\n> This is a fictional demo product of \"LoanMate Bank,\" created for the LoanMate AI academic project. It does not describe a real bank's policy. Figures are in line with typical ranges at Indian banks; government scheme details are public information.",
+    "metadata": {
+      "chunk_id": "business_loan_01",
+      "source_file": "business_loan.md",
+      "document_type": "loan_products",
+      "topic": "business_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Business Loan — Overview\n\nThe LoanMate Business Loan funds working capital, equipment purchase, inventory or expansion for self-employed professionals, proprietors, partnerships and micro, small and medium enterprises (MSMEs).",
+    "metadata": {
+      "chunk_id": "business_loan_02",
+      "source_file": "business_loan.md",
+      "document_type": "loan_products",
+      "topic": "business_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Business Loan — Interest Rate, Amount and Tenure\n\nUnsecured business loans carry an interest rate of 11% to 18% per annum, for amounts from ₹1 lakh to ₹50 lakh and a tenure of 1 to 5 years. Secured business loans and loans against property are available at lower rates for larger amounts.",
+    "metadata": {
+      "chunk_id": "business_loan_03",
+      "source_file": "business_loan.md",
+      "document_type": "loan_products",
+      "topic": "business_loan",
+      "section": "Interest Rate, Amount and Tenure"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Business Loan — Charges\n\nA processing fee of up to 2% of the loan amount plus GST. Under RBI's 2025 prepayment directions, floating-rate business loans taken by individuals and micro and small enterprises from commercial banks carry no prepayment charges; fixed-rate business loans may carry a prepayment charge of 2% to 4% of the outstanding principal, as disclosed in the Key Fact Statement.",
+    "metadata": {
+      "chunk_id": "business_loan_04",
+      "source_file": "business_loan.md",
+      "document_type": "loan_products",
+      "topic": "business_loan",
+      "section": "Charges"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Business Loan — Eligibility and Documents\n\nBusiness running for at least 2 years, with a minimum annual turnover of ₹10 lakh and a credit score of 700 or above preferred. Documents: KYC of the business and owners, business registration (GST certificate, Udyam registration or trade licence), the last 2 years' IT returns with audited financials, and the last 12 months' bank statements.",
+    "metadata": {
+      "chunk_id": "business_loan_05",
+      "source_file": "business_loan.md",
+      "document_type": "loan_products",
+      "topic": "business_loan",
+      "section": "Eligibility and Documents"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Business Loan — Government-Backed Options\n\nMicro and small enterprises can get collateral-free loans under the Credit Guarantee Fund Trust for Micro and Small Enterprises (CGTMSE), where the government trust guarantees a share of the loan. Small businesses can also apply for Pradhan Mantri Mudra Yojana (PMMY) loans for non-farm income-generating activities through banks.",
+    "metadata": {
+      "chunk_id": "business_loan_06",
+      "source_file": "business_loan.md",
+      "document_type": "loan_products",
+      "topic": "business_loan",
+      "section": "Government-Backed Options"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Business Loan — Frequently Asked Questions\n\n**What happens if my business loan becomes overdue?**\nThe same RBI rules apply as for other loans: overdue accounts are reported as SMA and, after 90 days overdue, classified as NPA. Talk to the bank early about rescheduling if cash flow is tight.",
+    "metadata": {
+      "chunk_id": "business_loan_07",
+      "source_file": "business_loan.md",
+      "document_type": "loan_products",
+      "topic": "business_loan",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Car Loan — Overview\n\n> This is a fictional demo product of \"LoanMate Bank,\" created for the LoanMate AI academic project. It does not describe a real bank's policy. Figures are in line with typical ranges at Indian banks.",
+    "metadata": {
+      "chunk_id": "car_loan_01",
+      "source_file": "car_loan.md",
+      "document_type": "loan_products",
+      "topic": "car_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Car Loan — Overview\n\nThe LoanMate Car Loan finances the purchase of a new car, or a used car up to 5 years old. The car is hypothecated to the bank — the bank's interest is recorded on the registration certificate (RC) until the loan is fully repaid.",
+    "metadata": {
+      "chunk_id": "car_loan_02",
+      "source_file": "car_loan.md",
+      "document_type": "loan_products",
+      "topic": "car_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Car Loan — Interest Rate\n\nNew car loans carry an interest rate of 8.75% to 12% per annum, and used car loans 11% to 15% per annum, depending on the customer's credit score and income. Car loans are usually on a fixed rate.",
+    "metadata": {
+      "chunk_id": "car_loan_03",
+      "source_file": "car_loan.md",
+      "document_type": "loan_products",
+      "topic": "car_loan",
+      "section": "Interest Rate"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Car Loan — Loan Amount and Tenure\n\nUp to 90% of the on-road price for new cars and up to 80% of the valuation for used cars. The repayment tenure is 1 to 7 years for new cars and up to 5 years for used cars.",
+    "metadata": {
+      "chunk_id": "car_loan_04",
+      "source_file": "car_loan.md",
+      "document_type": "loan_products",
+      "topic": "car_loan",
+      "section": "Loan Amount and Tenure"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Car Loan — Charges\n\nA processing fee of up to 1% of the loan amount plus GST. Fixed-rate car loans carry a prepayment or foreclosure charge of up to 5% of the outstanding principal if closed within the first 12 months and up to 3% after that, as stated in the Key Fact Statement.",
+    "metadata": {
+      "chunk_id": "car_loan_05",
+      "source_file": "car_loan.md",
+      "document_type": "loan_products",
+      "topic": "car_loan",
+      "section": "Charges"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Car Loan — Eligibility and Documents\n\nAge 21 to 65 years, minimum income of ₹25,000 per month (salaried) or ₹3 lakh per year (self-employed), and a credit score of 700 or above preferred. Documents: KYC, the latest 3 months' salary slips or 2 years' IT returns, the last 6 months' bank statements, and the car's pro-forma invoice.",
+    "metadata": {
+      "chunk_id": "car_loan_06",
+      "source_file": "car_loan.md",
+      "document_type": "loan_products",
+      "topic": "car_loan",
+      "section": "Eligibility and Documents"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Car Loan — After Closing the Loan\n\nOnce the loan is repaid, LoanMate issues a no-objection certificate (NOC) and Form 35 so the hypothecation can be removed from the RC at the RTO. Under RBI rules, original documents must be returned within 30 days of closure.",
+    "metadata": {
+      "chunk_id": "car_loan_07",
+      "source_file": "car_loan.md",
+      "document_type": "loan_products",
+      "topic": "car_loan",
+      "section": "After Closing the Loan"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Car Loan — Frequently Asked Questions\n\n**Can I sell my car before the loan is closed?**\nOnly after closing the loan or with the bank's consent, because the car is hypothecated to the bank.",
+    "metadata": {
+      "chunk_id": "car_loan_08",
+      "source_file": "car_loan.md",
+      "document_type": "loan_products",
+      "topic": "car_loan",
+      "section": "Frequently Asked Questions"
     }
   },
   {
@@ -306,6 +866,76 @@
       "source_file": "education_loan.md",
       "document_type": "loan_products",
       "topic": "education_loan",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Gold Loan — Overview\n\n> This is a fictional demo product of \"LoanMate Bank,\" created for the LoanMate AI academic project. The interest rate and charges are demo values; the loan-to-value and gold-return rules summarise the public RBI (Lending Against Gold and Silver Collateral) Directions, 2025, which apply from 1 April 2026.",
+    "metadata": {
+      "chunk_id": "gold_loan_01",
+      "source_file": "gold_loan.md",
+      "document_type": "loan_products",
+      "topic": "gold_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Gold Loan — Overview\n\nThe LoanMate Gold Loan is a secured loan against gold jewellery or coins. It is quick to sanction, needs little documentation, and the gold is kept in the bank's secure custody until the loan is repaid.",
+    "metadata": {
+      "chunk_id": "gold_loan_02",
+      "source_file": "gold_loan.md",
+      "document_type": "loan_products",
+      "topic": "gold_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Gold Loan — Interest Rate and Tenure\n\nIn this demo policy, gold loans carry an interest rate of 8.5% to 14% per annum, for a tenure of up to 12 months. Customers can pay a regular EMI, pay interest monthly and the principal at the end, or repay everything in one bullet payment at the end of the tenure.",
+    "metadata": {
+      "chunk_id": "gold_loan_03",
+      "source_file": "gold_loan.md",
+      "document_type": "loan_products",
+      "topic": "gold_loan",
+      "section": "Interest Rate and Tenure"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Gold Loan — Loan-to-Value (LTV) — RBI Limits\n\nUnder the RBI's 2025 gold-loan directions, for consumption loans the bank can lend up to 85% of the gold's value for loans up to ₹2.5 lakh, up to 80% for loans above ₹2.5 lakh and up to ₹5 lakh, and up to 75% for larger loans. For bullet-repayment loans, the interest due over the tenure is counted within this limit. Gold is valued at the average closing price of 22-carat gold of the previous 30 days or the previous day, whichever is lower; stones and other metals are not counted.",
+    "metadata": {
+      "chunk_id": "gold_loan_04",
+      "source_file": "gold_loan.md",
+      "document_type": "loan_products",
+      "topic": "gold_loan",
+      "section": "Loan-to-Value (LTV) — RBI Limits"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Gold Loan — Documents\n\nKYC documents only. For small loans, if the customer does not have the original purchase receipt, a self-declaration of ownership is accepted. Gold bars and gold ETFs are not accepted as collateral.",
+    "metadata": {
+      "chunk_id": "gold_loan_05",
+      "source_file": "gold_loan.md",
+      "document_type": "loan_products",
+      "topic": "gold_loan",
+      "section": "Documents"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Gold Loan — Return of Gold\n\nAfter the loan is fully repaid, the gold must be returned within 7 working days. Under the RBI directions, if the delay is the bank's fault, the bank pays ₹5,000 per day of delay. If the loan is not repaid, the bank may auction the gold only after giving the borrower prior notice, and must return any surplus after recovering its dues.",
+    "metadata": {
+      "chunk_id": "gold_loan_06",
+      "source_file": "gold_loan.md",
+      "document_type": "loan_products",
+      "topic": "gold_loan",
+      "section": "Return of Gold"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Gold Loan — Frequently Asked Questions\n\n**How much can I get on 20 grams of gold?**\nIt depends on the gold's purity and current price. For a loan up to ₹2.5 lakh, the bank can lend up to 85% of the gold's assessed value.",
+    "metadata": {
+      "chunk_id": "gold_loan_07",
+      "source_file": "gold_loan.md",
+      "document_type": "loan_products",
+      "topic": "gold_loan",
       "section": "Frequently Asked Questions"
     }
   },
@@ -490,6 +1120,76 @@
     }
   },
   {
+    "text": "LoanMate Bank (Demo) — Top-up Loan — Overview\n\n> This is a fictional demo product of \"LoanMate Bank,\" created for the LoanMate AI academic project. It does not describe a real bank's policy. Its design follows how top-up loans commonly work at Indian banks.",
+    "metadata": {
+      "chunk_id": "top_up_loan_01",
+      "source_file": "top_up_loan.md",
+      "document_type": "loan_products",
+      "topic": "top_up_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Top-up Loan — Overview\n\nA LoanMate Top-up Loan gives existing borrowers additional funds on top of their current home, car or personal loan, without a fresh application from scratch. The top-up runs alongside the existing loan with its own EMI. It can be used for any genuine personal need — home renovation, education, medical expenses, a wedding, or consolidating costlier debt — but not for speculative purposes such as trading in shares.",
+    "metadata": {
+      "chunk_id": "top_up_loan_02",
+      "source_file": "top_up_loan.md",
+      "document_type": "loan_products",
+      "topic": "top_up_loan",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Top-up Loan — Who Can Get a Top-up\n\nExisting LoanMate borrowers whose loan is active and has a clean repayment record: at least 12 EMIs paid on time for a home loan, or at least 6 EMIs paid on time for a car or personal loan, with no EMI currently overdue. Final eligibility depends on the customer's income, credit score and, for home loans, the current property value. Being offered a top-up on a call is not an approval.",
+    "metadata": {
+      "chunk_id": "top_up_loan_03",
+      "source_file": "top_up_loan.md",
+      "document_type": "loan_products",
+      "topic": "top_up_loan",
+      "section": "Who Can Get a Top-up"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Top-up Loan — Interest Rate and Amount\n\nIn this demo policy, a home-loan top-up is priced 0.25% to 1% above the customer's existing home loan rate, and a car or personal loan top-up at the bank's prevailing personal loan rate of 10.5% to 16% per annum. For a home loan, the existing loan plus the top-up cannot exceed the RBI's loan-to-value limits on the property's current value. Personal and car loan top-ups range from ₹50,000 to ₹10 lakh.",
+    "metadata": {
+      "chunk_id": "top_up_loan_04",
+      "source_file": "top_up_loan.md",
+      "document_type": "loan_products",
+      "topic": "top_up_loan",
+      "section": "Interest Rate and Amount"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Top-up Loan — Tenure and Charges\n\nA home-loan top-up can run up to the remaining tenure of the home loan, to a maximum of 15 years. Car and personal loan top-ups run up to 5 years. A processing fee of up to 1% of the top-up amount plus GST applies. Floating-rate top-ups taken by individuals carry no prepayment charges, as per RBI rules.",
+    "metadata": {
+      "chunk_id": "top_up_loan_05",
+      "source_file": "top_up_loan.md",
+      "document_type": "loan_products",
+      "topic": "top_up_loan",
+      "section": "Tenure and Charges"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Top-up Loan — Documents\n\nUsually only updated KYC, the latest 3 months' salary slips or latest income proof, and the last 6 months' bank statements. Property documents are already held for the existing home loan.",
+    "metadata": {
+      "chunk_id": "top_up_loan_06",
+      "source_file": "top_up_loan.md",
+      "document_type": "loan_products",
+      "topic": "top_up_loan",
+      "section": "Documents"
+    }
+  },
+  {
+    "text": "LoanMate Bank (Demo) — Top-up Loan — Frequently Asked Questions\n\n**Is a top-up cheaper than a personal loan?**\nA home-loan top-up is usually cheaper, because it is secured by the same property. A car or personal loan top-up is priced like a personal loan.\n\n**Is the interest on a home-loan top-up tax deductible?**\nOnly if the money is used to buy, build or renovate a house, with proof. Otherwise there is no tax benefit.",
+    "metadata": {
+      "chunk_id": "top_up_loan_07",
+      "source_file": "top_up_loan.md",
+      "document_type": "loan_products",
+      "topic": "top_up_loan",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
     "text": "LoanMate Bank (Demo) — General Eligibility Policy — Overview\n\n> This is a fictional demo policy of \"LoanMate Bank,\" created for the LoanMate AI academic project. It does not describe a real bank's policy.",
     "metadata": {
       "chunk_id": "eligibility_policy_01",
@@ -580,7 +1280,7 @@
     }
   },
   {
-    "text": "LoanMate Bank (Demo) — Foreclosure Policy — Eligibility for Foreclosure\n\nForeclosure is allowed on all LoanMate loan products after a minimum lock-in period has passed. The lock-in period varies by loan type:\n\n- Personal Loan: after 12 EMIs\n- Home Loan: after 6 EMIs\n- Vehicle Loan: after 12 EMIs\n- Education Loan: after the moratorium period ends and at least 6 EMIs have been paid\n- Business Loan: after 12 EMIs",
+    "text": "LoanMate Bank (Demo) — Foreclosure Policy — Eligibility for Foreclosure\n\nFloating-rate loans taken by individuals can be foreclosed at any time, with no lock-in period, as required by RBI rules. For fixed-rate loans, foreclosure is allowed after a minimum lock-in period, which varies by loan type:\n\n- Personal Loan: after 12 EMIs\n- Home Loan: after 6 EMIs\n- Vehicle Loan: after 12 EMIs\n- Education Loan: after the moratorium period ends and at least 6 EMIs have been paid\n- Business Loan: after 12 EMIs",
     "metadata": {
       "chunk_id": "foreclosure_policy_03",
       "source_file": "foreclosure_policy.md",
@@ -590,7 +1290,7 @@
     }
   },
   {
-    "text": "LoanMate Bank (Demo) — Foreclosure Policy — Foreclosure Charges\n\nA foreclosure charge of 2% to 5% of the outstanding principal may apply, particularly for fixed-rate loans. For individual-borrower floating-rate loans (such as most LoanMate Home Loans and many Personal Loans taken by individuals), foreclosure charges are typically nil or minimal, consistent with standard regulatory guidance on floating-rate retail loans — always confirm the exact charge on your specific loan agreement.",
+    "text": "LoanMate Bank (Demo) — Foreclosure Policy — Foreclosure Charges\n\nFloating-rate loans taken by individuals carry no foreclosure charge — RBI rules prohibit it. For fixed-rate loans, a foreclosure charge of 2% to 5% of the outstanding principal may apply, at the rate stated in the loan's Key Fact Statement.",
     "metadata": {
       "chunk_id": "foreclosure_policy_04",
       "source_file": "foreclosure_policy.md",
@@ -600,7 +1300,7 @@
     }
   },
   {
-    "text": "LoanMate Bank (Demo) — Foreclosure Policy — Section: Process\n\nTo foreclose a loan, a customer should:\n\n1. Request a foreclosure quote, which shows the exact payoff amount as of a chosen date.\n2. Make the full payment by the specified date.\n3. Receive a no-dues certificate and loan closure confirmation from LoanMate.",
+    "text": "LoanMate Bank (Demo) — Foreclosure Policy — Section: Process\n\nTo foreclose a loan, a customer should:\n\n1. Request a foreclosure quote, which shows the exact payoff amount as of a chosen date.\n2. Make the full payment by the specified date.\n3. Receive a no-dues certificate and loan closure confirmation from LoanMate.\n4. Collect the original property documents. Under RBI rules they must be returned, and any charge on the property removed, within 30 days of closure — or the bank pays ₹5,000 per day of delay.",
     "metadata": {
       "chunk_id": "foreclosure_policy_05",
       "source_file": "foreclosure_policy.md",
@@ -630,7 +1330,7 @@
     }
   },
   {
-    "text": "LoanMate Bank (Demo) — Missed EMI Policy — What Happens If You Miss an EMI\n\nIf an EMI payment is not received by its due date, LoanMate's demo policy is as follows:\n\n1. A late payment fee is charged (see the Charges section below).\n2. The missed payment may be reported to credit bureaus, which can negatively affect the customer's credit score.\n3. LoanMate will attempt to contact the customer to understand the reason for the missed payment and discuss options.",
+    "text": "LoanMate Bank (Demo) — Missed EMI Policy — What Happens If You Miss an EMI\n\nIf an EMI payment is not received by its due date, LoanMate's demo policy is as follows:\n\n1. A penal charge is levied (see the Charges section below).\n2. The missed payment may be reported to credit bureaus, which can negatively affect the customer's credit score.\n3. LoanMate will attempt to contact the customer to understand the reason for the missed payment and discuss options.",
     "metadata": {
       "chunk_id": "missed_emi_policy_02",
       "source_file": "missed_emi_policy.md",
@@ -640,7 +1340,7 @@
     }
   },
   {
-    "text": "LoanMate Bank (Demo) — Missed EMI Policy — Section: Charges\n\nA late payment fee of 2% of the missed EMI amount, or ₹500, whichever is higher, applies per missed EMI in this demo policy.",
+    "text": "LoanMate Bank (Demo) — Missed EMI Policy — Section: Charges\n\nA penal charge of 2% of the missed EMI amount, or ₹500, whichever is higher, applies per missed EMI in this demo policy. As required by RBI rules, this is a fixed penal charge — it is not added to the loan's interest rate, and no interest is charged on it. If an auto-debit (NACH) mandate fails for lack of funds, a bounce charge of ₹500 plus GST also applies.",
     "metadata": {
       "chunk_id": "missed_emi_policy_03",
       "source_file": "missed_emi_policy.md",
@@ -660,7 +1360,7 @@
     }
   },
   {
-    "text": "LoanMate Bank (Demo) — Missed EMI Policy — Section: Repeated Missed Payments\n\nIf EMIs are missed for 3 consecutive months, the loan account status may be marked \"Overdue,\" and LoanMate may initiate a formal recovery process. Customers experiencing financial difficulty are strongly encouraged to contact LoanMate proactively before missing a payment, as restructuring or a revised repayment plan may be possible.",
+    "text": "LoanMate Bank (Demo) — Missed EMI Policy — Section: Repeated Missed Payments\n\nAny overdue EMI is reported to credit bureaus: under RBI rules the loan is flagged SMA-0 when overdue up to 30 days, SMA-1 at 31–60 days and SMA-2 at 61–90 days, and becomes a Non-Performing Asset (NPA) once overdue for more than 90 days. LoanMate may then initiate a formal recovery process, always following RBI's fair recovery rules — no harassment, and no recovery calls before 8 a.m. or after 7 p.m. Customers experiencing financial difficulty are strongly encouraged to contact LoanMate proactively before missing a payment, as restructuring or a revised repayment plan may be possible.",
     "metadata": {
       "chunk_id": "missed_emi_policy_05",
       "source_file": "missed_emi_policy.md",
@@ -670,7 +1370,7 @@
     }
   },
   {
-    "text": "LoanMate Bank (Demo) — Missed EMI Policy — Frequently Asked Questions\n\n**What should I do if I know I will miss an upcoming EMI?**\nContact LoanMate as early as possible. Proactively flagging a payment difficulty gives more options for resolution than a payment that is simply missed without notice.\n\n**Does a single missed EMI close my loan?**\nNo. A single missed EMI results in a late fee and a potential credit score impact, but does not close the loan. Loan status changes to \"Overdue\" only after repeated missed payments, as described above.",
+    "text": "LoanMate Bank (Demo) — Missed EMI Policy — Frequently Asked Questions\n\n**What should I do if I know I will miss an upcoming EMI?**\nContact LoanMate as early as possible. Proactively flagging a payment difficulty gives more options for resolution than a payment that is simply missed without notice.\n\n**Does a single missed EMI close my loan?**\nNo. A single missed EMI results in a late fee and a potential credit score impact, but does not close the loan. Loan status changes to \"Overdue\" when payments remain unpaid, and to NPA after more than 90 days overdue, as described above.",
     "metadata": {
       "chunk_id": "missed_emi_policy_06",
       "source_file": "missed_emi_policy.md",
@@ -700,7 +1400,7 @@
     }
   },
   {
-    "text": "LoanMate Bank (Demo) — Prepayment Policy — When Prepayment Is Allowed\n\nPrepayment is allowed on all LoanMate loan products after a minimum of 12 EMIs have been paid. This waiting period ensures the loan has been active long enough to establish a stable repayment record.",
+    "text": "LoanMate Bank (Demo) — Prepayment Policy — When Prepayment Is Allowed\n\nFloating-rate loans taken by individuals can be prepaid at any time, with no lock-in period, as required by RBI rules. Fixed-rate loans can be prepaid after a minimum of 12 EMIs have been paid in this demo policy.",
     "metadata": {
       "chunk_id": "prepayment_policy_03",
       "source_file": "prepayment_policy.md",
@@ -710,7 +1410,7 @@
     }
   },
   {
-    "text": "LoanMate Bank (Demo) — Prepayment Policy — Prepayment Charges\n\nFor floating-rate loans (the most common type at LoanMate), a foreclosure/prepayment charge of 2% to 5% of the outstanding principal may apply, depending on the loan product and the amount being prepaid. Fixed-rate loans may carry different, generally higher prepayment charges — please check your specific loan agreement.",
+    "text": "LoanMate Bank (Demo) — Prepayment Policy — Prepayment Charges\n\nFloating-rate loans taken by individuals carry no prepayment or foreclosure charges at all — this is an RBI rule that applies to every bank in India (see the RBI prepayment rules document). Fixed-rate loans may carry a prepayment charge of 2% to 5% of the outstanding principal, depending on the loan product; the exact charge is stated in the loan's Key Fact Statement, and no undisclosed charge can be levied.",
     "metadata": {
       "chunk_id": "prepayment_policy_04",
       "source_file": "prepayment_policy.md",
@@ -730,7 +1430,7 @@
     }
   },
   {
-    "text": "LoanMate Bank (Demo) — Prepayment Policy — Section: Charges\n\n| Loan type | Typical prepayment charge |\n|---|---|\n| Personal Loan | 2% – 5% of outstanding principal |\n| Home Loan (floating rate) | Typically nil to low, per regulatory norms for individual floating-rate loans |\n| Vehicle Loan | 2% – 5% of outstanding principal |\n| Business Loan | 2% – 4% of outstanding principal |",
+    "text": "LoanMate Bank (Demo) — Prepayment Policy — Section: Charges\n\n| Loan type | Typical prepayment charge |\n|---|---|\n| Any floating-rate loan to an individual (home, personal, education, etc.) | Nil — RBI rule |\n| Floating-rate business loan to an individual or micro/small enterprise | Nil — RBI rule (loans sanctioned from 1 January 2026) |\n| Personal Loan (fixed rate) | 2% – 5% of outstanding principal |\n| Home Loan (fixed rate) | 2% of outstanding principal |\n| Vehicle Loan (fixed rate) | Up to 5% in the first year, up to 3% after |\n| Business Loan (fixed rate) | 2% – 4% of outstanding principal |",
     "metadata": {
       "chunk_id": "prepayment_policy_06",
       "source_file": "prepayment_policy.md",
@@ -740,12 +1440,482 @@
     }
   },
   {
-    "text": "LoanMate Bank (Demo) — Prepayment Policy — Frequently Asked Questions\n\n**Is there a minimum prepayment amount?**\nLoanMate does not enforce a minimum prepayment amount in this demo policy, but very small prepayments may not meaningfully change your EMI.\n\n**Can I prepay multiple times?**\nYes, prepayment can be made more than once during the loan tenure, subject to the same 12-EMI waiting period being met at least once.",
+    "text": "LoanMate Bank (Demo) — Prepayment Policy — Frequently Asked Questions\n\n**Is there a minimum prepayment amount?**\nLoanMate does not enforce a minimum prepayment amount in this demo policy, but very small prepayments may not meaningfully change your EMI.\n\n**Can I prepay multiple times?**\nYes, prepayment can be made more than once during the loan tenure, subject, for fixed-rate loans, to the 12-EMI waiting period being met at least once.",
     "metadata": {
       "chunk_id": "prepayment_policy_07",
       "source_file": "prepayment_policy.md",
       "document_type": "policies",
       "topic": "prepayment_policy",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "RBI Rules for Digital Loans and Loan Apps (Public Information) — Overview\n\n> Public information: a plain-language summary of the RBI guidelines on digital lending (September 2022), consolidated into the RBI (Digital Lending) Directions, 2025. Applies to all banks and regulated lenders in India. General information, not legal advice. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "rbi_digital_lending_01",
+      "source_file": "rbi_digital_lending.md",
+      "document_type": "regulations",
+      "topic": "rbi_digital_lending",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "RBI Rules for Digital Loans and Loan Apps (Public Information) — Money Flows Only Between You and the Lender\n\nFor any loan taken through an app or website, the loan must be paid directly into the borrower's own bank account, and repayments must go directly into the regulated lender's account. A loan app or agent (Lending Service Provider) cannot route the money through its own or a third party's account. Any fees payable to the app must be paid by the lender, not charged directly to the borrower.",
+    "metadata": {
+      "chunk_id": "rbi_digital_lending_02",
+      "source_file": "rbi_digital_lending.md",
+      "document_type": "regulations",
+      "topic": "rbi_digital_lending",
+      "section": "Money Flows Only Between You and the Lender"
+    }
+  },
+  {
+    "text": "RBI Rules for Digital Loans and Loan Apps (Public Information) — Key Fact Statement and Cooling-Off Period\n\nThe borrower must get a Key Fact Statement with the all-in Annual Percentage Rate (APR) before signing. Digital loans must also offer a cooling-off (look-up) period — at least three days for loans with a tenure of seven days or more, and one day for shorter loans — during which the borrower can exit by repaying the principal and proportionate APR, without any penalty.",
+    "metadata": {
+      "chunk_id": "rbi_digital_lending_03",
+      "source_file": "rbi_digital_lending.md",
+      "document_type": "regulations",
+      "topic": "rbi_digital_lending",
+      "section": "Key Fact Statement and Cooling-Off Period"
+    }
+  },
+  {
+    "text": "RBI Rules for Digital Loans and Loan Apps (Public Information) — Data and Phone Access\n\nLending apps may collect only the data needed for the loan, with the borrower's explicit consent. They must not access the phone's contact list, photos, media files or call logs (one-time access for KYC to camera, microphone and location is allowed with consent).",
+    "metadata": {
+      "chunk_id": "rbi_digital_lending_04",
+      "source_file": "rbi_digital_lending.md",
+      "document_type": "regulations",
+      "topic": "rbi_digital_lending",
+      "section": "Data and Phone Access"
+    }
+  },
+  {
+    "text": "RBI Rules for Digital Loans and Loan Apps (Public Information) — Check the App Is Genuine\n\nEvery regulated lender must publish the list of digital lending apps and partners it works with on its website, and the RBI maintains a public directory of digital lending apps of regulated entities on its website. Loan apps not linked to a bank or RBI-registered NBFC are illegal and are a common source of harassment and fraud.",
+    "metadata": {
+      "chunk_id": "rbi_digital_lending_05",
+      "source_file": "rbi_digital_lending.md",
+      "document_type": "regulations",
+      "topic": "rbi_digital_lending",
+      "section": "Check the App Is Genuine"
+    }
+  },
+  {
+    "text": "RBI Rules for Digital Loans and Loan Apps (Public Information) — Frequently Asked Questions\n\n**A loan app is threatening to message my contacts. What should I do?**\nGenuine regulated lenders cannot access your contacts or harass you. Report the app at cybercrime.gov.in or by calling 1930, and complain to the lender and the RBI Ombudsman if the lender is regulated.",
+    "metadata": {
+      "chunk_id": "rbi_digital_lending_06",
+      "source_file": "rbi_digital_lending.md",
+      "document_type": "regulations",
+      "topic": "rbi_digital_lending",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "Return of Property Documents After Loan Closure (Public Information) — Overview\n\n> Public information: a plain-language summary of the RBI circular \"Responsible Lending Conduct – Release of Movable / Immovable Property Documents on Repayment / Settlement of Personal Loans\" (13 September 2023, effective 1 December 2023). Applies to all banks and regulated lenders in India. General information, not legal advice. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "rbi_document_return_after_closure_01",
+      "source_file": "rbi_document_return_after_closure.md",
+      "document_type": "regulations",
+      "topic": "rbi_document_return_after_closure",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "Return of Property Documents After Loan Closure (Public Information) — 30-Day Deadline\n\nAfter a borrower fully repays or settles a loan, the lender must return all original movable and immovable property documents (for example, the sale deed of a house or the registration papers of a vehicle) and remove any charge registered with a registry, within 30 days.",
+    "metadata": {
+      "chunk_id": "rbi_document_return_after_closure_02",
+      "source_file": "rbi_document_return_after_closure.md",
+      "document_type": "regulations",
+      "topic": "rbi_document_return_after_closure",
+      "section": "30-Day Deadline"
+    }
+  },
+  {
+    "text": "Return of Property Documents After Loan Closure (Public Information) — Where to Collect\n\nThe borrower can choose to collect the original documents either from the branch where the loan account was serviced or from any other office of the lender where the documents are kept. The place and timeline for returning documents must be stated in the sanction letter.",
+    "metadata": {
+      "chunk_id": "rbi_document_return_after_closure_03",
+      "source_file": "rbi_document_return_after_closure.md",
+      "document_type": "regulations",
+      "topic": "rbi_document_return_after_closure",
+      "section": "Where to Collect"
+    }
+  },
+  {
+    "text": "Return of Property Documents After Loan Closure (Public Information) — Compensation for Delay\n\nIf the lender delays returning the documents or removing the charge beyond 30 days for reasons attributable to the lender, it must tell the borrower the reasons and pay compensation of ₹5,000 for each day of delay.",
+    "metadata": {
+      "chunk_id": "rbi_document_return_after_closure_04",
+      "source_file": "rbi_document_return_after_closure.md",
+      "document_type": "regulations",
+      "topic": "rbi_document_return_after_closure",
+      "section": "Compensation for Delay"
+    }
+  },
+  {
+    "text": "Return of Property Documents After Loan Closure (Public Information) — Lost or Damaged Documents\n\nIf original documents are lost or damaged while with the lender, the lender must help the borrower get duplicate or certified copies and bear all the costs, in addition to the compensation. The lender gets an extra 30 days for this (60 days in total); the ₹5,000-per-day compensation applies after that.",
+    "metadata": {
+      "chunk_id": "rbi_document_return_after_closure_05",
+      "source_file": "rbi_document_return_after_closure.md",
+      "document_type": "regulations",
+      "topic": "rbi_document_return_after_closure",
+      "section": "Lost or Damaged Documents"
+    }
+  },
+  {
+    "text": "Return of Property Documents After Loan Closure (Public Information) — Death of the Borrower\n\nLenders must have a clear, published procedure for returning original documents to the legal heirs if the sole or joint borrower dies.",
+    "metadata": {
+      "chunk_id": "rbi_document_return_after_closure_06",
+      "source_file": "rbi_document_return_after_closure.md",
+      "document_type": "regulations",
+      "topic": "rbi_document_return_after_closure",
+      "section": "Death of the Borrower"
+    }
+  },
+  {
+    "text": "Return of Property Documents After Loan Closure (Public Information) — Frequently Asked Questions\n\n**I closed my home loan. What should I collect from the bank?**\nThe original property documents, a no-dues or loan closure certificate, and confirmation that the bank's charge on the property has been removed (for example, from CERSAI).",
+    "metadata": {
+      "chunk_id": "rbi_document_return_after_closure_07",
+      "source_file": "rbi_document_return_after_closure.md",
+      "document_type": "regulations",
+      "topic": "rbi_document_return_after_closure",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "Floating Interest Rates, Repo-Linked Loans and EMI Reset (Public Information) — Overview\n\n> Public information: a plain-language summary of RBI rules on external benchmark lending (circular of 4 September 2019) and the RBI circular \"Reset of Floating Interest Rate on EMI based Personal Loans\" (18 August 2023). Applies to all banks in India. General information, not legal advice. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "rbi_interest_rate_benchmarks_and_reset_01",
+      "source_file": "rbi_interest_rate_benchmarks_and_reset.md",
+      "document_type": "regulations",
+      "topic": "rbi_interest_rate_benchmarks_and_reset",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "Floating Interest Rates, Repo-Linked Loans and EMI Reset (Public Information) — External Benchmark Linked Rate (EBLR)\n\nSince 1 October 2019, every new floating-rate retail loan (home, personal, vehicle, education) and MSME loan from a bank must be linked to an external benchmark — usually the RBI's repo rate, or a government Treasury Bill yield published by FBIL. The bank adds a spread on top of the benchmark. The rate must be reset at least once every three months, so when the RBI changes the repo rate, the borrower's rate follows at the next reset.",
+    "metadata": {
+      "chunk_id": "rbi_interest_rate_benchmarks_and_reset_02",
+      "source_file": "rbi_interest_rate_benchmarks_and_reset.md",
+      "document_type": "regulations",
+      "topic": "rbi_interest_rate_benchmarks_and_reset",
+      "section": "External Benchmark Linked Rate (EBLR)"
+    }
+  },
+  {
+    "text": "Floating Interest Rates, Repo-Linked Loans and EMI Reset (Public Information) — Older Benchmarks: MCLR and Base Rate\n\nLoans taken earlier may still be linked to the bank's Marginal Cost of Funds based Lending Rate (MCLR, introduced April 2016) or the older Base Rate. These internal benchmarks pass on RBI rate changes more slowly. Borrowers on MCLR or Base Rate can ask their bank to switch to an EBLR-linked rate, usually for a nominal fee.",
+    "metadata": {
+      "chunk_id": "rbi_interest_rate_benchmarks_and_reset_03",
+      "source_file": "rbi_interest_rate_benchmarks_and_reset.md",
+      "document_type": "regulations",
+      "topic": "rbi_interest_rate_benchmarks_and_reset",
+      "section": "Older Benchmarks: MCLR and Base Rate"
+    }
+  },
+  {
+    "text": "Floating Interest Rates, Repo-Linked Loans and EMI Reset (Public Information) — When a Floating Rate Changes — Borrower Options\n\nUnder the RBI's 2023 rules, when a floating rate is reset the bank must clearly inform the borrower and offer a choice: increase the EMI, extend the tenure, or a mix of both; prepay part or all of the loan at any time; or switch to a fixed rate as per the bank's policy (any switching charge must be disclosed). The tenure cannot be extended so far that the EMI no longer covers the interest (negative amortisation).",
+    "metadata": {
+      "chunk_id": "rbi_interest_rate_benchmarks_and_reset_04",
+      "source_file": "rbi_interest_rate_benchmarks_and_reset.md",
+      "document_type": "regulations",
+      "topic": "rbi_interest_rate_benchmarks_and_reset",
+      "section": "When a Floating Rate Changes — Borrower Options"
+    }
+  },
+  {
+    "text": "Floating Interest Rates, Repo-Linked Loans and EMI Reset (Public Information) — Quarterly Loan Statement\n\nBanks must give borrowers of EMI-based floating-rate loans a statement at least every quarter showing the principal and interest paid so far, the EMI amount, the number of EMIs left, and the annualised interest rate for the full tenure.",
+    "metadata": {
+      "chunk_id": "rbi_interest_rate_benchmarks_and_reset_05",
+      "source_file": "rbi_interest_rate_benchmarks_and_reset.md",
+      "document_type": "regulations",
+      "topic": "rbi_interest_rate_benchmarks_and_reset",
+      "section": "Quarterly Loan Statement"
+    }
+  },
+  {
+    "text": "Floating Interest Rates, Repo-Linked Loans and EMI Reset (Public Information) — Frequently Asked Questions\n\n**The RBI cut the repo rate. When will my EMI fall?**\nFor a repo-linked loan, at the next reset date, which comes at least once every three months. Many banks reduce the tenure rather than the EMI by default — you can ask the bank to reduce the EMI instead.\n\n**Can I switch from a floating rate to a fixed rate?**\nYes, banks must offer the option at reset as per their board-approved policy. Fixed rates are usually higher, and a switching fee may apply; it must be disclosed upfront.",
+    "metadata": {
+      "chunk_id": "rbi_interest_rate_benchmarks_and_reset_06",
+      "source_file": "rbi_interest_rate_benchmarks_and_reset.md",
+      "document_type": "regulations",
+      "topic": "rbi_interest_rate_benchmarks_and_reset",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "Key Fact Statement (KFS) and Annual Percentage Rate (Public Information) — Overview\n\n> Public information: a plain-language summary of the RBI circular on Key Fact Statement for loans and advances (15 April 2024). Applies to all banks and regulated lenders in India. General information, not legal advice — check rbi.org.in for the current text. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "rbi_key_fact_statement_01",
+      "source_file": "rbi_key_fact_statement.md",
+      "document_type": "regulations",
+      "topic": "rbi_key_fact_statement",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "Key Fact Statement (KFS) and Annual Percentage Rate (Public Information) — What Is a Key Fact Statement\n\nA Key Fact Statement (KFS) is a short, standard-format summary of a loan's key terms that the lender must give the borrower before the loan agreement is signed. Since 1 October 2024, a KFS is mandatory for all retail and MSME term loans, including home, personal, vehicle and education loans. It must be in a language the borrower understands.",
+    "metadata": {
+      "chunk_id": "rbi_key_fact_statement_02",
+      "source_file": "rbi_key_fact_statement.md",
+      "document_type": "regulations",
+      "topic": "rbi_key_fact_statement",
+      "section": "What Is a Key Fact Statement"
+    }
+  },
+  {
+    "text": "Key Fact Statement (KFS) and Annual Percentage Rate (Public Information) — What the KFS Shows\n\nThe KFS lists the loan amount, tenure, interest rate and type (fixed or floating), the EMI and repayment schedule, all fees and charges (processing fee, insurance, legal or valuation charges), penal charges, prepayment or foreclosure charges, the cooling-off period for digital loans, and the lender's grievance redressal contact.",
+    "metadata": {
+      "chunk_id": "rbi_key_fact_statement_03",
+      "source_file": "rbi_key_fact_statement.md",
+      "document_type": "regulations",
+      "topic": "rbi_key_fact_statement",
+      "section": "What the KFS Shows"
+    }
+  },
+  {
+    "text": "Key Fact Statement (KFS) and Annual Percentage Rate (Public Information) — Annual Percentage Rate (APR)\n\nThe KFS must show the Annual Percentage Rate (APR) — the all-in annual cost of the loan, including the interest rate and all fees and charges paid to the lender. The APR is the best single number for comparing loans from different lenders, because a loan with a lower interest rate but high fees can cost more overall.",
+    "metadata": {
+      "chunk_id": "rbi_key_fact_statement_04",
+      "source_file": "rbi_key_fact_statement.md",
+      "document_type": "regulations",
+      "topic": "rbi_key_fact_statement",
+      "section": "Annual Percentage Rate (APR)"
+    }
+  },
+  {
+    "text": "Key Fact Statement (KFS) and Annual Percentage Rate (Public Information) — Charges Not in the KFS\n\nAny fee or charge that is not mentioned in the KFS cannot be charged to the borrower at any point during the loan's life without the borrower's explicit consent.",
+    "metadata": {
+      "chunk_id": "rbi_key_fact_statement_05",
+      "source_file": "rbi_key_fact_statement.md",
+      "document_type": "regulations",
+      "topic": "rbi_key_fact_statement",
+      "section": "Charges Not in the KFS"
+    }
+  },
+  {
+    "text": "Key Fact Statement (KFS) and Annual Percentage Rate (Public Information) — Frequently Asked Questions\n\n**How long do I get to read the KFS?**\nFor loans with a tenure of seven days or more, the KFS must stay valid for at least three working days, so the borrower can compare and decide without pressure.\n\n**Is the APR the same as the interest rate?**\nNo. The interest rate is only the cost of borrowing the money. The APR also includes fees and charges, so it is usually higher than the interest rate.",
+    "metadata": {
+      "chunk_id": "rbi_key_fact_statement_06",
+      "source_file": "rbi_key_fact_statement.md",
+      "document_type": "regulations",
+      "topic": "rbi_key_fact_statement",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "KYC (Know Your Customer) Rules for Bank Customers (Public Information) — Overview\n\n> Public information: a plain-language summary of the RBI Master Direction – Know Your Customer (KYC) Direction, 2016, as amended. Applies to all banks in India. General information, not legal advice. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "rbi_kyc_norms_01",
+      "source_file": "rbi_kyc_norms.md",
+      "document_type": "regulations",
+      "topic": "rbi_kyc_norms",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "KYC (Know Your Customer) Rules for Bank Customers (Public Information) — Why Banks Need KYC\n\nRBI rules require every bank to verify the identity and address of its customers and to keep that information up to date. If KYC is not updated when due, the bank may restrict some operations on the account until it is completed.",
+    "metadata": {
+      "chunk_id": "rbi_kyc_norms_02",
+      "source_file": "rbi_kyc_norms.md",
+      "document_type": "regulations",
+      "topic": "rbi_kyc_norms",
+      "section": "Why Banks Need KYC"
+    }
+  },
+  {
+    "text": "KYC (Know Your Customer) Rules for Bank Customers (Public Information) — Officially Valid Documents (OVDs)\n\nAny one of these can be used as proof of identity and address: passport, driving licence, proof of possession of Aadhaar number, Voter ID card, NREGA job card signed by a State Government officer, or a letter from the National Population Register. A PAN card (or Form 60 if the customer has no PAN) is also required. If the address on the document is not current, other documents such as a recent utility bill can be used as deemed proof of address for a limited time.",
+    "metadata": {
+      "chunk_id": "rbi_kyc_norms_03",
+      "source_file": "rbi_kyc_norms.md",
+      "document_type": "regulations",
+      "topic": "rbi_kyc_norms",
+      "section": "Officially Valid Documents (OVDs)"
+    }
+  },
+  {
+    "text": "KYC (Know Your Customer) Rules for Bank Customers (Public Information) — Periodic KYC Update\n\nBanks must periodically update KYC based on the customer's risk category: at least once every 2 years for high-risk, every 8 years for medium-risk, and every 10 years for low-risk customers. If nothing has changed, a customer can usually update KYC with a simple self-declaration through email, registered mobile, net banking, ATM, or a letter — without visiting the branch.",
+    "metadata": {
+      "chunk_id": "rbi_kyc_norms_04",
+      "source_file": "rbi_kyc_norms.md",
+      "document_type": "regulations",
+      "topic": "rbi_kyc_norms",
+      "section": "Periodic KYC Update"
+    }
+  },
+  {
+    "text": "KYC (Know Your Customer) Rules for Bank Customers (Public Information) — Ways to Complete KYC\n\nKYC can be completed at any branch, through Aadhaar-based e-KYC, or through Video-based Customer Identification Process (V-CIP, or video KYC), where a bank official verifies the customer over a live video call through the bank's official app or website. Central KYC (CKYC) gives each customer a KYC Identifier Number (KIN) that can be reused across banks.",
+    "metadata": {
+      "chunk_id": "rbi_kyc_norms_05",
+      "source_file": "rbi_kyc_norms.md",
+      "document_type": "regulations",
+      "topic": "rbi_kyc_norms",
+      "section": "Ways to Complete KYC"
+    }
+  },
+  {
+    "text": "KYC (Know Your Customer) Rules for Bank Customers (Public Information) — Frequently Asked Questions\n\n**Someone called saying my KYC will expire and asked for my OTP. Is that the bank?**\nNo. Banks never ask for an OTP, PIN, password or full card details over a call, SMS or link. That is a KYC fraud — do not share anything, and report it to the cyber fraud helpline 1930.\n\n**Is Aadhaar compulsory for KYC?**\nNo. Aadhaar is one of several officially valid documents; a customer can use a passport, driving licence, Voter ID or the other listed documents instead.",
+    "metadata": {
+      "chunk_id": "rbi_kyc_norms_06",
+      "source_file": "rbi_kyc_norms.md",
+      "document_type": "regulations",
+      "topic": "rbi_kyc_norms",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "RBI Rules on Penal Charges for Late Payment (Public Information) — Overview\n\n> Public information: a plain-language summary of the RBI circular \"Fair Lending Practice – Penal Charges in Loan Accounts\" (RBI/2023-24/53, 18 August 2023). Applies to all banks and NBFCs in India. General information, not legal advice — check rbi.org.in for the current text. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "rbi_penal_charges_01",
+      "source_file": "rbi_penal_charges.md",
+      "document_type": "regulations",
+      "topic": "rbi_penal_charges",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "RBI Rules on Penal Charges for Late Payment (Public Information) — Penal Charges, Not Penal Interest\n\nWhen a borrower misses an EMI or breaks a material term of the loan, a lender may levy a penalty — but only as a fixed \"penal charge\". It cannot be added as extra \"penal interest\" on top of the loan's interest rate. This rule applies to fresh loans from 1 April 2024, and existing loans had to be moved to it by 30 June 2024.",
+    "metadata": {
+      "chunk_id": "rbi_penal_charges_02",
+      "source_file": "rbi_penal_charges.md",
+      "document_type": "regulations",
+      "topic": "rbi_penal_charges",
+      "section": "Penal Charges, Not Penal Interest"
+    }
+  },
+  {
+    "text": "RBI Rules on Penal Charges for Late Payment (Public Information) — No Interest on Penal Charges\n\nPenal charges cannot be capitalised. That means no interest is charged on the penal charge itself — it does not compound. Normal interest on the overdue EMI amount continues as per the loan agreement.",
+    "metadata": {
+      "chunk_id": "rbi_penal_charges_03",
+      "source_file": "rbi_penal_charges.md",
+      "document_type": "regulations",
+      "topic": "rbi_penal_charges",
+      "section": "No Interest on Penal Charges"
+    }
+  },
+  {
+    "text": "RBI Rules on Penal Charges for Late Payment (Public Information) — Reasonable and Disclosed\n\nThere is no fixed upper limit, but penal charges must be reasonable and in proportion to the default, and the same for all borrowers in a loan or product category. Penal charges for individuals cannot be higher than those for non-individual borrowers for similar non-compliance. The amount and the reason must be disclosed in the loan agreement and Key Fact Statement, shown on the lender's website, and communicated to the borrower whenever a reminder for the breach is sent.",
+    "metadata": {
+      "chunk_id": "rbi_penal_charges_04",
+      "source_file": "rbi_penal_charges.md",
+      "document_type": "regulations",
+      "topic": "rbi_penal_charges",
+      "section": "Reasonable and Disclosed"
+    }
+  },
+  {
+    "text": "RBI Rules on Penal Charges for Late Payment (Public Information) — Frequently Asked Questions\n\n**My bank added 2% penal interest to my loan rate after a missed EMI. Is that allowed?**\nNot for loans covered by the 2023 RBI circular. A late payment penalty must be a separate penal charge, not an increase in the interest rate. You can raise a complaint with the bank and, if it is not resolved, with the RBI Ombudsman.\n\n**Do penal charges apply to credit cards?**\nNo. Credit cards, external commercial borrowings, trade credits and structured obligations are covered by their own product-specific rules, not this circular.",
+    "metadata": {
+      "chunk_id": "rbi_penal_charges_05",
+      "source_file": "rbi_penal_charges.md",
+      "document_type": "regulations",
+      "topic": "rbi_penal_charges",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "RBI Rules on Prepayment and Foreclosure Charges (Public Information) — Overview\n\n> Public information: a plain-language summary of Reserve Bank of India (RBI) rules that apply to all banks in India. Sources: RBI circular on foreclosure charges on floating-rate term loans (May 2012) and the RBI (Pre-payment Charges on Loans) Directions, 2025 (issued 2 July 2025). General information, not legal advice — check rbi.org.in for the current text. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "rbi_prepayment_foreclosure_rules_01",
+      "source_file": "rbi_prepayment_foreclosure_rules.md",
+      "document_type": "regulations",
+      "topic": "rbi_prepayment_foreclosure_rules",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "RBI Rules on Prepayment and Foreclosure Charges (Public Information) — Floating-Rate Loans to Individuals — No Prepayment Charges\n\nSince 2012, banks in India are not allowed to charge any foreclosure charge or prepayment penalty on floating-rate term loans given to individual borrowers. This covers most floating-rate home loans. A borrower can prepay part of the loan or close it fully at any time without a penalty.",
+    "metadata": {
+      "chunk_id": "rbi_prepayment_foreclosure_rules_02",
+      "source_file": "rbi_prepayment_foreclosure_rules.md",
+      "document_type": "regulations",
+      "topic": "rbi_prepayment_foreclosure_rules",
+      "section": "Floating-Rate Loans to Individuals — No Prepayment Charges"
+    }
+  },
+  {
+    "text": "RBI Rules on Prepayment and Foreclosure Charges (Public Information) — RBI Pre-payment Charges Directions, 2025\n\nFor loans sanctioned or renewed on or after 1 January 2026, the RBI's 2025 directions say:\n\n- No prepayment charges on any floating-rate loan given to an individual for a non-business purpose, with or without co-borrowers.\n- No prepayment charges on floating-rate loans for business purposes given to individuals and micro and small enterprises (MSEs) by commercial banks (other than small finance banks, regional rural banks and local area banks), Tier 4 urban co-operative banks, upper-layer NBFCs and all-India financial institutions.\n- Small finance banks, regional rural banks, Tier 3 urban co-operative banks, state and central co-operative banks and middle-layer NBFCs cannot charge prepayment charges on such business loans up to ₹50 lakh.\n- The rule applies whatever the source of the money used to prepay, and no minimum lock-in period can be imposed.",
+    "metadata": {
+      "chunk_id": "rbi_prepayment_foreclosure_rules_03",
+      "source_file": "rbi_prepayment_foreclosure_rules.md",
+      "document_type": "regulations",
+      "topic": "rbi_prepayment_foreclosure_rules",
+      "section": "RBI Pre-payment Charges Directions, 2025"
+    }
+  },
+  {
+    "text": "RBI Rules on Prepayment and Foreclosure Charges (Public Information) — Fixed-Rate and Other Loans\n\nPrepayment or foreclosure charges may still apply to fixed-rate loans and loans outside the categories above. Any such charge must be disclosed upfront in the loan's Key Fact Statement (KFS) and sanction letter; a lender cannot levy a charge that was not disclosed. For hybrid (fixed-then-floating) loans, the no-charge rule applies if the loan is on a floating rate when it is prepaid.",
+    "metadata": {
+      "chunk_id": "rbi_prepayment_foreclosure_rules_04",
+      "source_file": "rbi_prepayment_foreclosure_rules.md",
+      "document_type": "regulations",
+      "topic": "rbi_prepayment_foreclosure_rules",
+      "section": "Fixed-Rate and Other Loans"
+    }
+  },
+  {
+    "text": "RBI Rules on Prepayment and Foreclosure Charges (Public Information) — Frequently Asked Questions\n\n**Can my bank charge me for closing my floating-rate home loan early?**\nNo. For individual borrowers, floating-rate loans cannot carry foreclosure or prepayment charges under RBI rules.\n\n**I took a fixed-rate personal loan. Can there be a prepayment charge?**\nYes, fixed-rate loans can carry a prepayment charge, but only at the rate disclosed in your Key Fact Statement and loan agreement.\n\n**Does it matter whether I prepay with my own savings or a loan from another bank (balance transfer)?**\nNo. Under the 2025 directions, the no-charge rule applies regardless of the source of funds.",
+    "metadata": {
+      "chunk_id": "rbi_prepayment_foreclosure_rules_05",
+      "source_file": "rbi_prepayment_foreclosure_rules.md",
+      "document_type": "regulations",
+      "topic": "rbi_prepayment_foreclosure_rules",
+      "section": "Frequently Asked Questions"
+    }
+  },
+  {
+    "text": "Overdue Loans, NPA Classification and Fair Recovery Practices (Public Information) — Overview\n\n> Public information: a plain-language summary of RBI rules on asset classification (Prudential norms, including the clarification of 12 November 2021) and on conduct of recovery agents (circular of 12 August 2022). Applies to all banks in India. General information, not legal advice. Last reviewed: October 2026.",
+    "metadata": {
+      "chunk_id": "rbi_recovery_and_npa_rules_01",
+      "source_file": "rbi_recovery_and_npa_rules.md",
+      "document_type": "regulations",
+      "topic": "rbi_recovery_and_npa_rules",
+      "section": "Overview"
+    }
+  },
+  {
+    "text": "Overdue Loans, NPA Classification and Fair Recovery Practices (Public Information) — Special Mention Accounts (SMA)\n\nBanks flag a loan as soon as an EMI is overdue, in stages: SMA-0 when it is overdue for up to 30 days, SMA-1 for 31 to 60 days, and SMA-2 for 61 to 90 days. These stages are reported to credit bureaus and can lower the borrower's credit score.",
+    "metadata": {
+      "chunk_id": "rbi_recovery_and_npa_rules_02",
+      "source_file": "rbi_recovery_and_npa_rules.md",
+      "document_type": "regulations",
+      "topic": "rbi_recovery_and_npa_rules",
+      "section": "Special Mention Accounts (SMA)"
+    }
+  },
+  {
+    "text": "Overdue Loans, NPA Classification and Fair Recovery Practices (Public Information) — Non-Performing Asset (NPA)\n\nA loan becomes a Non-Performing Asset (NPA) when principal or interest stays overdue for more than 90 days. An NPA account is upgraded back to \"standard\" only when the entire overdue amount — all arrears of interest and principal — is paid; paying just one EMI is not enough.",
+    "metadata": {
+      "chunk_id": "rbi_recovery_and_npa_rules_03",
+      "source_file": "rbi_recovery_and_npa_rules.md",
+      "document_type": "regulations",
+      "topic": "rbi_recovery_and_npa_rules",
+      "section": "Non-Performing Asset (NPA)"
+    }
+  },
+  {
+    "text": "Overdue Loans, NPA Classification and Fair Recovery Practices (Public Information) — Fair Recovery Practices\n\nBanks and their recovery agents must not use intimidation or harassment of any kind, verbal or physical. They must not call borrowers before 8 a.m. or after 7 p.m. for recovery. They must not publicly humiliate the borrower, intrude on the privacy of family members, friends or colleagues, send inappropriate messages, or make threatening or anonymous calls. A bank is responsible for the conduct of the recovery agents it hires.",
+    "metadata": {
+      "chunk_id": "rbi_recovery_and_npa_rules_04",
+      "source_file": "rbi_recovery_and_npa_rules.md",
+      "document_type": "regulations",
+      "topic": "rbi_recovery_and_npa_rules",
+      "section": "Fair Recovery Practices"
+    }
+  },
+  {
+    "text": "Overdue Loans, NPA Classification and Fair Recovery Practices (Public Information) — Restructuring and Talking to the Bank Early\n\nBorrowers facing genuine financial difficulty should contact their bank before missing EMIs. Banks can, as per their board policy, consider options such as rescheduling EMIs, extending the tenure, or restructuring the loan. A restructured loan may be reported as such to credit bureaus.",
+    "metadata": {
+      "chunk_id": "rbi_recovery_and_npa_rules_05",
+      "source_file": "rbi_recovery_and_npa_rules.md",
+      "document_type": "regulations",
+      "topic": "rbi_recovery_and_npa_rules",
+      "section": "Restructuring and Talking to the Bank Early"
+    }
+  },
+  {
+    "text": "Overdue Loans, NPA Classification and Fair Recovery Practices (Public Information) — Frequently Asked Questions\n\n**A recovery agent called me at 10 p.m. and threatened me. What can I do?**\nThat breaks RBI rules. Note the date, time and number, complain to the bank in writing, and if the bank does not resolve it within 30 days, complain to the RBI Ombudsman. Threats can also be reported to the police.\n\n**After how many missed EMIs does a loan become an NPA?**\nWhen any amount stays overdue for more than 90 days — roughly three missed EMIs in a row.",
+    "metadata": {
+      "chunk_id": "rbi_recovery_and_npa_rules_06",
+      "source_file": "rbi_recovery_and_npa_rules.md",
+      "document_type": "regulations",
+      "topic": "rbi_recovery_and_npa_rules",
       "section": "Frequently Asked Questions"
     }
   }

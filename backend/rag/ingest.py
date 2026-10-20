@@ -22,6 +22,23 @@ from backend.rag.document_loader import load_documents
 from backend.rag.embeddings import embed_document
 from backend.rag.vector_store import StoredChunk, VectorStore
 
+# The Gemini free tier allows 100 embedding requests per minute, and the
+# knowledge base is larger than that — wait out a 429 instead of failing.
+_RATE_LIMIT_WAIT_S = 45
+_MAX_RETRIES = 5
+
+
+def _embed_with_retry(text: str) -> list[float]:
+    for attempt in range(_MAX_RETRIES):
+        try:
+            return embed_document(text)
+        except Exception as e:  # google.genai.errors.ClientError carries .code
+            if getattr(e, "code", None) != 429 or attempt == _MAX_RETRIES - 1:
+                raise
+            print(f"   Rate limited — waiting {_RATE_LIMIT_WAIT_S}s before retrying...")
+            time.sleep(_RATE_LIMIT_WAIT_S)
+    raise RuntimeError("unreachable")
+
 
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
@@ -39,7 +56,7 @@ def main() -> None:
     vectors: list[list[float]] = []
     stored_chunks: list[StoredChunk] = []
     for i, chunk in enumerate(chunks, start=1):
-        vector = embed_document(chunk.text)
+        vector = _embed_with_retry(chunk.text)
         vectors.append(vector)
         stored_chunks.append(StoredChunk(text=chunk.text, metadata=chunk.to_metadata()))
         print(f"   [{i}/{len(chunks)}] embedded {chunk.chunk_id}")

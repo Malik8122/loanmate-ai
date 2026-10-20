@@ -13,6 +13,7 @@ from backend.services.livekit_service import LiveKitService
 from backend.services.loan_service import LoanService
 from backend.services.agent_manager import agent_manager
 from backend.services.call_transcript_store import CallTranscriptStore
+from backend.voice_agent.call_context import OUTBOUND_REASON_PATTERN, resolve_outbound_reason
 
 logger = logging.getLogger(__name__)
 
@@ -111,6 +112,7 @@ async def start_agent(
     customer_id: str = Query(..., description="The customer ID"),
     session_id: str = Query(..., description="The session ID for conversation context"),
     call_direction: str = Query("inbound", pattern="^(inbound|outbound)$", description="'inbound' = user called LoanMate; 'outbound' = LoanMate calls the user and speaks first"),
+    outbound_reason: str | None = Query(None, pattern=OUTBOUND_REASON_PATTERN, description="Why LoanMate is calling (outbound only); 'auto' or omitted picks one from the customer's account state"),
 ):
     """Ensure the AI voice agent is connected to this conversation's LiveKit room.
 
@@ -123,8 +125,19 @@ async def start_agent(
     if not customer_data:
         raise HTTPException(status_code=404, detail=f"Customer {customer_id} not found.")
 
+    if call_direction == "outbound":
+        outbound_reason = resolve_outbound_reason(customer_data, outbound_reason)
+    else:
+        outbound_reason = None
+
     room_name = _room_name(customer_id, session_id)
-    agent_manager.start(room_name=room_name, customer_id=customer_id, session_id=session_id, call_direction=call_direction)
+    agent_manager.start(
+        room_name=room_name,
+        customer_id=customer_id,
+        session_id=session_id,
+        call_direction=call_direction,
+        outbound_reason=outbound_reason,
+    )
     return AgentActionResponse(room_name=room_name, running=agent_manager.is_running(room_name))
 
 

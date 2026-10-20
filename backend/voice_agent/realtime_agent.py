@@ -48,6 +48,7 @@ from livekit.plugins.google.realtime import RealtimeModel
 
 from backend.config import settings
 from backend.rag.rag_service import RAGService
+from backend.services import call_records
 from backend.services.loan_service import LoanService
 from backend.tools import calculator_tools, loan_tools
 from backend.voice_agent.call_context import CallContext, build_call_context
@@ -64,11 +65,19 @@ REALTIME_MODEL = "gemini-3.8-live"
 
 
 class LoanMateAgent(Agent):
-    """Realtime agent with LoanMate's deterministic tools bound to one customer."""
+    """Realtime agent with LoanMate's deterministic tools bound to one customer.
 
-    def __init__(self, call_context: CallContext, customer_context: dict | None):
+    Shared by both call directions; InboundLoanMateAgent and
+    OutboundLoanMateAgent below add the tools that only make sense for
+    that direction, so an inbound call can't log a campaign outcome and
+    an outbound call can't open service tickets.
+    """
+
+    def __init__(self, call_context: CallContext, customer_context: dict | None, session_id: str | None = None):
         super().__init__(instructions=build_system_instructions(call_context))
+        self._call_context = call_context
         self._customer_context = customer_context
+        self._session_id = session_id
 
     @function_tool()
     async def get_emi(self, ctx: RunContext) -> str:
@@ -210,10 +219,14 @@ class LoanMateAgent(Agent):
         """Search LoanMate's knowledge base for information about loan
         products, policies, and general FAQs — NOT for this customer's own
         account data. Use this for questions about what LoanMate offers or
-        how its policies work in general: loan products (personal/home/
-        education loan details), prepayment policy, foreclosure policy,
-        missed-EMI policy, eligibility rules, required documents, and
-        general loan/banking FAQs.
+        how its policies work in general: loan products (personal, home,
+        education, car, gold, business, top-up loans), prepayment,
+        foreclosure, missed-EMI and penal-charge policy, eligibility rules,
+        required documents, RBI rules and borrower rights (Key Fact
+        Statement, interest-rate reset, document return, recovery conduct,
+        ombudsman), credit scores, KYC, government schemes (PMAY,
+        education-loan subsidies), tax benefits on loans, fraud safety,
+        and general loan/banking FAQs.
 
         This is a semantic (meaning-based) search over LoanMate's demo
         knowledge documents, not a customer data lookup — never use it for
@@ -232,6 +245,75 @@ class LoanMateAgent(Agent):
         return result
 
 
+class InboundLoanMateAgent(LoanMateAgent):
+    """The customer called the bank: a service desk that can raise requests."""
+
+    @function_tool()
+    async def raise_service_request(self, ctx: RunContext, request_type: str, details: str = "") -> str:
+        """Raise a service request for something the bank must action after
+        this call, and get a reference number to read back to the customer.
+
+        Args:
+            request_type: One of account_statement, no_dues_certificate,
+                foreclosure_quote, interest_certificate, document_return,
+                update_contact_details, emi_date_change, restructuring_request,
+                complaint, fraud_report, human_callback.
+            details: A short note of what the customer asked for, in their words.
+        """
+        record = call_records.raise_service_request(
+            customer_id=self._call_context.customer_id,
+            request_type=request_type,
+            details=details,
+            session_id=self._session_id,
+        )
+        return f"Service request raised: {record['label']}, reference number {record['reference']}."
+
+
+class OutboundLoanMateAgent(LoanMateAgent):
+    """The bank called the customer for one campaign: records how it went."""
+
+    @function_tool()
+    async def record_call_outcome(
+        self,
+        ctx: RunContext,
+        outcome: str,
+        promised_date: str | None = None,
+        promised_amount: float | None = None,
+        callback_time: str | None = None,
+        notes: str = "",
+    ) -> str:
+        """Record the outcome of this outbound call. Call exactly once, near
+        the end of the call.
+
+        Args:
+            outcome: One of callback_requested, not_interested, do_not_call,
+                wrong_person, no_response, plus for an EMI reminder:
+                will_pay_on_time, promise_to_pay, already_paid,
+                payment_difficulty; for an overdue follow-up: promise_to_pay,
+                already_paid, payment_difficulty, dispute; for a KYC update:
+                will_update_kyc, already_updated; for a product update:
+                interested, needs_more_info.
+            promised_date: The date the customer promised to pay, if any, e.g. "2026-10-25".
+            promised_amount: The amount in rupees the customer promised to pay, if any.
+            callback_time: When the customer asked to be called back, if any.
+            notes: One short sentence summarising the call.
+        """
+        try:
+            call_records.record_call_outcome(
+                customer_id=self._call_context.customer_id,
+                outbound_reason=self._call_context.outbound_reason or "emi_reminder",
+                outcome=outcome,
+                promised_date=promised_date,
+                promised_amount=promised_amount,
+                callback_time=callback_time,
+                notes=notes,
+                session_id=self._session_id,
+            )
+        except ValueError as e:
+            return str(e)
+        return f"Call outcome recorded: {outcome}."
+
+
 async def entrypoint(ctx: JobContext) -> None:
     t_job_start = time.monotonic()
     await ctx.connect()
@@ -242,6 +324,7 @@ async def entrypoint(ctx: JobContext) -> None:
         metadata = {}
 
     customer_id = metadata.get("customer_id", "CUST001")
+    session_id = metadata.get("session_id")
     call_mode = metadata.get("call_mode", "inbound")
     outbound_reason = metadata.get("outbound_reason")
     language_hint = metadata.get("language", "english")
@@ -264,7 +347,8 @@ async def entrypoint(ctx: JobContext) -> None:
         call_context.outbound_reason, call_context.language,
     )
 
-    agent = LoanMateAgent(call_context, customer_context)
+    agent_cls = OutboundLoanMateAgent if call_context.call_mode == "outbound" else InboundLoanMateAgent
+    agent = agent_cls(call_context, customer_context, session_id)
 
     realtime_kwargs: dict = dict(
         model=REALTIME_MODEL,
@@ -311,7 +395,7 @@ async def entrypoint(ctx: JobContext) -> None:
     logger.info("[REALTIME LATENCY] session_start: %.0fms", (time.monotonic() - t_job_start) * 1000)
 
     if call_context.call_mode == "outbound":
-        greeting = build_outbound_instructions(call_context, call_context.outbound_reason)
+        greeting = build_outbound_instructions(call_context)
     else:
         greeting = build_inbound_instructions(call_context)
     session.generate_reply(instructions=greeting)

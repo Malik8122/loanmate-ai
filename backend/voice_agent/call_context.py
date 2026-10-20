@@ -7,6 +7,14 @@ already validated against LoanService (see backend/routes/realtime.py).
 Nothing here ever trusts a customer_name / loan_id / etc. supplied
 directly by the browser — those are always re-derived from the resolved
 customer record, never taken from client input.
+
+Inbound and outbound calls have different purposes:
+
+- inbound  — the customer called the bank. It is a SERVICE call: the
+  customer leads, LoanMate answers questions and raises service requests.
+- outbound — the bank called the customer for ONE specific campaign
+  purpose (outbound_reason). LoanMate leads, confirms it is speaking to
+  the right person, stays on that purpose, and records a call outcome.
 """
 
 from __future__ import annotations
@@ -15,11 +23,12 @@ from dataclasses import dataclass
 from typing import Literal
 
 CallMode = Literal["inbound", "outbound"]
-OutboundReason = Literal["product_update", "emi_reminder"]
+OutboundReason = Literal["emi_reminder", "overdue_followup", "kyc_update", "product_update"]
 Language = Literal["english", "hindi", "hinglish"]
 
-VALID_OUTBOUND_REASONS: set[str] = {"product_update", "emi_reminder"}
-_DEFAULT_OUTBOUND_REASON: OutboundReason = "product_update"
+VALID_OUTBOUND_REASONS: set[str] = {"emi_reminder", "overdue_followup", "kyc_update", "product_update"}
+# Regex used by the route layer's Query(pattern=...) validation.
+OUTBOUND_REASON_PATTERN = "^(" + "|".join(sorted(VALID_OUTBOUND_REASONS)) + "|auto)$"
 
 # Gemini Live BCP-47 codes for the languages we explicitly support. Hinglish
 # has no BCP-47 code of its own — pinning one (e.g. forcing en-IN or hi-IN)
@@ -36,6 +45,7 @@ class CallContext:
     customer_id: str
     customer_name: str
     loan_id: str | None
+    loan_type: str | None
     call_mode: CallMode
     outbound_reason: OutboundReason | None
     language: Language
@@ -56,6 +66,41 @@ class CallContext:
         return self.customer_name.split()[0] if self.customer_name else self.customer_name
 
 
+def _select_loan(loans: list[dict], reason: str | None) -> dict | None:
+    """The loan a call is about: an overdue loan for an overdue follow-up,
+    otherwise the first active loan, otherwise whatever is on file.
+    """
+    if reason == "overdue_followup":
+        overdue = next((loan for loan in loans if loan.get("loan_status") == "Overdue"), None)
+        if overdue:
+            return overdue
+    active = next((loan for loan in loans if loan.get("loan_status") == "Active"), None)
+    return active or (loans[0] if loans else None)
+
+
+def suggest_outbound_reason(customer_record: dict) -> OutboundReason:
+    """Pick the campaign a bank would actually run for this customer, in
+    priority order: an overdue loan beats a pending KYC, which beats a
+    routine EMI reminder. Used when the caller asks for reason="auto" (or
+    sends none).
+    """
+    customer = customer_record.get("customer") or {}
+    loans = customer_record.get("loans") or []
+    if any(loan.get("loan_status") == "Overdue" for loan in loans):
+        return "overdue_followup"
+    if customer and not customer.get("kyc_verified", True):
+        return "kyc_update"
+    if any(loan.get("loan_status") == "Active" for loan in loans):
+        return "emi_reminder"
+    return "product_update"
+
+
+def resolve_outbound_reason(customer_record: dict, outbound_reason: str | None) -> OutboundReason:
+    if outbound_reason in VALID_OUTBOUND_REASONS:
+        return outbound_reason  # type: ignore[return-value]
+    return suggest_outbound_reason(customer_record)
+
+
 def build_call_context(
     customer_id: str,
     customer_record: dict,
@@ -70,23 +115,22 @@ def build_call_context(
     """
     customer = customer_record.get("customer") or {}
     loans = customer_record.get("loans") or []
-    active_loan = next((loan for loan in loans if loan.get("loan_status") == "Active"), None)
-    active_loan = active_loan or (loans[0] if loans else None)
 
     resolved_mode: CallMode = "outbound" if call_mode == "outbound" else "inbound"
 
     resolved_reason: OutboundReason | None = None
     if resolved_mode == "outbound":
-        resolved_reason = (
-            outbound_reason if outbound_reason in VALID_OUTBOUND_REASONS else _DEFAULT_OUTBOUND_REASON
-        )  # type: ignore[assignment]
+        resolved_reason = resolve_outbound_reason(customer_record, outbound_reason)
+
+    loan = _select_loan(loans, resolved_reason)
 
     resolved_language: Language = language if language in ("english", "hindi", "hinglish") else "english"  # type: ignore[assignment]
 
     return CallContext(
         customer_id=customer_id,
         customer_name=customer.get("name") or "the customer",
-        loan_id=active_loan.get("loan_id") if active_loan else None,
+        loan_id=loan.get("loan_id") if loan else None,
+        loan_type=loan.get("loan_type") if loan else None,
         call_mode=resolved_mode,
         outbound_reason=resolved_reason,
         language=resolved_language,

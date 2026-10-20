@@ -198,6 +198,8 @@ async def process_utterance(
     tts: TTSService,
     room: rtc.Room,
     speech_end_ts: float | None = None,
+    call_direction: str = "inbound",
+    outbound_reason: str | None = None,
 ):
     """Run the pipeline on a chunk of audio and send back TTS output.
 
@@ -238,6 +240,8 @@ async def process_utterance(
         customer_context=customer_context,
         language="auto",
         session_id=session_id,
+        call_mode=call_direction,
+        outbound_reason=outbound_reason,
     )
     orchestrator_ms = (time.monotonic() - t0) * 1000
     tool_used = agent_result.get("tool_used")
@@ -270,23 +274,21 @@ async def process_utterance(
     await _publish_state(room, "listening")
 
 
-_OUTBOUND_GREETING_EN = (
-    "Hello! This is LoanMate, your AI loan assistant. "
-    "I'm calling to help you with your loan. How can I assist you today?"
-)
-_OUTBOUND_GREETING_HI = (
-    "Namaste! Main LoanMate hoon, aapka AI loan assistant. "
-    "Main aapke loan mein madad karne ke liye call kar raha hoon. Main aapki kaise madad kar sakta hoon?"
-)
-
-
-async def run_voice_agent(room_name: str, customer_id: str, session_id: str, call_direction: str = "inbound"):
+async def run_voice_agent(
+    room_name: str,
+    customer_id: str,
+    session_id: str,
+    call_direction: str = "inbound",
+    outbound_reason: str | None = None,
+):
     """
     Connects to a LiveKit room, listens for audio tracks, and responds.
 
     call_direction == "outbound" means LoanMate initiated the call (the demo
-    "Bank is Calling You" flow), so the agent speaks first with a greeting
-    before waiting for the user; "inbound" (default) just listens.
+    "Bank is Calling You" flow) for one campaign purpose (outbound_reason):
+    the agent speaks first with that purpose's opener, confirms it has the
+    right person, and records a call outcome. "inbound" (default) just
+    listens and serves whatever the customer asks for.
     """
     if not settings.LIVEKIT_URL or not settings.LIVEKIT_API_KEY or not settings.LIVEKIT_API_SECRET:
         logger.error("[VOICE] LiveKit credentials not set. Cannot start agent.")
@@ -358,8 +360,8 @@ async def run_voice_agent(room_name: str, customer_id: str, session_id: str, cal
         async def greet_then_listen(audio_track: rtc.RemoteAudioTrack):
             customer_context = LoanService.get_customer_with_loans(customer_id)
             greeting_lang = (customer_context or {}).get("customer", {}).get("language", "en")
-            greeting_text = _OUTBOUND_GREETING_HI if greeting_lang == "hi" else _OUTBOUND_GREETING_EN
-            logger.info("[VOICE] Outbound call — LoanMate speaking first (lang=%s)", greeting_lang)
+            greeting_text = agent.start_outbound(session_id, outbound_reason, customer_context, greeting_lang)
+            logger.info("[VOICE] Outbound %s call — LoanMate speaking first (lang=%s)", outbound_reason, greeting_lang)
             CallTranscriptStore.append(session_id, "assistant", greeting_text)
             await _publish_state(room, "speaking")
             await _synthesize_and_publish(greeting_text, greeting_lang, tts, source)
@@ -457,6 +459,8 @@ async def run_voice_agent(room_name: str, customer_id: str, session_id: str, cal
                             tts=tts,
                             room=room,
                             speech_end_ts=speech_end_ts,
+                            call_direction=call_direction,
+                            outbound_reason=outbound_reason,
                         )
                     )
 

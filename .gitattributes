@@ -1,0 +1,2 @@
+# Shell scripts run inside a Linux container: always check them out with LF.
+*.sh text eol=lf

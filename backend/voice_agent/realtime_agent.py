@@ -225,8 +225,10 @@ class LoanMateAgent(Agent):
         required documents, RBI rules and borrower rights (Key Fact
         Statement, interest-rate reset, document return, recovery conduct,
         ombudsman), credit scores, KYC, government schemes (PMAY,
-        education-loan subsidies), tax benefits on loans, fraud safety,
-        and general loan/banking FAQs.
+        education-loan subsidies), tax benefits on loans, ways to pay an
+        EMI (NACH, UPI AutoPay), loan settlement vs closure, home loan
+        balance transfer, insurance sold with loans, customer rights,
+        fraud safety, and general loan/banking FAQs.
 
         This is a semantic (meaning-based) search over LoanMate's demo
         knowledge documents, not a customer data lookup — never use it for

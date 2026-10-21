@@ -18,9 +18,11 @@ export function OutboundCalling({ onReady }: { onReady: () => void }) {
 }
 
 export function IncomingCall({
+  customerName,
   onAccept,
   onDecline,
 }: {
+  customerName: string;
   onAccept: () => void;
   onDecline: () => void;
 }) {
@@ -36,7 +38,7 @@ export function IncomingCall({
       <VoiceOrb state={ringing ? "listening" : "idle"} size={150} />
       <div>
         <p className="text-2xl font-semibold">LoanMate</p>
-        <p className="text-white/60 text-sm">AI Loan Assistant</p>
+        <p className="text-white/60 text-sm">AI Loan Assistant · calling {customerName}</p>
       </div>
       <div className="flex gap-4 w-full max-w-xs">
         <button

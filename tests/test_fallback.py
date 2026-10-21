@@ -11,9 +11,9 @@ Mock data reference (from backend/data/mock_data.json):
   CUST001 – Rajesh Kumar
     LN10001  Home Loan    EMI=31500  outstanding=2870000  due=2026-09-05  tenure=168  status=Active
     LN10002  Personal Loan EMI=14500  outstanding=320000   due=2026-09-05  tenure=24   status=Active
-  CUST002 – Priya Sharma
+  CUST002 – Sanya Malik
     LN10003  Car Loan     EMI=17200  outstanding=580000   due=2026-09-10  tenure=36   status=Active
-  CUST003 – Amit Patel
+  CUST003 – Maanasvee Khetan
     LN10004  Home Loan    EMI=42000  outstanding=4100000  due=2026-09-01  tenure=216  status=Active
     LN10005  Education Loan EMI=18500 outstanding=950000  due=2026-09-15  tenure=60   status=Active
   CUST005 – Mohammed Irfan

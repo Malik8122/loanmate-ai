@@ -64,6 +64,11 @@ EVAL_CASES: list[EvalCase] = [
     EvalCase("Can I claim home loan interest under the new tax regime?", "loan_tax_benefits.md"),
     EvalCase("What is a top-up loan?", "top_up_loan.md"),
     EvalCase("What is the LTV for a gold loan?", "gold_loan.md"),
+    EvalCase("Can I settle my overdue loan for a lower amount?", "rbi_compromise_settlement.md"),
+    EvalCase("Can I pay my EMI through UPI AutoPay?", "rbi_emi_payment_modes.md"),
+    EvalCase("How do I transfer my home loan to another bank?", "home_loan_balance_transfer.md"),
+    EvalCase("Is it compulsory to buy insurance with my home loan?", "loan_insurance_and_mis_selling.md"),
+    EvalCase("What rights do I have as a bank customer?", "rbi_charter_of_customer_rights.md"),
 ]
 
 

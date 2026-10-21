@@ -4,28 +4,40 @@ import { useCallback, useState } from "react";
 import Home from "./components/Home";
 import { OutboundCalling, IncomingCall } from "./components/OutboundFlow";
 import ActiveCall from "./components/ActiveCall";
-import { fetchRealtimeToken, newSessionId, TokenResponse, CallMode, OutboundReason } from "./lib/api";
+import {
+  API_BASE,
+  fetchRealtimeToken,
+  newSessionId,
+  Customer,
+  TokenResponse,
+  CallMode,
+  OutboundReason,
+} from "./lib/api";
 import { Language } from "./components/LanguagePills";
 
 type Screen =
   | { name: "home" }
-  | { name: "outbound-calling"; language: Language; reason: OutboundReason }
-  | { name: "incoming-call"; language: Language; reason: OutboundReason }
+  | { name: "outbound-calling"; language: Language; reason: OutboundReason; customer: Customer }
+  | { name: "incoming-call"; language: Language; reason: OutboundReason; customer: Customer }
   | { name: "connecting" }
   | { name: "active-call"; token: TokenResponse }
   | { name: "ended" };
 
 export default function Page() {
   const [screen, setScreen] = useState<Screen>({ name: "home" });
+  const [error, setError] = useState<string | null>(null);
 
   const startCall = useCallback(
-    async (mode: CallMode, language: Language, reason?: OutboundReason) => {
+    async (mode: CallMode, language: Language, customer: Customer, reason?: OutboundReason) => {
+      setError(null);
       setScreen({ name: "connecting" });
       try {
-        const token = await fetchRealtimeToken(newSessionId(), mode, language, reason);
+        const token = await fetchRealtimeToken(newSessionId(), mode, language, customer.customer_id, reason);
         setScreen({ name: "active-call", token });
       } catch (err) {
         console.error(err);
+        const detail = err instanceof Error ? err.message : String(err);
+        setError(`Couldn't start the call (${detail}). Check the backend is running at ${API_BASE}.`);
         setScreen({ name: "home" });
       }
     },
@@ -38,11 +50,20 @@ export default function Page() {
 
   return (
     <div className="flex-1 flex flex-col">
+      {screen.name === "home" && error && (
+        <div
+          role="alert"
+          className="mx-auto mt-6 max-w-md rounded-xl border border-red-400/40 bg-red-500/10 px-4 py-3 text-sm text-red-200"
+        >
+          {error}
+        </div>
+      )}
+
       {screen.name === "home" && (
         <Home
-          onCallLoanMate={(language) => startCall("inbound", language)}
-          onBankIsCallingYou={(language, reason) =>
-            setScreen({ name: "outbound-calling", language, reason })
+          onCallLoanMate={(language, customer) => startCall("inbound", language, customer)}
+          onBankIsCallingYou={(language, reason, customer) =>
+            setScreen({ name: "outbound-calling", language, reason, customer })
           }
         />
       )}
@@ -50,14 +71,20 @@ export default function Page() {
       {screen.name === "outbound-calling" && (
         <OutboundCalling
           onReady={() =>
-            setScreen({ name: "incoming-call", language: screen.language, reason: screen.reason })
+            setScreen({
+              name: "incoming-call",
+              language: screen.language,
+              reason: screen.reason,
+              customer: screen.customer,
+            })
           }
         />
       )}
 
       {screen.name === "incoming-call" && (
         <IncomingCall
-          onAccept={() => startCall("outbound", screen.language, screen.reason)}
+          customerName={screen.customer.name}
+          onAccept={() => startCall("outbound", screen.language, screen.customer, screen.reason)}
           onDecline={() => setScreen({ name: "home" })}
         />
       )}

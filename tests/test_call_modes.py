@@ -17,7 +17,11 @@ from backend.services import call_records
 from backend.services.llm_service import LLMService
 from backend.services.loan_service import LoanService
 from backend.voice_agent.call_context import build_call_context, suggest_outbound_reason
-from backend.voice_agent.prompts import build_outbound_instructions, build_system_instructions
+from backend.voice_agent.prompts import (
+    build_inbound_instructions,
+    build_outbound_instructions,
+    build_system_instructions,
+)
 
 
 @pytest.fixture(autouse=True)
@@ -82,6 +86,19 @@ def test_each_outbound_reason_has_its_own_goal_and_opener():
         goals.add(build_system_instructions(ctx))
         assert "Rajesh Kumar" in build_outbound_instructions(ctx)
     assert len(goals) == 4
+
+
+@pytest.mark.parametrize("mode,reason", [("inbound", None), ("outbound", "emi_reminder")])
+def test_chosen_language_is_enforced_for_the_whole_call(mode, reason):
+    record = LoanService.get_customer_with_loans("CUST001")
+    ctx = build_call_context("CUST001", record, mode, reason, "hindi")
+    assert "LANGUAGE CHOSEN FOR THIS CALL: Hindi" in build_system_instructions(ctx)
+    assert "WHOLE call" in build_system_instructions(ctx)
+    opener = build_outbound_instructions(ctx) if mode == "outbound" else build_inbound_instructions(ctx)
+    assert "entirely in natural spoken Hindi" in opener
+
+    english = build_call_context("CUST001", record, mode, reason, "english")
+    assert "LANGUAGE CHOSEN FOR THIS CALL: English" in build_system_instructions(english)
 
 
 def test_overdue_prompt_forbids_threats():

@@ -1,0 +1,5 @@
+# .gitattributes for the Hugging Face Space repository.
+# Shell scripts run inside the Linux container: always LF.
+*.sh text eol=lf
+# Hugging Face rejects binary files pushed as plain git objects; store them with LFS.
+*.index filter=lfs diff=lfs merge=lfs -text

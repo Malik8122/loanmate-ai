@@ -12,6 +12,8 @@ real backend/agent capabilities, reachable only by asking LoanMate.
 import json
 import subprocess
 import sys
+import tempfile
+import threading
 import time
 import uuid
 from datetime import datetime
@@ -52,6 +54,27 @@ def _resolve_api_base() -> str:
 
 API_BASE = _resolve_api_base()
 EMBEDDED_BACKEND = API_BASE == f"http://127.0.0.1:{EMBEDDED_PORT}"
+EMBEDDED_LOG = Path(tempfile.gettempdir()) / "loanmate_backend.log"
+
+
+def backend_diagnosis() -> str:
+    """What the error screen shows: which backend mode is active and why it may be failing.
+    Names secrets but never prints their values."""
+    secrets = _secrets()
+    if secrets.get("API_BASE") or os.getenv("API_BASE"):
+        return (f"Mode: external backend at `{API_BASE}`. To run the backend inside this app instead, "
+                "remove `API_BASE` from the app's secrets and add the four API keys.")
+    if not EMBEDDED_BACKEND:
+        missing = [k for k in _BACKEND_SECRETS if not secrets.get(k)]
+        return ("Mode: local development backend (`http://localhost:8000`). "
+                f"To run the backend inside this app, add these secrets: {', '.join(missing)}.")
+    lines = ["Mode: built-in backend (started by this app)."]
+    try:
+        tail = EMBEDDED_LOG.read_text(encoding="utf-8", errors="replace").splitlines()[-40:]
+        lines.append("Last backend log lines:\n```\n" + "\n".join(tail) + "\n```")
+    except OSError:
+        lines.append("The backend has not written a log yet.")
+    return "\n\n".join(lines)
 
 
 @st.cache_resource(show_spinner=False)
@@ -67,7 +90,23 @@ def _launch_embedded_backend() -> subprocess.Popen:
         LOANMATE_WORKER_IDLE_PROCESSES=env.get("LOANMATE_WORKER_IDLE_PROCESSES", "1"),
         LOANMATE_WORKER_LOAD_THRESHOLD=env.get("LOANMATE_WORKER_LOAD_THRESHOLD", "1.0"),
     )
-    return subprocess.Popen([sys.executable, str(PROJECT_ROOT / "deploy" / "space_app.py")], cwd=PROJECT_ROOT, env=env)
+    proc = subprocess.Popen(
+        [sys.executable, str(PROJECT_ROOT / "deploy" / "space_app.py")],
+        cwd=PROJECT_ROOT, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+        text=True, encoding="utf-8", errors="replace",
+    )
+
+    # Copy backend output to the app's own log (Manage app) and to a file the
+    # error screen can show.
+    def _tee() -> None:
+        with open(EMBEDDED_LOG, "w", encoding="utf-8") as log:
+            for line in proc.stdout:
+                sys.stdout.write(line)
+                log.write(line)
+                log.flush()
+
+    threading.Thread(target=_tee, daemon=True, name="loanmate-backend-log").start()
+    return proc
 
 
 def ensure_embedded_backend(timeout_s: int = 180) -> bool:
@@ -778,6 +817,8 @@ def main():
         if st.button("Retry", type="primary", use_container_width=True):
             check_health.clear()
             st.rerun()
+        with st.expander("Details for troubleshooting"):
+            st.markdown(backend_diagnosis())
         return
 
     voice_ready = fetch_livekit_status()

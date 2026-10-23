@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import time
 
 from livekit.agents import (
@@ -404,7 +405,15 @@ async def entrypoint(ctx: JobContext) -> None:
 
 
 def run_worker() -> None:
-    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint, agent_name=AGENT_NAME))
+    # Small shared hosts (e.g. the embedded backend on Streamlit Community Cloud)
+    # can't afford LiveKit's production defaults — 4 pre-warmed job processes, and
+    # refusing calls once host CPU passes 70%. Unset means the library default.
+    overrides = {}
+    if os.getenv("LOANMATE_WORKER_IDLE_PROCESSES"):
+        overrides["num_idle_processes"] = int(os.environ["LOANMATE_WORKER_IDLE_PROCESSES"])
+    if os.getenv("LOANMATE_WORKER_LOAD_THRESHOLD"):
+        overrides["load_threshold"] = float(os.environ["LOANMATE_WORKER_LOAD_THRESHOLD"])
+    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint, agent_name=AGENT_NAME, **overrides))
 
 
 if __name__ == "__main__":

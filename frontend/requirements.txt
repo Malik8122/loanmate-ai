@@ -1,5 +1,34 @@
 # Streamlit Community Cloud installs this file (it sits next to the entrypoint,
-# frontend/app.py) instead of the root requirements.txt. The UI only talks to the
-# deployed backend over HTTP, so it needs nothing else.
+# frontend/app.py) instead of the root requirements.txt.
+#
+# The app runs the backend API and Gemini Live voice worker itself (single-app
+# deploy), so this is the Streamlit UI plus the same backend packages as
+# requirements-deploy.txt — keep the two in sync.
+
+# UI
 streamlit>=1.60.0
 requests>=2.31.0
+
+# Backend API
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.0
+python-dotenv>=1.0.0
+python-multipart>=0.0.9
+
+# LLM (text chat / legacy orchestrator)
+google-generativeai>=0.8.0
+
+# Realtime voice: LiveKit Agents + Gemini Live
+livekit-agents[google]~=1.8
+livekit>=0.17.0
+livekit-api>=0.6.0
+
+# RAG vector search
+faiss-cpu>=1.11.0
+
+# Imported by the legacy voice module at startup
+edge-tts>=6.1.12
+nest-asyncio>=1.6.0
+imageio-ffmpeg>=0.5.1
+audioop-lts>=0.2.1; python_version >= "3.13"

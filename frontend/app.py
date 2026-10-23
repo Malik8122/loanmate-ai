@@ -10,26 +10,84 @@ real backend/agent capabilities, reachable only by asking LoanMate.
 """
 
 import json
+import subprocess
+import sys
 import time
 import uuid
 from datetime import datetime
+from pathlib import Path
 
 import os
 
 import requests
 import streamlit as st
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+EMBEDDED_PORT = 8765
+_BACKEND_SECRETS = ("GOOGLE_API_KEY", "LIVEKIT_URL", "LIVEKIT_API_KEY", "LIVEKIT_API_SECRET")
+
+
+def _secrets() -> dict:
+    try:
+        return dict(st.secrets)
+    except Exception:  # no secrets.toml — normal for local runs
+        return {}
+
 
 def _resolve_api_base() -> str:
-    """Backend URL: Streamlit secrets (Community Cloud) > API_BASE env var > local dev."""
-    try:
-        value = st.secrets.get("API_BASE")
-    except Exception:  # no secrets.toml — normal for local runs
-        value = None
-    return (value or os.getenv("API_BASE") or "http://localhost:8000").rstrip("/")
+    """Where the backend lives:
+    - API_BASE (secret or env var) — a separately hosted backend;
+    - otherwise, if the API keys are in Streamlit secrets — a backend this app
+      starts itself (single-app deploy on Streamlit Community Cloud);
+    - otherwise the local dev backend.
+    """
+    secrets = _secrets()
+    explicit = secrets.get("API_BASE") or os.getenv("API_BASE")
+    if explicit:
+        return explicit.rstrip("/")
+    if all(secrets.get(k) for k in _BACKEND_SECRETS):
+        return f"http://127.0.0.1:{EMBEDDED_PORT}"
+    return "http://localhost:8000"
 
 
 API_BASE = _resolve_api_base()
+EMBEDDED_BACKEND = API_BASE == f"http://127.0.0.1:{EMBEDDED_PORT}"
+
+
+@st.cache_resource(show_spinner=False)
+def _launch_embedded_backend() -> subprocess.Popen:
+    """Start the FastAPI backend + Gemini Live voice worker (deploy/space_app.py)
+    as a child process. Cached, so every session and rerun shares one backend."""
+    env = {**os.environ, **{k: str(v) for k, v in _secrets().items() if isinstance(v, (str, int, float))}}
+    env.update(
+        PORT=str(EMBEDDED_PORT),
+        HOST="127.0.0.1",
+        PYTHONPATH=str(PROJECT_ROOT),
+        # Keep the voice worker small on a shared container (see run_worker).
+        LOANMATE_WORKER_IDLE_PROCESSES=env.get("LOANMATE_WORKER_IDLE_PROCESSES", "1"),
+        LOANMATE_WORKER_LOAD_THRESHOLD=env.get("LOANMATE_WORKER_LOAD_THRESHOLD", "1.0"),
+    )
+    return subprocess.Popen([sys.executable, str(PROJECT_ROOT / "deploy" / "space_app.py")], cwd=PROJECT_ROOT, env=env)
+
+
+def ensure_embedded_backend(timeout_s: int = 180) -> bool:
+    """Make sure the embedded backend is running and answering; restart it if it died."""
+    proc = _launch_embedded_backend()
+    if proc.poll() is not None:
+        _launch_embedded_backend.clear()
+        proc = _launch_embedded_backend()
+    deadline = time.monotonic() + timeout_s
+    while time.monotonic() < deadline:
+        try:
+            if requests.get(f"{API_BASE}/health", timeout=2).ok:
+                return True
+        except Exception:
+            pass
+        if proc.poll() is not None:
+            return False
+        time.sleep(1)
+    return False
+
 
 st.set_page_config(
     page_title="LoanMate",
@@ -708,6 +766,10 @@ def render_ended():
 def main():
     init_state()
     inject_css(st.session_state.dark_mode)
+
+    if EMBEDDED_BACKEND:
+        with st.spinner("Starting LoanMate — the first load after a restart takes about a minute..."):
+            ensure_embedded_backend()
 
     healthy = check_health()
     if not healthy:

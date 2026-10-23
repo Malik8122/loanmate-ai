@@ -6,10 +6,11 @@ The app is deployed in two pieces on free tiers:
 | --- | --- | --- |
 | Backend API + Gemini Live voice worker | Hugging Face Spaces (Gradio SDK, free CPU) | `https://<hf-user>-<space-name>.hf.space` |
 | React web app (`frontend/web`) | Vercel (Hobby plan) | `https://<project>.vercel.app` |
-| *or* Streamlit app (`frontend/app.py`) | Streamlit Community Cloud | `https://<app-name>.streamlit.app` |
 
-Pick either frontend (or deploy both); they talk to the same backend. For the Streamlit
-frontend, skip section 2 and follow section 2b.
+**Simplest option — everything on Streamlit:** skip sections 1 and 2 and follow
+[section 2b](#2b-everything-on-streamlit-community-cloud-no-separate-backend). The
+Streamlit app (`frontend/app.py`) then runs the backend and voice worker itself, so you
+only need a GitHub account and a Streamlit Community Cloud account.
 
 LiveKit Cloud (calls) and the Gemini API (AI) stay on the free plans you already use.
 
@@ -70,9 +71,13 @@ To update the backend later, run step 4 again from `.\deploy\prepare_space.ps1` 
 
 If you change `NEXT_PUBLIC_API_BASE` later, redeploy — the value is built into the page.
 
-## 2b. Frontend on Streamlit Community Cloud (instead of Vercel)
+## 2b. Everything on Streamlit Community Cloud (no separate backend)
 
-1. Push the project to GitHub (same as above — Streamlit deploys from a branch).
+The Streamlit app starts the FastAPI backend and the Gemini Live voice worker as child
+processes inside its own container. The voice worker only connects *out* to LiveKit Cloud,
+so nothing besides the Streamlit page needs to be public.
+
+1. Push the project to GitHub (Streamlit deploys from a branch).
 2. Go to <https://share.streamlit.io>, sign in with GitHub, and click **Create app** →
    **Deploy a public app from GitHub**.
    - **Repository / Branch:** your repo and `main`
@@ -80,24 +85,35 @@ If you change `NEXT_PUBLIC_API_BASE` later, redeploy — the value is built into
    - **App URL:** pick a name — this becomes `https://<app-name>.streamlit.app`
 3. Open **Advanced settings**:
    - **Python version:** 3.12
-   - **Secrets:** paste (no trailing slash):
+   - **Secrets:** paste the four keys, with the values from your local `.env`:
 
      ```toml
-     API_BASE = "https://<hf-user>-loanmate-backend.hf.space"
+     GOOGLE_API_KEY = "..."
+     LIVEKIT_URL = "wss://....livekit.cloud"
+     LIVEKIT_API_KEY = "..."
+     LIVEKIT_API_SECRET = "..."
      ```
-4. Click **Deploy**. Streamlit installs `frontend/requirements.txt` (just Streamlit and
-   requests — the UI only calls the backend over HTTP) and gives you the public link.
 
-To change the backend URL later: app menu → **Settings → Secrets**, edit, save — the app
-restarts with the new value. Every push to the branch redeploys automatically.
+     Don't add `API_BASE` — leaving it out is what tells the app to run the backend itself.
+4. Click **Deploy**. The first build installs `frontend/requirements.txt` (a few minutes);
+   the first page load after that shows "Starting LoanMate…" for about 20–60 seconds while
+   the backend starts.
+
+Already deployed with an `API_BASE` secret? Open the app menu → **Settings → Secrets**,
+replace it with the four keys above, and save — the app restarts. Every push to the branch
+redeploys automatically.
+
+To use a separately hosted backend instead (section 1), set only
+`API_BASE = "https://<your-backend-url>"` (no trailing slash) as the secret.
 
 ## 3. Test it
 
 Open the Vercel or Streamlit URL → allow the microphone → pick a customer → **Call LoanMate**.
-If the home screen shows a red message, the frontend can't reach the backend: check the Space
-is **Running** and that `NEXT_PUBLIC_API_BASE` (Vercel) or the `API_BASE` secret (Streamlit)
-matches its URL exactly. The Streamlit app has a **Retry** button for when the Space is still
-waking up.
+If the home screen shows a red message, the frontend can't reach the backend:
+- **Streamlit (single app):** check that all four keys are in the app's secrets and there is
+  no `API_BASE` secret, then open **Manage app** (bottom right) to read the logs. A
+  `registered worker` line means the voice worker is up.
+- **Vercel:** check the Space is **Running** and `NEXT_PUBLIC_API_BASE` matches its URL exactly.
 
 ## Good to know
 

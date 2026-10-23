@@ -4,8 +4,12 @@ The app is deployed in two pieces on free tiers:
 
 | Piece | Host | URL you get |
 | --- | --- | --- |
-| Backend API + Gemini Live voice worker | Hugging Face Spaces (Docker, free CPU) | `https://<hf-user>-<space-name>.hf.space` |
+| Backend API + Gemini Live voice worker | Hugging Face Spaces (Gradio SDK, free CPU) | `https://<hf-user>-<space-name>.hf.space` |
 | React web app (`frontend/web`) | Vercel (Hobby plan) | `https://<project>.vercel.app` |
+| *or* Streamlit app (`frontend/app.py`) | Streamlit Community Cloud | `https://<app-name>.streamlit.app` |
+
+Pick either frontend (or deploy both); they talk to the same backend. For the Streamlit
+frontend, skip section 2 and follow section 2b.
 
 LiveKit Cloud (calls) and the Gemini API (AI) stay on the free plans you already use.
 
@@ -19,7 +23,8 @@ first backend build.
 
 1. Go to <https://huggingface.co/new-space>.
    - **Space name:** e.g. `loanmate-backend`
-   - **SDK:** Docker → Blank
+   - **SDK:** **Gradio** → **Blank** template (Docker Spaces are now paid; the Gradio runtime
+     is free and just runs our `app.py`, which serves the API — there is no Gradio interface)
    - **Hardware:** CPU basic (free)
    - **Visibility:** Public or Private (Private keeps the page private, but the frontend must
      reach the API, so use **Public** for the demo).
@@ -48,7 +53,8 @@ first backend build.
    When asked to sign in, use your Hugging Face username and the access token.
 5. The Space builds automatically (about 5–10 minutes the first time). When it shows
    **Running**, open `https://<hf-user>-loanmate-backend.hf.space/health` — it should say
-   `{"status":"ok",...}`.
+   `{"status":"ok",...}`. (The Space's own page may show `{"detail":"Not Found"}` — that's
+   normal: the backend is an API with no home page. `/docs` lists every endpoint.)
 
 To update the backend later, run step 4 again from `.\deploy\prepare_space.ps1` onward.
 
@@ -64,11 +70,34 @@ To update the backend later, run step 4 again from `.\deploy\prepare_space.ps1` 
 
 If you change `NEXT_PUBLIC_API_BASE` later, redeploy — the value is built into the page.
 
+## 2b. Frontend on Streamlit Community Cloud (instead of Vercel)
+
+1. Push the project to GitHub (same as above — Streamlit deploys from a branch).
+2. Go to <https://share.streamlit.io>, sign in with GitHub, and click **Create app** →
+   **Deploy a public app from GitHub**.
+   - **Repository / Branch:** your repo and `main`
+   - **Main file path:** `frontend/app.py`
+   - **App URL:** pick a name — this becomes `https://<app-name>.streamlit.app`
+3. Open **Advanced settings**:
+   - **Python version:** 3.12
+   - **Secrets:** paste (no trailing slash):
+
+     ```toml
+     API_BASE = "https://<hf-user>-loanmate-backend.hf.space"
+     ```
+4. Click **Deploy**. Streamlit installs `frontend/requirements.txt` (just Streamlit and
+   requests — the UI only calls the backend over HTTP) and gives you the public link.
+
+To change the backend URL later: app menu → **Settings → Secrets**, edit, save — the app
+restarts with the new value. Every push to the branch redeploys automatically.
+
 ## 3. Test it
 
-Open the Vercel URL → allow the microphone → pick a customer → **Call LoanMate**. If the home
-screen shows a red message, the frontend can't reach the backend: check the Space is
-**Running** and that `NEXT_PUBLIC_API_BASE` matches its URL exactly.
+Open the Vercel or Streamlit URL → allow the microphone → pick a customer → **Call LoanMate**.
+If the home screen shows a red message, the frontend can't reach the backend: check the Space
+is **Running** and that `NEXT_PUBLIC_API_BASE` (Vercel) or the `API_BASE` secret (Streamlit)
+matches its URL exactly. The Streamlit app has a **Retry** button for when the Space is still
+waking up.
 
 ## Good to know
 
@@ -79,13 +108,12 @@ screen shows a red message, the frontend can't reach the backend: check the Spac
 - **Free-tier limits:** LiveKit and Gemini free plans have usage caps — fine for demos.
 - **Public link = your keys' quota:** anyone with the Vercel link can make calls that use your
   Gemini and LiveKit quotas. Share it only with the people who need it.
-- **Not deployed:** the Streamlit demo and its local Whisper speech-to-text. The deployed
-  backend uses `requirements-deploy.txt`, which leaves them out.
-- **Test locally first (optional, needs Docker):**
-
-  ```powershell
-  docker build -t loanmate-backend .
-  docker run --rm -p 7860:7860 --env-file .env -e PORT=7860 loanmate-backend
-  ```
-
-  then open <http://localhost:7860/health>.
+- **Not deployed:** the local Whisper speech-to-text. The deployed backend uses
+  `requirements-deploy.txt`, which leaves it out.
+- **Streamlit sleeps too:** a Community Cloud app with no visitors for a while goes to sleep;
+  the first visitor clicks a wake-up button and waits about a minute.
+- **Test locally first (optional):** from the project folder, with the venv active, run
+  `python deploy\space_app.py` (with `PORT=7860` set, or it uses your `.env` port) — it starts
+  exactly what the Space runs. Open <http://localhost:7860/health>.
+- **Paid Docker hosting instead:** the `Dockerfile` in the project root builds the same
+  backend as one container, for a Docker Space or any other Docker host.

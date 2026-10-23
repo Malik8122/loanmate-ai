@@ -1,0 +1,5 @@
+# Streamlit Community Cloud installs this file (it sits next to the entrypoint,
+# frontend/app.py) instead of the root requirements.txt. The UI only talks to the
+# deployed backend over HTTP, so it needs nothing else.
+streamlit>=1.60.0
+requests>=2.31.0

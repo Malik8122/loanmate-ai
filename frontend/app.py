@@ -19,7 +19,17 @@ import os
 import requests
 import streamlit as st
 
-API_BASE = os.getenv("API_BASE", "http://localhost:8000")
+
+def _resolve_api_base() -> str:
+    """Backend URL: Streamlit secrets (Community Cloud) > API_BASE env var > local dev."""
+    try:
+        value = st.secrets.get("API_BASE")
+    except Exception:  # no secrets.toml — normal for local runs
+        value = None
+    return (value or os.getenv("API_BASE") or "http://localhost:8000").rstrip("/")
+
+
+API_BASE = _resolve_api_base()
 
 st.set_page_config(
     page_title="LoanMate",
@@ -210,8 +220,7 @@ def init_state():
         "session_id": None,
         "selected_customer": None,
         "dark_mode": False,
-        "lang_choice": "Auto Detect",
-        "transcript": [],  # persisted after a call ends, for optional review
+        "lang_choice": "English",
     }
     for key, value in defaults.items():
         if key not in st.session_state:
@@ -231,8 +240,9 @@ def new_session_id() -> str:
 # ---------------------------------------------------------------------------
 @st.cache_data(ttl=30)
 def check_health() -> bool:
+    # Generous timeout: a free Hugging Face Space takes a while to answer while it wakes up.
     try:
-        resp = requests.get(f"{API_BASE}/health", timeout=3)
+        resp = requests.get(f"{API_BASE}/health", timeout=15)
         return resp.status_code == 200
     except Exception:
         return False
@@ -259,9 +269,14 @@ def fetch_customers() -> list[dict]:
         return []
 
 
-def fetch_livekit_token(customer_id: str, session_id: str) -> dict | None:
+def fetch_realtime_token(customer_id: str, session_id: str, call_mode: str, language: str, outbound_reason: str | None) -> dict | None:
+    """Token for the realtime (Gemini Live) path. Its room config makes LiveKit Cloud
+    dispatch the voice agent automatically, so there is no separate start/stop call."""
+    params = {"customer_id": customer_id, "session_id": session_id, "call_mode": call_mode, "language": language}
+    if call_mode == "outbound" and outbound_reason:
+        params["outbound_reason"] = outbound_reason
     try:
-        resp = requests.get(f"{API_BASE}/api/livekit/token", params={"customer_id": customer_id, "session_id": session_id}, timeout=10)
+        resp = requests.get(f"{API_BASE}/api/realtime/token", params=params, timeout=15)
         if resp.status_code == 200:
             return resp.json()
         return None
@@ -281,38 +296,6 @@ OUTBOUND_REASONS = {
 }
 
 
-def start_voice_agent(customer_id: str, session_id: str, call_direction: str, outbound_reason: str | None = None) -> bool:
-    params = {"customer_id": customer_id, "session_id": session_id, "call_direction": call_direction}
-    if call_direction == "outbound" and outbound_reason:
-        params["outbound_reason"] = outbound_reason
-    try:
-        resp = requests.post(
-            f"{API_BASE}/api/livekit/start-agent",
-            params=params,
-            timeout=10,
-        )
-        return resp.status_code == 200
-    except Exception:
-        return False
-
-
-def stop_voice_agent(customer_id: str, session_id: str) -> None:
-    try:
-        requests.post(f"{API_BASE}/api/livekit/stop-agent", params={"customer_id": customer_id, "session_id": session_id}, timeout=5)
-    except Exception:
-        pass
-
-
-def fetch_call_transcript(session_id: str) -> list[dict]:
-    try:
-        resp = requests.get(f"{API_BASE}/api/livekit/transcript", params={"session_id": session_id}, timeout=5)
-        if resp.status_code == 200:
-            return resp.json().get("entries", [])
-        return []
-    except Exception:
-        return []
-
-
 def send_text_query(customer_id: str, text: str, language: str) -> dict:
     try:
         resp = requests.post(
@@ -327,7 +310,11 @@ def send_text_query(customer_id: str, text: str, language: str) -> dict:
 
 
 def lang_choice_to_code(choice: str) -> str:
-    return {"English": "en", "हिन्दी": "hi", "Hinglish": "hi", "Auto Detect": "auto"}.get(choice, "auto")
+    return {"English": "en", "हिन्दी": "hi", "Hinglish": "hi"}.get(choice, "auto")
+
+
+def lang_choice_to_realtime(choice: str) -> str:
+    return {"English": "english", "हिन्दी": "hindi", "Hinglish": "hinglish"}.get(choice, "english")
 
 
 # ---------------------------------------------------------------------------
@@ -485,13 +472,13 @@ def render_outbound_incoming(customer_name: str):
 # ---------------------------------------------------------------------------
 # Render: active call (real LiveKit widget with voice orb, states, transcript)
 # ---------------------------------------------------------------------------
-def render_call_widget(livekit_url: str, token: str, session_id: str, backend: str):
-    payload = json.dumps({"url": livekit_url, "token": token, "backend": backend, "sessionId": session_id})
+def render_call_widget(livekit_url: str, token: str):
+    payload = json.dumps({"url": livekit_url, "token": token})
 
     html = f"""
     <style>
         body {{ margin: 0; font-family: 'Inter', -apple-system, sans-serif; background: transparent; }}
-        .wrap {{ text-align: center; color: #E7ECF7; padding: 4px 8px; }}
+        .wrap {{ text-align: center; color: #E7ECF7; padding: 16px 12px; background: #0B1220; border-radius: 18px; }}
         .status-badge {{ display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700;
             color: #22C55E; background: rgba(34,197,94,0.14); padding: 3px 12px; border-radius: 999px; margin-bottom: 6px; }}
         .dot {{ width: 7px; height: 7px; border-radius: 50%; background: #22C55E; }}
@@ -499,6 +486,7 @@ def render_call_widget(livekit_url: str, token: str, session_id: str, backend: s
             background: radial-gradient(circle at 35% 30%, #7DA0FF, #4C7CFF 55%, #2F5FE0 100%);
             display: flex; align-items: center; justify-content: center; font-size: 30px; transition: filter 0.2s ease; }}
         .orb.muted {{ filter: grayscale(0.7); opacity: 0.7; }}
+        .orb.ended {{ opacity: 0.35; }}
         .orb.connecting {{ animation: pulse 1.1s ease-out infinite; }}
         .orb.listening {{ animation: pulse 1.6s ease-out infinite; }}
         .orb.speaking {{ animation: pulse 0.7s ease-out infinite; }}
@@ -512,7 +500,7 @@ def render_call_widget(livekit_url: str, token: str, session_id: str, backend: s
             padding: 8px 18px; font-weight: 700; font-size: 13px; cursor: pointer; }}
         .mute-btn.muted {{ background: #D97706; border-color: #D97706; }}
         .transcript {{ text-align: left; margin-top: 16px; border-top: 1px solid #223154; padding-top: 10px;
-            max-height: 180px; overflow-y: auto; font-size: 13px; }}
+            max-height: 160px; overflow-y: auto; font-size: 13px; }}
         .transcript .row {{ margin-bottom: 8px; }}
         .transcript .who {{ font-weight: 700; color: #93A0BE; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }}
         .transcript .text {{ color: #E7ECF7; margin-top: 1px; }}
@@ -525,7 +513,7 @@ def render_call_widget(livekit_url: str, token: str, session_id: str, backend: s
         <button class="mute-btn" id="mute-btn">🎤 Mute</button>
         <div class="transcript" id="transcript"></div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/livekit-client@2/dist/livekit-client.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/livekit-client@2.22.3/dist/livekit-client.umd.js"></script>
     <script>
     (function() {{
         const cfg = {payload};
@@ -538,51 +526,53 @@ def render_call_widget(livekit_url: str, token: str, session_id: str, backend: s
 
         let room = null;
         let micEnabled = true;
-        let sinceIndex = 0;
-        let pollTimer = null;
-        let watchdogTimer = null;
         let currentState = 'connecting';
-        let lastStateUpdate = Date.now();
+        const segmentRows = {{}};
 
+        // The realtime LoanMate worker (LiveKit Agents) publishes its state as the
+        // agent participant's 'lk.agent.state' attribute.
+        const AGENT_STATE = {{
+            initializing: ['connecting', 'Connecting...'],
+            idle: ['listening', 'Listening...'],
+            listening: ['listening', 'Listening...'],
+            thinking: ['processing', 'Thinking...'],
+            speaking: ['speaking', 'Speaking...'],
+        }};
+
+        function isAgent(p) {{ return !!p && (p.isAgent || (p.identity || '').startsWith('agent-')); }}
         function setOrb(state) {{
+            currentState = state;
             orb.className = 'orb ' + state + (micEnabled ? '' : ' muted');
         }}
         function setLabel(text) {{ label.textContent = text; }}
         function showError(text) {{ errorBox.innerHTML = '<div class="error-box">' + text + '</div>'; }}
 
-        function applyState(state) {{
-            currentState = state;
-            lastStateUpdate = Date.now();
-            if (state === 'connected') {{ badge.style.display = 'inline-flex'; setLabel('Connected'); setOrb('idle'); }}
-            else if (state === 'listening') {{ setLabel('Listening...'); setOrb('listening'); }}
-            else if (state === 'processing') {{ setLabel('Thinking...'); setOrb('processing'); }}
-            else if (state === 'speaking') {{ setLabel('Speaking...'); setOrb('speaking'); }}
+        function applyAgentState(state) {{
+            const mapped = AGENT_STATE[state];
+            if (!mapped) return;
+            badge.style.display = 'inline-flex';
+            setOrb(mapped[0]);
+            setLabel(mapped[1]);
         }}
 
-        async function pollTranscript() {{
-            try {{
-                const res = await fetch(cfg.backend + '/api/livekit/transcript/peek?session_id=' + encodeURIComponent(cfg.sessionId) + '&since_index=' + sinceIndex);
-                const data = await res.json();
-                for (const entry of data.entries) {{
-                    const row = document.createElement('div');
-                    row.className = 'row';
-                    const who = document.createElement('div');
-                    who.className = 'who';
-                    who.textContent = entry.role === 'user' ? 'You' : 'LoanMate';
-                    const text = document.createElement('div');
-                    text.className = 'text';
-                    text.textContent = entry.text;
-                    row.appendChild(who); row.appendChild(text);
-                    transcriptEl.appendChild(row);
-                    sinceIndex += 1;
-                }}
-                transcriptEl.scrollTop = transcriptEl.scrollHeight;
-            }} catch (e) {{}}
+        function segmentRow(id, fromAgent) {{
+            if (segmentRows[id]) return segmentRows[id];
+            const row = document.createElement('div');
+            row.className = 'row';
+            const who = document.createElement('div');
+            who.className = 'who';
+            who.textContent = fromAgent ? 'LoanMate' : 'You';
+            const text = document.createElement('div');
+            text.className = 'text';
+            row.appendChild(who); row.appendChild(text);
+            transcriptEl.appendChild(row);
+            segmentRows[id] = text;
+            return text;
         }}
 
         async function connect() {{
             if (!window.LivekitClient) {{
-                showError('Unable to connect to the voice service.');
+                showError('Unable to load the voice client. Check your connection and try again.');
                 setLabel('Connection failed');
                 return;
             }}
@@ -592,11 +582,9 @@ def render_call_widget(livekit_url: str, token: str, session_id: str, backend: s
             room.on(RoomEvent.Disconnected, () => {{
                 setLabel('The call has ended.');
                 setOrb('ended');
-                if (pollTimer) clearInterval(pollTimer);
-                if (watchdogTimer) clearInterval(watchdogTimer);
             }});
 
-            room.on(RoomEvent.TrackSubscribed, (track, publication, participant) => {{
+            room.on(RoomEvent.TrackSubscribed, (track) => {{
                 if (track.kind === Track.Kind.Audio) {{
                     const el = track.attach();
                     el.autoplay = true;
@@ -604,48 +592,37 @@ def render_call_widget(livekit_url: str, token: str, session_id: str, backend: s
                 }}
             }});
 
-            room.on(RoomEvent.DataReceived, (payload) => {{
-                try {{
-                    const msg = JSON.parse(new TextDecoder().decode(payload));
-                    if (['connected', 'listening', 'processing', 'speaking'].includes(msg.state)) {{
-                        applyState(msg.state);
-                    }}
-                }} catch (e) {{}}
+            room.on(RoomEvent.ParticipantAttributesChanged, (changed, participant) => {{
+                if (isAgent(participant) && changed['lk.agent.state']) applyAgentState(changed['lk.agent.state']);
+            }});
+            room.on(RoomEvent.ParticipantConnected, (participant) => {{
+                if (isAgent(participant)) applyAgentState(participant.attributes['lk.agent.state'] || 'initializing');
             }});
 
-            // Fallback signal: the data channel is fire-and-forget, so a state
-            // message can occasionally be dropped. ActiveSpeakersChanged is a
-            // native WebRTC audio-activity signal (not a custom message that can
-            // go missing) — use it to correct the display if it disagrees with
-            // what we're currently showing, rather than building a full
-            // acknowledgement/retry protocol for a cosmetic label.
-            room.on(RoomEvent.ActiveSpeakersChanged, (speakers) => {{
-                const agentSpeaking = speakers.some(p => p.identity && p.identity.startsWith('agent-'));
-                const userSpeaking = speakers.some(p => room.localParticipant && p.identity === room.localParticipant.identity);
-                if (agentSpeaking && currentState !== 'speaking') {{
-                    applyState('speaking');
-                }} else if (userSpeaking && currentState !== 'listening' && currentState !== 'processing') {{
-                    applyState('listening');
+            // Live captions: the agent forwards both sides' transcription as text
+            // streams on 'lk.transcription', one stream per spoken segment.
+            room.registerTextStreamHandler('lk.transcription', async (reader, participantInfo) => {{
+                const attrs = reader.info.attributes || {{}};
+                const id = attrs['lk.segment_id'] || reader.info.id;
+                const el = segmentRow(id, (participantInfo.identity || '').startsWith('agent-'));
+                let text = '';
+                for await (const chunk of reader) {{
+                    text += chunk;
+                    el.textContent = text;
+                    transcriptEl.scrollTop = transcriptEl.scrollHeight;
                 }}
             }});
-
-            // Watchdog: if we've been stuck showing "Thinking..." for longer than
-            // the backend's own Gemini fail-fast timeout would ever take, assume
-            // a state message was lost and fall back to Listening rather than
-            // leaving the UI frozen indefinitely.
-            watchdogTimer = setInterval(() => {{
-                if (currentState === 'processing' && Date.now() - lastStateUpdate > 10000) {{
-                    applyState('listening');
-                }}
-            }}, 2000);
 
             try {{
                 setLabel('Connecting...');
                 await room.connect(cfg.url, cfg.token);
                 setLabel('Requesting microphone access...');
                 await room.localParticipant.setMicrophoneEnabled(true);
-                applyState('connected');
-                pollTimer = setInterval(pollTranscript, 2000);
+                badge.style.display = 'inline-flex';
+                setLabel('Waiting for LoanMate to join...');
+                for (const p of room.remoteParticipants.values()) {{
+                    if (isAgent(p)) applyAgentState(p.attributes['lk.agent.state'] || 'initializing');
+                }}
             }} catch (err) {{
                 console.error(err);
                 const msg = String(err).toLowerCase();
@@ -666,38 +643,41 @@ def render_call_widget(livekit_url: str, token: str, session_id: str, backend: s
             await room.localParticipant.setMicrophoneEnabled(micEnabled);
             muteBtn.classList.toggle('muted', !micEnabled);
             muteBtn.textContent = micEnabled ? '🎤 Mute' : '🔇 Unmute';
-            setOrb(micEnabled ? 'idle' : 'idle');
+            setOrb(currentState);
         }});
+
+        // Leave the room as soon as Streamlit removes this widget (End Call),
+        // so the agent session ends right away instead of timing out.
+        window.addEventListener('pagehide', () => {{ if (room) room.disconnect(); }});
 
         connect();
     }})();
     </script>
     """
-    st.components.v1.html(html, height=420, scrolling=False)
+    st.iframe(html, height=440)
 
 
 def render_active_call(customer_id: str, session_id: str, call_direction: str):
     token_key = f"_token_data_{session_id}"
-    started_key = f"_agent_started_{session_id}"
 
     if token_key not in st.session_state:
-        st.session_state[token_key] = fetch_livekit_token(customer_id, session_id)
+        st.session_state[token_key] = fetch_realtime_token(
+            customer_id,
+            session_id,
+            call_direction,
+            lang_choice_to_realtime(st.session_state.lang_choice),
+            st.session_state.outbound_reason,
+        )
     token_data = st.session_state[token_key]
 
     if not token_data:
         st.error("Unable to connect to the voice service.")
     else:
-        if not st.session_state.get(started_key):
-            start_voice_agent(customer_id, session_id, call_direction, st.session_state.outbound_reason)
-            st.session_state[started_key] = True
-        render_call_widget(token_data["url"], token_data["token"], session_id, API_BASE)
+        render_call_widget(token_data["url"], token_data["token"])
 
     if st.button("⏹ End Call", key="end_call_btn", type="primary", use_container_width=True):
-        stop_voice_agent(customer_id, session_id)
-        st.session_state.transcript = fetch_call_transcript(session_id)
         st.session_state.call_state = "ended"
         st.session_state.pop(token_key, None)
-        st.session_state.pop(started_key, None)
         st.rerun()
 
 
@@ -715,17 +695,10 @@ def render_ended():
         unsafe_allow_html=True,
     )
 
-    if st.session_state.transcript:
-        with st.expander("View conversation transcript"):
-            for entry in st.session_state.transcript:
-                who = "You" if entry["role"] == "user" else "LoanMate"
-                st.markdown(f"**{who}:** {entry['text']}")
-
     if st.button("Start New Conversation", type="primary", use_container_width=True):
         st.session_state.call_state = "idle"
         st.session_state.call_direction = None
         st.session_state.session_id = None
-        st.session_state.transcript = []
         st.rerun()
 
 
@@ -739,7 +712,10 @@ def main():
     healthy = check_health()
     if not healthy:
         st.markdown('<p class="lm-brand-wrap"><span class="lm-brand">LoanMate</span></p>', unsafe_allow_html=True)
-        st.error("Unable to connect to the voice service. Please make sure the backend is running and refresh.")
+        st.error("Unable to connect to the voice service. If the backend is hosted on a free plan it may be waking up — try again in a minute.")
+        if st.button("Retry", type="primary", use_container_width=True):
+            check_health.clear()
+            st.rerun()
         return
 
     voice_ready = fetch_livekit_status()
